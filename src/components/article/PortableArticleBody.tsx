@@ -1,6 +1,7 @@
 import {PortableText} from "@portabletext/react"
 import type {PortableTextComponents} from "@portabletext/react"
 import {StoryImage} from "@/components/media/StoryImage"
+import {YouTubeEmbed} from "@/components/media/YouTubeEmbed"
 import type {SanityImageAsset} from "@/sanity/lib/types"
 
 const components: PortableTextComponents = {
@@ -118,6 +119,25 @@ const components: PortableTextComponents = {
             </figcaption>
           ) : null}
         </figure>
+      )
+    },
+    youtube: ({value}) => {
+      const video = value as {
+        url?: string
+        title?: string
+        caption?: string
+      }
+
+      if (!video?.url) {
+        return null
+      }
+
+      return (
+        <YouTubeEmbed
+          url={video.url}
+          title={video.title || "YouTube video"}
+          caption={video.caption}
+        />
       )
     },
   },

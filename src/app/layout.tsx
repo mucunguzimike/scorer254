@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description: defaultDescription,
   openGraph: {
     title: "Scorer254 - Kenyan football news and grassroots stories",
-    description: "Grassroots football stories from Kenya, with regional and international coverage.",
+    description: "Football stories from Kenya, with regional and international coverage.",
     siteName,
     type: "website",
     images: [
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Scorer254",
-    description: "Grassroots football stories from Kenya, with regional and international coverage.",
+    description: "Football stories from Kenya, with regional and international coverage.",
     images: ["/og-image.png"],
   },
   icons: {

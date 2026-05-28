@@ -703,6 +703,10 @@
               }
             ],
             "type": "image"
+          },
+          {
+            "type": "youtube",
+            "title": "YouTube video"
           }
         ],
         "name": "body",
@@ -1486,5 +1490,67 @@
     ],
     "name": "siteSettings",
     "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "description": "Paste a full YouTube video URL, for example: https://www.youtube.com/watch?v=VIDEO_ID",
+        "name": "url",
+        "type": "url",
+        "title": "YouTube URL"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "description": "Used for accessibility and iframe title.",
+        "name": "title",
+        "type": "string",
+        "title": "Video title"
+      },
+      {
+        "rows": 2,
+        "description": "Optional context shown below the embedded video.",
+        "name": "caption",
+        "type": "text",
+        "title": "Caption / context"
+      }
+    ],
+    "name": "youtube",
+    "type": "object",
+    "title": "YouTube video"
   }
 ]

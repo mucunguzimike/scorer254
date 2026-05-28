@@ -318,6 +318,7 @@ export const post = defineType({
             }),
           ],
         }),
+        defineArrayMember({type: 'youtube'}),
       ],
     }),
     defineField({

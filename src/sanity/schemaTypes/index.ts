@@ -7,6 +7,7 @@ import {region} from './region'
 import {siteSettings} from './siteSettings'
 import {tag} from './tag'
 import {team} from './team'
+import {youtube} from './youtube'
 
 export const schemaTypes = [
   post,
@@ -18,4 +19,5 @@ export const schemaTypes = [
   competition,
   region,
   siteSettings,
+  youtube,
 ]

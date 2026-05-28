@@ -138,12 +138,12 @@ async function main() {
     _id: "siteSettings",
     _type: "siteSettings",
     siteName: "Scorer254",
-    tagline: "Grassroots football stories from Kenya and beyond",
+    tagline: "Football stories from Kenya and beyond",
     defaultSeoTitle: "Scorer254 - Kenyan football news and grassroots stories",
     defaultSeoDescription:
       "Scorer254 covers grassroots football, Kenyan soccer, player stories, match reports and regional football news.",
     footerText:
-      "Grassroots football stories from Kenya, with regional and international coverage.",
+      "Football stories from Kenya, with regional and international coverage.",
   })
 
   const result = await transaction.commit()

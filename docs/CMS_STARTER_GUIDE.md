@@ -55,7 +55,7 @@ Competitions
 
 Site Settings
 - Site name: Scorer254
-- Tagline: Grassroots football stories from Kenya and beyond
+- Tagline: Football stories from Kenya and beyond
 - Default SEO title: Scorer254 - Kenyan football news and grassroots stories
 - Default SEO description: Scorer254 covers grassroots football, Kenyan soccer, player stories, match reports and regional football news.
 
@@ -126,3 +126,15 @@ Inside the article body, editors can add:
 - Affiliate / sponsored link
 
 Affiliate links should only be used when the commercial relationship is clear. The frontend renders affiliate links with sponsored/nofollow attributes.
+
+
+## YouTube videos
+
+Editors can insert YouTube videos inside the article body.
+
+Recommended use:
+
+- Add the full YouTube URL
+- Add a clear video title
+- Add a short caption explaining why the video is included
+- Use videos as supporting evidence, interviews, highlights or reference material

@@ -1,0 +1,55 @@
+import {leadStories} from "@/data/mockStories"
+
+export function HeroSection() {
+  const [main, ...side] = leadStories
+
+  return (
+    <section className="mx-auto grid max-w-7xl gap-5 px-4 py-8 lg:grid-cols-[1.5fr_0.9fr] lg:px-6">
+      <article className="group relative min-h-[460px] overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-zinc-900 via-black to-emerald-950 p-6 shadow-2xl">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(52,211,153,0.28),transparent_30%),radial-gradient(circle_at_80%_10%,rgba(255,255,255,0.12),transparent_24%)]" />
+        <div className="absolute bottom-0 right-0 h-56 w-56 rounded-full bg-emerald-500/10 blur-3xl" />
+        <div className="relative flex h-full flex-col justify-end">
+          <div className="mb-5 flex flex-wrap gap-2">
+            <span className="rounded-full bg-emerald-400 px-3 py-1 text-xs font-black uppercase tracking-wide text-black">
+              {main.tag}
+            </span>
+            <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
+              {main.category}
+            </span>
+          </div>
+          <h1 className="max-w-3xl text-4xl font-black uppercase leading-none tracking-tight text-white sm:text-5xl lg:text-7xl">
+            {main.title}
+          </h1>
+          <p className="mt-5 max-w-2xl text-base leading-7 text-zinc-300 sm:text-lg">
+            {main.excerpt}
+          </p>
+          <div className="mt-6 flex items-center gap-4 text-sm font-semibold uppercase tracking-wide text-zinc-400">
+            <span>{main.location}</span>
+            <span className="h-1 w-1 rounded-full bg-emerald-400" />
+            <span>{main.date}</span>
+          </div>
+        </div>
+      </article>
+
+      <div className="grid gap-5">
+        {side.map((story) => (
+          <article
+            key={story.id}
+            className="rounded-[1.5rem] border border-white/10 bg-zinc-950 p-5 transition hover:border-emerald-400/50"
+          >
+            <div className="mb-4 flex items-center justify-between gap-4">
+              <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-emerald-300">
+                {story.category}
+              </span>
+              <span className="text-xs uppercase tracking-wide text-zinc-500">{story.date}</span>
+            </div>
+            <h2 className="text-2xl font-black uppercase leading-tight text-white">
+              {story.title}
+            </h2>
+            <p className="mt-3 text-sm leading-6 text-zinc-400">{story.excerpt}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}

@@ -1,7 +1,7 @@
 import type {Metadata} from "next"
 import {siteUrl} from "@/lib/site"
 import {SectionPage} from "@/components/section/SectionPage"
-import {getStoriesByCoverageType} from "@/sanity/lib/fetchers"
+import {getSiteSettings, getStoriesByCoverageType} from "@/sanity/lib/fetchers"
 
 export const metadata: Metadata = {
   alternates: {
@@ -18,8 +18,11 @@ export const metadata: Metadata = {
 }
 
 export default async function WorldPage() {
-  const internationalStories = await getStoriesByCoverageType("international")
-  const africanStories = await getStoriesByCoverageType("african-football")
+  const [internationalStories, africanStories, siteSettings] = await Promise.all([
+    getStoriesByCoverageType("international"),
+    getStoriesByCoverageType("african-football"),
+    getSiteSettings(),
+  ])
   const stories = [...internationalStories, ...africanStories]
 
   return (
@@ -28,6 +31,7 @@ export default async function WorldPage() {
       title="World"
       description="International football stories, African football links, global competitions and wider trends affecting the game."
       stories={stories}
+      settings={siteSettings}
     />
   )
 }

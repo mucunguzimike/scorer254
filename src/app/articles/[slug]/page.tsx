@@ -6,7 +6,7 @@ import {PortableArticleBody} from "@/components/article/PortableArticleBody"
 import {StoryImage} from "@/components/media/StoryImage"
 import {Footer} from "@/components/layout/Footer"
 import {Header} from "@/components/layout/Header"
-import {getLatestStories, getPostBySlug} from "@/sanity/lib/fetchers"
+import {getLatestStories, getPostBySlug, getSiteSettings} from "@/sanity/lib/fetchers"
 import {getSanityImageUrl} from "@/sanity/lib/imageUrl"
 import {mapPostToStory} from "@/sanity/lib/mappers"
 import {notFound} from "next/navigation"
@@ -19,7 +19,7 @@ type ArticlePageProps = {
 
 export async function generateMetadata({params}: ArticlePageProps): Promise<Metadata> {
   const {slug} = await params
-  const sanityPost = await getPostBySlug(slug)
+  const [sanityPost, siteSettings] = await Promise.all([getPostBySlug(slug), getSiteSettings()])
 
   if (!sanityPost) {
     return {
@@ -132,7 +132,10 @@ function createArticleJsonLd({
 
 export default async function ArticlePage({params}: ArticlePageProps) {
   const {slug} = await params
-  const sanityPost = await getPostBySlug(slug)
+  const [sanityPost, siteSettings] = await Promise.all([
+    getPostBySlug(slug),
+    getSiteSettings(),
+  ])
 
   if (!sanityPost) {
     notFound()
@@ -176,7 +179,7 @@ export default async function ArticlePage({params}: ArticlePageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{__html: JSON.stringify(articleJsonLd)}}
       />
-      <Header />
+      <Header settings={siteSettings} />
 
       <article>
         <section className="border-b border-white/10 bg-black">
@@ -311,7 +314,7 @@ export default async function ArticlePage({params}: ArticlePageProps) {
         </section>
       ) : null}
 
-      <Footer />
+      <Footer settings={siteSettings} />
     </main>
   )
 }

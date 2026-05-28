@@ -1,7 +1,7 @@
 import type {Metadata} from "next"
 import {siteUrl} from "@/lib/site"
 import {SectionPage} from "@/components/section/SectionPage"
-import {getStoriesByCategorySlug} from "@/sanity/lib/fetchers"
+import {getSiteSettings, getStoriesByCategorySlug} from "@/sanity/lib/fetchers"
 
 export const metadata: Metadata = {
   alternates: {
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 }
 
 export default async function PlayersPage() {
-  const stories = await getStoriesByCategorySlug("player-profiles")
+  const [stories, siteSettings] = await Promise.all([getStoriesByCategorySlug("player-profiles"), getSiteSettings()])
 
   return (
     <SectionPage
@@ -26,6 +26,7 @@ export default async function PlayersPage() {
       title="Players"
       description="Player profiles, rising prospects, scouting stories and football journeys from grassroots to the professional game."
       stories={stories}
+      settings={siteSettings}
     />
   )
 }

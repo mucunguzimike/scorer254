@@ -2,19 +2,20 @@ import {ArticleCard} from "@/components/article/ArticleCard"
 import {EmptyState} from "@/components/common/EmptyState"
 import {Footer} from "@/components/layout/Footer"
 import {Header} from "@/components/layout/Header"
-import type {FrontendStory} from "@/sanity/lib/types"
+import type {FrontendStory, SanitySiteSettings} from "@/sanity/lib/types"
 
 type SectionPageProps = {
   kicker: string
   title: string
   description: string
   stories: FrontendStory[]
+  settings?: SanitySiteSettings | null
 }
 
-export function SectionPage({kicker, title, description, stories}: SectionPageProps) {
+export function SectionPage({kicker, title, description, stories, settings}: SectionPageProps) {
   return (
     <main className="min-h-screen bg-[#070707] text-white">
-      <Header />
+      <Header settings={settings} />
 
       <section className="border-b border-white/10 bg-black">
         <div className="mx-auto max-w-7xl px-4 py-12 lg:px-6">
@@ -45,7 +46,7 @@ export function SectionPage({kicker, title, description, stories}: SectionPagePr
         )}
       </section>
 
-      <Footer />
+      <Footer settings={settings} />
     </main>
   )
 }

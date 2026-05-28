@@ -1,6 +1,7 @@
 import Link from "next/link"
 import {Footer} from "@/components/layout/Footer"
 import {Header} from "@/components/layout/Header"
+import {getSiteSettings} from "@/sanity/lib/fetchers"
 
 export default function NotFound() {
   return (

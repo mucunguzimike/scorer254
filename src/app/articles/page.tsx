@@ -4,7 +4,7 @@ import {ArticleCard} from "@/components/article/ArticleCard"
 import {EmptyState} from "@/components/common/EmptyState"
 import {Footer} from "@/components/layout/Footer"
 import {Header} from "@/components/layout/Header"
-import {getLatestStories} from "@/sanity/lib/fetchers"
+import {getLatestStories, getSiteSettings} from "@/sanity/lib/fetchers"
 
 export const metadata: Metadata = {
   alternates: {
@@ -21,11 +21,11 @@ export const metadata: Metadata = {
 }
 
 export default async function ArticlesPage() {
-  const stories = await getLatestStories()
+  const [stories, siteSettings] = await Promise.all([getLatestStories(), getSiteSettings()])
 
   return (
     <main className="min-h-screen bg-[#070707] text-white">
-      <Header />
+      <Header settings={siteSettings} />
 
       <section className="border-b border-white/10 bg-black">
         <div className="mx-auto max-w-7xl px-4 py-12 lg:px-6">
@@ -56,7 +56,7 @@ export default async function ArticlesPage() {
         )}
       </section>
 
-      <Footer />
+      <Footer settings={siteSettings} />
     </main>
   )
 }

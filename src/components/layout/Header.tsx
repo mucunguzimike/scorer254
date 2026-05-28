@@ -1,5 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
+import type {SanitySiteSettings} from "@/sanity/lib/types"
+import {mergeSiteSettings} from "@/lib/siteSettings"
 
 const navItems = [
   {label: "Home", href: "/"},
@@ -11,7 +13,13 @@ const navItems = [
   {label: "World", href: "/world"},
 ]
 
-export function Header() {
+type HeaderProps = {
+  settings?: SanitySiteSettings | null
+}
+
+export function Header({settings}: HeaderProps) {
+  const site = mergeSiteSettings(settings)
+
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#070707]/95 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-6">
@@ -19,7 +27,7 @@ export function Header() {
           <div className="relative h-12 w-12 overflow-hidden rounded-full border border-white/15 bg-black">
             <Image
               src="/logo.png"
-              alt="Scorer254 logo"
+              alt={`${site.siteName} logo`}
               fill
               sizes="48px"
               className="object-cover"
@@ -28,10 +36,10 @@ export function Header() {
           </div>
           <div>
             <p className="text-xl font-black uppercase tracking-tight text-white">
-              Scorer254
+              {site.siteName}
             </p>
             <p className="text-xs uppercase tracking-[0.25em] text-emerald-400">
-              Kenya football stories
+              {site.tagline}
             </p>
           </div>
         </Link>
@@ -65,7 +73,8 @@ export function Header() {
                 className="rounded-xl px-4 py-3 text-sm font-bold uppercase tracking-wide text-zinc-300 transition hover:bg-white/10 hover:text-emerald-400"
               >
                 Articles
-              </Link>            </nav>
+              </Link>
+            </nav>
           </div>
         </details>
       </div>

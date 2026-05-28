@@ -5,6 +5,7 @@ import {
   postBySlugQuery,
   postsByCategorySlugQuery,
   postsByCoverageTypeQuery,
+  siteSettingsQuery,
 } from "./queries"
 import {mapPostToStory, mapPostsToStories} from "./mappers"
 import type {FrontendStory, SanityPost} from "./types"
@@ -41,4 +42,8 @@ export async function getStoriesByCoverageType(coverageType: string): Promise<Fr
 export async function getStoriesByCategorySlug(categorySlug: string): Promise<FrontendStory[]> {
   const posts = await client.fetch<SanityPost[]>(postsByCategorySlugQuery, {categorySlug})
   return mapPostsToStories(posts)
+}
+
+export async function getSiteSettings() {
+  return client.fetch(siteSettingsQuery)
 }

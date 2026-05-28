@@ -5,10 +5,10 @@ import {HeroSection} from "@/components/home/HeroSection"
 import {LatestNews} from "@/components/home/LatestNews"
 import {Sidebar} from "@/components/home/Sidebar"
 import {StoryGrid} from "@/components/home/StoryGrid"
-import {getHomepageStories} from "@/sanity/lib/fetchers"
+import {getHomepageStories, getSiteSettings} from "@/sanity/lib/fetchers"
 
 export default async function Home() {
-  const stories = await getHomepageStories()
+  const [stories, siteSettings] = await Promise.all([getHomepageStories(), getSiteSettings()])
 
   const heroStories = stories.slice(0, 3)
   const latestStories = stories.slice(0, 4)
@@ -21,7 +21,7 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen bg-[#070707] text-white">
-      <Header />
+      <Header settings={siteSettings} />
 
       <div className="border-b border-white/10 bg-black">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-3 px-4 py-3 text-xs font-bold uppercase tracking-wide text-zinc-400 lg:px-6">
@@ -68,7 +68,7 @@ export default async function Home() {
         </section>
       )}
 
-      <Footer />
+      <Footer settings={siteSettings} />
     </main>
   )
 }

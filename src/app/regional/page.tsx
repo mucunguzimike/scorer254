@@ -1,9 +1,13 @@
 import type {Metadata} from "next"
+import {siteUrl} from "@/lib/site"
 import {SectionPage} from "@/components/section/SectionPage"
 import {latestStories, leadStories} from "@/data/mockStories"
 import {getStoriesByCoverageType} from "@/sanity/lib/fetchers"
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: `${siteUrl}/regional`,
+  },
   title: "Regional Football",
   description:
     "East African football coverage, including competitions, clubs, players and cross-border football developments.",

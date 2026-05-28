@@ -1,4 +1,5 @@
 import type {Metadata} from "next"
+import {siteUrl} from "@/lib/site"
 import Link from "next/link"
 import {ArticleCard} from "@/components/article/ArticleCard"
 import {PortableArticleBody} from "@/components/article/PortableArticleBody"
@@ -7,6 +8,7 @@ import {Footer} from "@/components/layout/Footer"
 import {Header} from "@/components/layout/Header"
 import {grassrootsStories, latestStories, leadStories, playerWatchStories} from "@/data/mockStories"
 import {getPostBySlug} from "@/sanity/lib/fetchers"
+import {getSanityImageUrl} from "@/sanity/lib/imageUrl"
 import {mapPostToStory} from "@/sanity/lib/mappers"
 import type {FrontendStory} from "@/sanity/lib/types"
 import {notFound} from "next/navigation"
@@ -43,6 +45,10 @@ export async function generateMetadata({params}: ArticlePageProps): Promise<Meta
     return {
       title: "Article not found",
       description: "The requested Scorer254 article could not be found.",
+      robots: {
+        index: false,
+        follow: false,
+      },
     }
   }
 
@@ -52,18 +58,50 @@ export async function generateMetadata({params}: ArticlePageProps): Promise<Meta
     story.excerpt ||
     "Football story from Scorer254."
 
+  const canonicalUrl = `${siteUrl}/articles/${slug}`
+
+  const uploadedImageUrl = sanityPost?.mainImage
+    ? getSanityImageUrl(sanityPost.mainImage, 1200, 630)
+    : undefined
+
+  const imageUrl =
+    sanityPost?.imageSourceType === "external" && sanityPost.externalImageUrl
+      ? sanityPost.externalImageUrl
+      : uploadedImageUrl || "/logo.png"
+
+  const authorName =
+    sanityStory?.author ||
+    sanityPost?.contentDetails?.author?.name ||
+    "Scorer254 Editorial Desk"
+
   return {
     title,
     description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: {
       title,
       description,
+      url: canonicalUrl,
+      siteName: "Scorer254",
       type: "article",
+      publishedTime: sanityPost?.publishedAt,
+      authors: [authorName],
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: sanityPost?.imageAltText || story.title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [imageUrl],
     },
   }
 }

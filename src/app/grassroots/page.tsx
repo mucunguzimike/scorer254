@@ -1,9 +1,13 @@
 import type {Metadata} from "next"
+import {siteUrl} from "@/lib/site"
 import {SectionPage} from "@/components/section/SectionPage"
 import {grassrootsStories, leadStories} from "@/data/mockStories"
 import {getStoriesByCoverageType} from "@/sanity/lib/fetchers"
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: `${siteUrl}/grassroots`,
+  },
   title: "Grassroots Football",
   description:
     "Grassroots football stories from community clubs, academies, school teams and local tournaments across Kenya.",

@@ -1,4 +1,5 @@
 import type {Metadata} from "next"
+import {siteUrl} from "@/lib/site"
 import {ArticleCard} from "@/components/article/ArticleCard"
 import {Footer} from "@/components/layout/Footer"
 import {Header} from "@/components/layout/Header"
@@ -6,6 +7,9 @@ import {grassrootsStories, latestStories, leadStories, playerWatchStories} from 
 import {getLatestStories} from "@/sanity/lib/fetchers"
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: `${siteUrl}/articles`,
+  },
   title: "Latest Stories",
   description:
     "Latest football stories from Scorer254, covering grassroots football, Kenyan soccer, player profiles, match reports and regional football.",

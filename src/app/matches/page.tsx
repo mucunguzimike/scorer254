@@ -1,9 +1,13 @@
 import type {Metadata} from "next"
+import {siteUrl} from "@/lib/site"
 import {SectionPage} from "@/components/section/SectionPage"
 import {latestStories, leadStories} from "@/data/mockStories"
 import {getStoriesByCategorySlug} from "@/sanity/lib/fetchers"
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: `${siteUrl}/matches`,
+  },
   title: "Match Reports",
   description:
     "Match reports, weekend previews, competition updates and football storylines from Kenya and beyond.",

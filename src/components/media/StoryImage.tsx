@@ -1,8 +1,5 @@
-import {createImageUrlBuilder} from "@sanity/image-url"
-import {client} from "@/sanity/lib/client"
+import {getSanityImageUrl} from "@/sanity/lib/imageUrl"
 import type {SanityImageAsset} from "@/sanity/lib/types"
-
-const builder = createImageUrlBuilder(client)
 
 type StoryImageProps = {
   image?: string
@@ -11,21 +8,13 @@ type StoryImageProps = {
   className?: string
 }
 
-function getSanityImageUrl(source?: SanityImageAsset) {
-  if (!source?.asset?._ref) {
-    return undefined
-  }
-
-  return builder.image(source).width(1400).auto("format").fit("max").url()
-}
-
 export function StoryImage({
   image,
   sanityImage,
   alt = "",
   className = "h-44",
 }: StoryImageProps) {
-  const sanityImageUrl = getSanityImageUrl(sanityImage)
+  const sanityImageUrl = getSanityImageUrl(sanityImage, 1400)
   const src = image || sanityImageUrl
 
   if (!src) {

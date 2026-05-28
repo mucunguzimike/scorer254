@@ -184,7 +184,75 @@ export const post = defineType({
       title: 'Article body',
       type: 'array',
       of: [
-        defineArrayMember({type: 'block'}),
+        defineArrayMember({
+          type: 'block',
+          marks: {
+            annotations: [
+              defineField({
+                name: 'link',
+                title: 'Normal link',
+                type: 'object',
+                fields: [
+                  defineField({
+                    name: 'href',
+                    title: 'URL',
+                    type: 'url',
+                    validation: (Rule) => Rule.required(),
+                  }),
+                  defineField({
+                    name: 'openInNewTab',
+                    title: 'Open in new tab',
+                    type: 'boolean',
+                    initialValue: true,
+                  }),
+                ],
+              }),
+              defineField({
+                name: 'sourceLink',
+                title: 'Source / reference link',
+                type: 'object',
+                fields: [
+                  defineField({
+                    name: 'href',
+                    title: 'Source URL',
+                    type: 'url',
+                    validation: (Rule) => Rule.required(),
+                  }),
+                  defineField({
+                    name: 'label',
+                    title: 'Source label',
+                    type: 'string',
+                    description: 'Example: FKF statement, CAF fixture list, club announcement',
+                  }),
+                ],
+              }),
+              defineField({
+                name: 'affiliateLink',
+                title: 'Affiliate / sponsored link',
+                type: 'object',
+                fields: [
+                  defineField({
+                    name: 'href',
+                    title: 'Affiliate URL',
+                    type: 'url',
+                    validation: (Rule) => Rule.required(),
+                  }),
+                  defineField({
+                    name: 'disclosure',
+                    title: 'Disclosure note',
+                    type: 'string',
+                    initialValue: 'Affiliate link',
+                  }),
+                  defineField({
+                    name: 'network',
+                    title: 'Affiliate network / partner',
+                    type: 'string',
+                  }),
+                ],
+              }),
+            ],
+          },
+        }),
         defineArrayMember({
           type: 'image',
           options: {hotspot: true},

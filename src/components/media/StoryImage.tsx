@@ -1,8 +1,8 @@
-import imageUrlBuilder from "@sanity/image-url"
+import {createImageUrlBuilder} from "@sanity/image-url"
 import {client} from "@/sanity/lib/client"
 import type {SanityImageAsset} from "@/sanity/lib/types"
 
-const builder = imageUrlBuilder(client)
+const builder = createImageUrlBuilder(client)
 
 type StoryImageProps = {
   image?: string

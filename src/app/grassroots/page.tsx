@@ -1,6 +1,18 @@
+import type {Metadata} from "next"
 import {SectionPage} from "@/components/section/SectionPage"
 import {grassrootsStories, leadStories} from "@/data/mockStories"
 import {getStoriesByCoverageType} from "@/sanity/lib/fetchers"
+
+export const metadata: Metadata = {
+  title: "Grassroots Football",
+  description:
+    "Grassroots football stories from community clubs, academies, school teams and local tournaments across Kenya.",
+  openGraph: {
+    title: "Grassroots Football | Scorer254",
+    description:
+      "Grassroots football stories from community clubs, academies, school teams and local tournaments across Kenya.",
+  },
+}
 
 export default async function GrassrootsPage() {
   const sanityStories = await getStoriesByCoverageType("grassroots")

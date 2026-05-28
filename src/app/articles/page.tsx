@@ -1,8 +1,20 @@
+import type {Metadata} from "next"
 import {ArticleCard} from "@/components/article/ArticleCard"
 import {Footer} from "@/components/layout/Footer"
 import {Header} from "@/components/layout/Header"
 import {grassrootsStories, latestStories, leadStories, playerWatchStories} from "@/data/mockStories"
 import {getLatestStories} from "@/sanity/lib/fetchers"
+
+export const metadata: Metadata = {
+  title: "Latest Stories",
+  description:
+    "Latest football stories from Scorer254, covering grassroots football, Kenyan soccer, player profiles, match reports and regional football.",
+  openGraph: {
+    title: "Latest Stories | Scorer254",
+    description:
+      "Latest football stories from Scorer254, covering grassroots football, Kenyan soccer, player profiles, match reports and regional football.",
+  },
+}
 
 const fallbackStories = [
   ...leadStories,

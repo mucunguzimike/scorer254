@@ -1,6 +1,18 @@
+import type {Metadata} from "next"
 import {SectionPage} from "@/components/section/SectionPage"
 import {latestStories, leadStories} from "@/data/mockStories"
 import {getStoriesByCoverageType} from "@/sanity/lib/fetchers"
+
+export const metadata: Metadata = {
+  title: "Kenyan Football",
+  description:
+    "Coverage of Kenyan football, domestic leagues, clubs, transfers, players and local football stories.",
+  openGraph: {
+    title: "Kenyan Football | Scorer254",
+    description:
+      "Coverage of Kenyan football, domestic leagues, clubs, transfers, players and local football stories.",
+  },
+}
 
 export default async function KenyaPage() {
   const sanityStories = await getStoriesByCoverageType("local-kenya")

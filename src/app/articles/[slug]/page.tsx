@@ -1,3 +1,4 @@
+import type {Metadata} from "next"
 import Link from "next/link"
 import {ArticleCard} from "@/components/article/ArticleCard"
 import {PortableArticleBody} from "@/components/article/PortableArticleBody"
@@ -28,6 +29,43 @@ type ArticlePageProps = {
   params: Promise<{
     slug: string
   }>
+}
+
+
+export async function generateMetadata({params}: ArticlePageProps): Promise<Metadata> {
+  const {slug} = await params
+  const sanityPost = await getPostBySlug(slug)
+  const sanityStory = sanityPost ? mapPostToStory(sanityPost) : null
+  const fallbackStory = fallbackStories.find((item) => slugify(item.title) === slug)
+  const story = sanityStory || fallbackStory
+
+  if (!story) {
+    return {
+      title: "Article not found",
+      description: "The requested Scorer254 article could not be found.",
+    }
+  }
+
+  const title = sanityPost?.seoTitle || story.title
+  const description =
+    sanityPost?.seoDescription ||
+    story.excerpt ||
+    "Football story from Scorer254."
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+  }
 }
 
 export default async function ArticlePage({params}: ArticlePageProps) {

@@ -1,0 +1,53 @@
+import type {FrontendStory, SanityPost} from "./types"
+
+function formatDate(date?: string) {
+  if (!date) return "Unpublished"
+
+  return new Intl.DateTimeFormat("en", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  }).format(new Date(date))
+}
+
+function getCategory(post: SanityPost) {
+  return post.contentDetails?.category?.title || "Football"
+}
+
+function getLocation(post: SanityPost) {
+  return post.footballDetails?.region?.name
+}
+
+function getAuthor(post: SanityPost) {
+  return post.contentDetails?.author?.name
+}
+
+function getImage(post: SanityPost) {
+  if (post.imageSourceType === "external") {
+    return post.externalImageUrl
+  }
+
+  return undefined
+}
+
+export function mapPostToStory(post: SanityPost): FrontendStory {
+  return {
+    id: post._id,
+    title: post.title,
+    slug: post.slug?.current,
+    category: getCategory(post),
+    date: formatDate(post.publishedAt),
+    excerpt: post.excerpt || "",
+    image: getImage(post),
+    location: getLocation(post),
+    author: getAuthor(post),
+    imageCredit: post.imageCredit,
+    imageLicence: post.imageLicence,
+    imageLicenceUrl: post.imageLicenceUrl,
+    imageSourceUrl: post.imageSourceUrl,
+  }
+}
+
+export function mapPostsToStories(posts: SanityPost[] = []) {
+  return posts.map(mapPostToStory)
+}

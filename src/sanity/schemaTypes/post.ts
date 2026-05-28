@@ -23,12 +23,14 @@ export const post = defineType({
       title: 'Short summary',
       type: 'text',
       rows: 3,
-      validation: (Rule) => Rule.max(220),
+      description: 'A short article summary used on cards, SEO and social previews.',
+      validation: (Rule) => Rule.required().max(220),
     }),
     defineField({
       name: 'publishedAt',
       title: 'Publish date',
       type: 'datetime',
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'contentDetails',
@@ -39,6 +41,7 @@ export const post = defineType({
           name: 'coverageType',
           title: 'Coverage type',
           type: 'string',
+          description: 'Controls where the article appears: Grassroots, Kenya, Regional, World, etc.',
           options: {
             list: [
               {title: 'Grassroots', value: 'grassroots'},
@@ -48,12 +51,14 @@ export const post = defineType({
               {title: 'International', value: 'international'},
             ],
           },
+          validation: (Rule) => Rule.required(),
         }),
         defineField({
           name: 'category',
           title: 'Category',
           type: 'reference',
           to: [{type: 'category'}],
+          validation: (Rule) => Rule.required(),
         }),
         defineField({
           name: 'tags',
@@ -66,6 +71,7 @@ export const post = defineType({
           title: 'Author',
           type: 'reference',
           to: [{type: 'author'}],
+          validation: (Rule) => Rule.required(),
         }),
       ],
     }),
@@ -143,25 +149,54 @@ export const post = defineType({
       name: 'externalImageUrl',
       title: 'External image URL',
       type: 'url',
+      description: 'Use only images you have permission to use. Add source, credit and licence below.',
       hidden: ({document}) => document?.imageSourceType !== 'external',
+      validation: (Rule) =>
+        Rule.custom((value, context) => {
+          if (context.document?.imageSourceType === 'external' && !value) {
+            return 'External image URL is required when image source type is External / licensed image.'
+          }
+          return true
+        }),
     }),
     defineField({
       name: 'imageSourceUrl',
       title: 'Image source page URL',
       type: 'url',
       description: 'The page where the image or license can be verified.',
+      validation: (Rule) =>
+        Rule.custom((value, context) => {
+          if (context.document?.imageSourceType !== 'none' && !value) {
+            return 'Add the source page URL for the image.'
+          }
+          return true
+        }),
     }),
     defineField({
       name: 'imageCredit',
       title: 'Image credit',
       type: 'string',
       description: 'Example: Photo by [name] / Wikimedia Commons',
+      validation: (Rule) =>
+        Rule.custom((value, context) => {
+          if (context.document?.imageSourceType !== 'none' && !value) {
+            return 'Add an image credit when an image is used.'
+          }
+          return true
+        }),
     }),
     defineField({
       name: 'imageLicence',
       title: 'Image licence / permission',
       type: 'string',
       description: 'Example: CC BY-SA 4.0, Used with permission, Club media handout',
+      validation: (Rule) =>
+        Rule.custom((value, context) => {
+          if (context.document?.imageSourceType !== 'none' && !value) {
+            return 'Add image licence or permission information when an image is used.'
+          }
+          return true
+        }),
     }),
     defineField({
       name: 'imageLicenceUrl',
@@ -172,6 +207,14 @@ export const post = defineType({
       name: 'imageAltText',
       title: 'Image alt text',
       type: 'string',
+      description: 'Describe the image for accessibility and SEO.',
+      validation: (Rule) =>
+        Rule.custom((value, context) => {
+          if (context.document?.imageSourceType !== 'none' && !value) {
+            return 'Add alt text when an image is used.'
+          }
+          return true
+        }),
     }),
     defineField({
       name: 'imageCaption',
@@ -183,6 +226,7 @@ export const post = defineType({
       name: 'body',
       title: 'Article body',
       type: 'array',
+      validation: (Rule) => Rule.required().min(1),
       of: [
         defineArrayMember({
           type: 'block',
@@ -309,7 +353,8 @@ export const post = defineType({
       title: 'SEO description',
       type: 'text',
       rows: 3,
-      validation: (Rule) => Rule.max(160),
+      description: 'Used by Google and social previews. Keep it clear and under 160 characters.',
+      validation: (Rule) => Rule.required().max(160),
     }),
   ],
   preview: {

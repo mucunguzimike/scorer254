@@ -10,7 +10,8 @@
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts"
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts",
+    "seed:cms": "node scripts/seed-cms-content.mjs"
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.19.9",
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@sanity/client": "^7.22.1",
     "@sanity/vision": "^5.27.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20.19.41",

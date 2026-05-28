@@ -47,17 +47,33 @@
             "level": "error",
             "rules": [
               {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
                 "flag": "max",
                 "constraint": 220
               }
             ]
           }
         ],
+        "description": "A short article summary used on cards, SEO and social previews.",
         "name": "excerpt",
         "type": "text",
         "title": "Short summary"
       },
       {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
         "name": "publishedAt",
         "type": "datetime",
         "title": "Publish date"
@@ -89,11 +105,44 @@
                 }
               ]
             },
+            "validation": [
+              {
+                "level": "error",
+                "rules": [
+                  {
+                    "flag": "valid",
+                    "constraint": [
+                      "grassroots",
+                      "local-kenya",
+                      "east-africa",
+                      "african-football",
+                      "international"
+                    ]
+                  },
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  }
+                ]
+              }
+            ],
+            "description": "Controls where the article appears: Grassroots, Kenya, Regional, World, etc.",
             "name": "coverageType",
             "type": "string",
             "title": "Coverage type"
           },
           {
+            "validation": [
+              {
+                "level": "error",
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  }
+                ]
+              }
+            ],
             "to": [
               {
                 "type": "category"
@@ -118,6 +167,17 @@
             "type": "array"
           },
           {
+            "validation": [
+              {
+                "level": "error",
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  }
+                ]
+              }
+            ],
             "to": [
               {
                 "type": "author"
@@ -274,10 +334,14 @@
                     "allowCredentials": false
                   }
                 }
+              },
+              {
+                "flag": "custom"
               }
             ]
           }
         ],
+        "description": "Use only images you have permission to use. Add source, credit and licence below.",
         "hidden": "conditional",
         "name": "externalImageUrl",
         "type": "url",
@@ -301,6 +365,9 @@
                     "allowCredentials": false
                   }
                 }
+              },
+              {
+                "flag": "custom"
               }
             ]
           }
@@ -311,12 +378,32 @@
         "title": "Image source page URL"
       },
       {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ]
+          }
+        ],
         "description": "Example: Photo by [name] / Wikimedia Commons",
         "name": "imageCredit",
         "type": "string",
         "title": "Image credit"
       },
       {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ]
+          }
+        ],
         "description": "Example: CC BY-SA 4.0, Used with permission, Club media handout",
         "name": "imageLicence",
         "type": "string",
@@ -349,6 +436,17 @@
         "title": "Image licence URL"
       },
       {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ]
+          }
+        ],
+        "description": "Describe the image for accessibility and SEO.",
         "name": "imageAltText",
         "type": "string",
         "title": "Image alt text"
@@ -360,6 +458,21 @@
         "title": "Image caption"
       },
       {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 1
+              }
+            ]
+          }
+        ],
         "of": [
           {
             "lists": [
@@ -375,12 +488,6 @@
             "marks": {
               "annotations": [
                 {
-                  "i18nTitleKey": "inputs.portable-text.annotation.link",
-                  "options": {
-                    "modal": {
-                      "type": "popover"
-                    }
-                  },
                   "fields": [
                     {
                       "validation": [
@@ -393,27 +500,126 @@
                                 "options": {
                                   "scheme": [
                                     "/^http$/",
-                                    "/^https$/",
-                                    "/^tel$/",
-                                    "/^mailto$/"
+                                    "/^https$/"
                                   ],
-                                  "allowRelative": true,
+                                  "allowRelative": false,
                                   "relativeOnly": false,
                                   "allowCredentials": false
                                 }
                               }
+                            },
+                            {
+                              "flag": "presence",
+                              "constraint": "required"
                             }
                           ]
                         }
                       ],
-                      "description": "A valid web, email, phone, or relative link.",
                       "name": "href",
                       "type": "url",
-                      "title": "Link"
+                      "title": "URL"
+                    },
+                    {
+                      "initialValue": true,
+                      "name": "openInNewTab",
+                      "type": "boolean",
+                      "title": "Open in new tab"
                     }
                   ],
                   "name": "link",
-                  "type": "object"
+                  "type": "object",
+                  "title": "Normal link"
+                },
+                {
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "level": "error",
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/"
+                                  ],
+                                  "allowRelative": false,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            },
+                            {
+                              "flag": "presence",
+                              "constraint": "required"
+                            }
+                          ]
+                        }
+                      ],
+                      "name": "href",
+                      "type": "url",
+                      "title": "Source URL"
+                    },
+                    {
+                      "description": "Example: FKF statement, CAF fixture list, club announcement",
+                      "name": "label",
+                      "type": "string",
+                      "title": "Source label"
+                    }
+                  ],
+                  "name": "sourceLink",
+                  "type": "object",
+                  "title": "Source / reference link"
+                },
+                {
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "level": "error",
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/"
+                                  ],
+                                  "allowRelative": false,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            },
+                            {
+                              "flag": "presence",
+                              "constraint": "required"
+                            }
+                          ]
+                        }
+                      ],
+                      "name": "href",
+                      "type": "url",
+                      "title": "Affiliate URL"
+                    },
+                    {
+                      "initialValue": "Affiliate link",
+                      "name": "disclosure",
+                      "type": "string",
+                      "title": "Disclosure note"
+                    },
+                    {
+                      "name": "network",
+                      "type": "string",
+                      "title": "Affiliate network / partner"
+                    }
+                  ],
+                  "name": "affiliateLink",
+                  "type": "object",
+                  "title": "Affiliate / sponsored link"
                 }
               ],
               "decorators": [
@@ -568,12 +774,17 @@
             "level": "error",
             "rules": [
               {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
                 "flag": "max",
                 "constraint": 160
               }
             ]
           }
         ],
+        "description": "Used by Google and social previews. Keep it clear and under 160 characters.",
         "name": "seoDescription",
         "type": "text",
         "title": "SEO description"

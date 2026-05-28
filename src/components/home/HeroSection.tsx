@@ -1,3 +1,4 @@
+import Link from "next/link"
 import {StoryImage} from "@/components/media/StoryImage"
 import {leadStories as fallbackLeadStories} from "@/data/mockStories"
 import type {Story} from "@/data/mockStories"
@@ -5,6 +6,17 @@ import type {FrontendStory} from "@/sanity/lib/types"
 
 type HeroSectionProps = {
   stories?: Array<Story | FrontendStory>
+}
+
+function slugify(title: string) {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "")
+}
+
+function getStorySlug(story: Story | FrontendStory) {
+  return "slug" in story && story.slug ? story.slug : slugify(story.title)
 }
 
 export function HeroSection({stories = fallbackLeadStories}: HeroSectionProps) {
@@ -17,10 +29,11 @@ export function HeroSection({stories = fallbackLeadStories}: HeroSectionProps) {
   const sanityMain = main as FrontendStory
   const mainSanityImage = "slug" in main ? sanityMain.mainImage : undefined
   const mainImageAltText = "slug" in main && sanityMain.imageAltText ? sanityMain.imageAltText : main.title
+  const mainHref = `/articles/${getStorySlug(main)}`
 
   return (
     <section className="mx-auto grid max-w-7xl gap-5 px-4 py-8 lg:grid-cols-[1.5fr_0.9fr] lg:px-6">
-      <article className="group relative min-h-[460px] overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-950 shadow-2xl">
+      <Link href={mainHref} className="group relative block min-h-[460px] overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-950 shadow-2xl">
         <StoryImage
           image={main.image}
           sanityImage={mainSanityImage}
@@ -50,12 +63,13 @@ export function HeroSection({stories = fallbackLeadStories}: HeroSectionProps) {
             <span>{main.date}</span>
           </div>
         </div>
-      </article>
+      </Link>
 
       <div className="grid gap-5">
         {side.slice(0, 2).map((story) => (
-          <article
+          <Link
             key={story.id}
+            href={`/articles/${getStorySlug(story)}`}
             className="rounded-[1.5rem] border border-white/10 bg-zinc-950 p-5 transition hover:border-emerald-400/50"
           >
             <div className="mb-4 flex items-center justify-between gap-4">
@@ -68,7 +82,7 @@ export function HeroSection({stories = fallbackLeadStories}: HeroSectionProps) {
               {story.title}
             </h2>
             <p className="mt-3 text-sm leading-6 text-zinc-400">{story.excerpt}</p>
-          </article>
+          </Link>
         ))}
       </div>
     </section>

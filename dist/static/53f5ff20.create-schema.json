@@ -1,0 +1,1279 @@
+[
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Article title"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug",
+        "title": "Article URL"
+      },
+      {
+        "rows": 3,
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 220
+              }
+            ]
+          }
+        ],
+        "name": "excerpt",
+        "type": "text",
+        "title": "Short summary"
+      },
+      {
+        "name": "publishedAt",
+        "type": "datetime",
+        "title": "Publish date"
+      },
+      {
+        "fields": [
+          {
+            "options": {
+              "list": [
+                {
+                  "title": "Grassroots",
+                  "value": "grassroots"
+                },
+                {
+                  "title": "Local Kenya",
+                  "value": "local-kenya"
+                },
+                {
+                  "title": "East Africa",
+                  "value": "east-africa"
+                },
+                {
+                  "title": "African Football",
+                  "value": "african-football"
+                },
+                {
+                  "title": "International",
+                  "value": "international"
+                }
+              ]
+            },
+            "name": "coverageType",
+            "type": "string",
+            "title": "Coverage type"
+          },
+          {
+            "to": [
+              {
+                "type": "category"
+              }
+            ],
+            "name": "category",
+            "type": "reference"
+          },
+          {
+            "of": [
+              {
+                "to": [
+                  {
+                    "type": "tag"
+                  }
+                ],
+                "type": "reference",
+                "title": "Reference to tags"
+              }
+            ],
+            "name": "tags",
+            "type": "array"
+          },
+          {
+            "to": [
+              {
+                "type": "author"
+              }
+            ],
+            "name": "author",
+            "type": "reference"
+          }
+        ],
+        "name": "contentDetails",
+        "type": "object",
+        "title": "Content details"
+      },
+      {
+        "fields": [
+          {
+            "of": [
+              {
+                "to": [
+                  {
+                    "type": "team"
+                  }
+                ],
+                "type": "reference",
+                "title": "Reference to teams"
+              }
+            ],
+            "name": "teams",
+            "type": "array",
+            "title": "Teams mentioned"
+          },
+          {
+            "of": [
+              {
+                "to": [
+                  {
+                    "type": "player"
+                  }
+                ],
+                "type": "reference",
+                "title": "Reference to players"
+              }
+            ],
+            "name": "players",
+            "type": "array",
+            "title": "Players mentioned"
+          },
+          {
+            "to": [
+              {
+                "type": "competition"
+              }
+            ],
+            "name": "competition",
+            "type": "reference"
+          },
+          {
+            "to": [
+              {
+                "type": "region"
+              }
+            ],
+            "name": "region",
+            "type": "reference",
+            "title": "Region / County"
+          },
+          {
+            "name": "matchDate",
+            "type": "datetime",
+            "title": "Match date"
+          },
+          {
+            "description": "Example: Gor Mahia 2-1 AFC Leopards",
+            "name": "matchResult",
+            "type": "string",
+            "title": "Match result"
+          },
+          {
+            "name": "venue",
+            "type": "string"
+          }
+        ],
+        "name": "footballDetails",
+        "type": "object",
+        "title": "Football details"
+      },
+      {
+        "initialValue": "external",
+        "options": {
+          "layout": "radio",
+          "list": [
+            {
+              "title": "External / licensed image",
+              "value": "external"
+            },
+            {
+              "title": "Upload image",
+              "value": "upload"
+            },
+            {
+              "title": "No image yet",
+              "value": "none"
+            }
+          ]
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "external",
+                  "upload",
+                  "none"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "imageSourceType",
+        "type": "string",
+        "title": "Image source type"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Use only for images you own or have permission to use. Prefer compressed images to save storage.",
+        "hidden": "conditional",
+        "name": "mainImage",
+        "type": "image",
+        "title": "Uploaded main image"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "hidden": "conditional",
+        "name": "externalImageUrl",
+        "type": "url",
+        "title": "External image URL"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "description": "The page where the image or license can be verified.",
+        "name": "imageSourceUrl",
+        "type": "url",
+        "title": "Image source page URL"
+      },
+      {
+        "description": "Example: Photo by [name] / Wikimedia Commons",
+        "name": "imageCredit",
+        "type": "string",
+        "title": "Image credit"
+      },
+      {
+        "description": "Example: CC BY-SA 4.0, Used with permission, Club media handout",
+        "name": "imageLicence",
+        "type": "string",
+        "title": "Image licence / permission"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "name": "imageLicenceUrl",
+        "type": "url",
+        "title": "Image licence URL"
+      },
+      {
+        "name": "imageAltText",
+        "type": "string",
+        "title": "Image alt text"
+      },
+      {
+        "rows": 2,
+        "name": "imageCaption",
+        "type": "text",
+        "title": "Image caption"
+      },
+      {
+        "of": [
+          {
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "marks": {
+              "annotations": [
+                {
+                  "i18nTitleKey": "inputs.portable-text.annotation.link",
+                  "options": {
+                    "modal": {
+                      "type": "popover"
+                    }
+                  },
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "level": "error",
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^tel$/",
+                                    "/^mailto$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "description": "A valid web, email, phone, or relative link.",
+                      "name": "href",
+                      "type": "url",
+                      "title": "Link"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Strong"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                },
+                {
+                  "value": "code",
+                  "title": "Code"
+                },
+                {
+                  "value": "underline",
+                  "title": "Underline"
+                },
+                {
+                  "value": "strike-through",
+                  "title": "Strike"
+                }
+              ]
+            },
+            "of": [],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h1",
+                "title": "Heading 1"
+              },
+              {
+                "value": "h2",
+                "title": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "title": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "title": "Heading 4"
+              },
+              {
+                "value": "h5",
+                "title": "Heading 5"
+              },
+              {
+                "value": "h6",
+                "title": "Heading 6"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "type": "block"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "name": "alt",
+                "type": "string",
+                "title": "Alt text"
+              },
+              {
+                "name": "caption",
+                "type": "string"
+              },
+              {
+                "name": "credit",
+                "type": "string",
+                "title": "Image credit"
+              }
+            ],
+            "type": "image"
+          }
+        ],
+        "name": "body",
+        "type": "array",
+        "title": "Article body"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "label",
+                "type": "string"
+              },
+              {
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "URL"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "sourceLinks",
+        "type": "array",
+        "title": "Source links"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 70
+              }
+            ]
+          }
+        ],
+        "name": "seoTitle",
+        "type": "string",
+        "title": "SEO title"
+      },
+      {
+        "rows": 3,
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 160
+              }
+            ]
+          }
+        ],
+        "name": "seoDescription",
+        "type": "text",
+        "title": "SEO description"
+      }
+    ],
+    "name": "post",
+    "type": "document",
+    "title": "Articles"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "name",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug",
+        "title": "Author URL"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "image",
+        "type": "image",
+        "title": "Profile image"
+      },
+      {
+        "rows": 4,
+        "name": "bio",
+        "type": "text"
+      }
+    ],
+    "name": "author",
+    "type": "document",
+    "title": "Authors"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Category name"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug",
+        "title": "Category URL"
+      },
+      {
+        "rows": 3,
+        "name": "description",
+        "type": "text"
+      }
+    ],
+    "name": "category",
+    "type": "document",
+    "title": "Categories"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Tag name"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug",
+        "title": "Tag URL"
+      }
+    ],
+    "name": "tag",
+    "type": "document",
+    "title": "Tags"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "name",
+        "type": "string",
+        "title": "Team name"
+      },
+      {
+        "options": {
+          "source": "name",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug",
+        "title": "Team URL"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "logo",
+        "type": "image",
+        "title": "Team logo"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Club",
+              "value": "club"
+            },
+            {
+              "title": "Academy",
+              "value": "academy"
+            },
+            {
+              "title": "School Team",
+              "value": "school-team"
+            },
+            {
+              "title": "Community Team",
+              "value": "community-team"
+            },
+            {
+              "title": "National Team",
+              "value": "national-team"
+            }
+          ]
+        },
+        "name": "teamType",
+        "type": "string",
+        "title": "Team type"
+      },
+      {
+        "initialValue": "Kenya",
+        "name": "country",
+        "type": "string"
+      },
+      {
+        "to": [
+          {
+            "type": "region"
+          }
+        ],
+        "name": "region",
+        "type": "reference",
+        "title": "Region / County"
+      },
+      {
+        "rows": 4,
+        "name": "description",
+        "type": "text"
+      }
+    ],
+    "name": "team",
+    "type": "document",
+    "title": "Teams"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "name",
+        "type": "string",
+        "title": "Player name"
+      },
+      {
+        "options": {
+          "source": "name",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug",
+        "title": "Player URL"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "photo",
+        "type": "image",
+        "title": "Player photo"
+      },
+      {
+        "to": [
+          {
+            "type": "team"
+          }
+        ],
+        "name": "currentTeam",
+        "type": "reference",
+        "title": "Current team"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Goalkeeper",
+              "value": "goalkeeper"
+            },
+            {
+              "title": "Defender",
+              "value": "defender"
+            },
+            {
+              "title": "Midfielder",
+              "value": "midfielder"
+            },
+            {
+              "title": "Forward",
+              "value": "forward"
+            },
+            {
+              "title": "Coach",
+              "value": "coach"
+            }
+          ]
+        },
+        "name": "position",
+        "type": "string"
+      },
+      {
+        "initialValue": "Kenyan",
+        "name": "nationality",
+        "type": "string"
+      },
+      {
+        "to": [
+          {
+            "type": "region"
+          }
+        ],
+        "name": "region",
+        "type": "reference",
+        "title": "Region / County"
+      },
+      {
+        "rows": 4,
+        "name": "bio",
+        "type": "text"
+      }
+    ],
+    "name": "player",
+    "type": "document",
+    "title": "Players"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "name",
+        "type": "string",
+        "title": "Competition name"
+      },
+      {
+        "options": {
+          "source": "name",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug",
+        "title": "Competition URL"
+      },
+      {
+        "name": "country",
+        "type": "string",
+        "title": "Country / Region"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Grassroots",
+              "value": "grassroots"
+            },
+            {
+              "title": "County",
+              "value": "county"
+            },
+            {
+              "title": "National",
+              "value": "national"
+            },
+            {
+              "title": "Regional",
+              "value": "regional"
+            },
+            {
+              "title": "Continental",
+              "value": "continental"
+            },
+            {
+              "title": "International",
+              "value": "international"
+            }
+          ]
+        },
+        "name": "level",
+        "type": "string"
+      },
+      {
+        "rows": 4,
+        "name": "description",
+        "type": "text"
+      }
+    ],
+    "name": "competition",
+    "type": "document",
+    "title": "Competitions"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "name",
+        "type": "string",
+        "title": "Region / County name"
+      },
+      {
+        "options": {
+          "source": "name",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug",
+        "title": "Region URL"
+      },
+      {
+        "initialValue": "Kenya",
+        "name": "country",
+        "type": "string"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "County",
+              "value": "county"
+            },
+            {
+              "title": "Town / City",
+              "value": "town-city"
+            },
+            {
+              "title": "Region",
+              "value": "region"
+            },
+            {
+              "title": "Country",
+              "value": "country"
+            }
+          ]
+        },
+        "name": "regionType",
+        "type": "string",
+        "title": "Region type"
+      }
+    ],
+    "name": "region",
+    "type": "document",
+    "title": "Regions / Counties"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "siteName",
+        "type": "string",
+        "title": "Site name"
+      },
+      {
+        "name": "tagline",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "logo",
+        "type": "image"
+      },
+      {
+        "name": "defaultSeoTitle",
+        "type": "string",
+        "title": "Default SEO title"
+      },
+      {
+        "rows": 3,
+        "name": "defaultSeoDescription",
+        "type": "text",
+        "title": "Default SEO description"
+      },
+      {
+        "name": "contactEmail",
+        "type": "string",
+        "title": "Contact email"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "name": "facebookUrl",
+        "type": "url",
+        "title": "Facebook URL"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "name": "xUrl",
+        "type": "url",
+        "title": "X / Twitter URL"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "name": "instagramUrl",
+        "type": "url",
+        "title": "Instagram URL"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "name": "youtubeUrl",
+        "type": "url",
+        "title": "YouTube URL"
+      },
+      {
+        "rows": 3,
+        "name": "footerText",
+        "type": "text",
+        "title": "Footer text"
+      }
+    ],
+    "name": "siteSettings",
+    "type": "document"
+  }
+]

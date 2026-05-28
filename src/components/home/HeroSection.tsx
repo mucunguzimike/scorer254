@@ -14,13 +14,17 @@ export function HeroSection({stories = fallbackLeadStories}: HeroSectionProps) {
     return null
   }
 
+  const sanityMain = main as FrontendStory
+  const mainSanityImage = "slug" in main ? sanityMain.mainImage : undefined
+  const mainImageAltText = "slug" in main && sanityMain.imageAltText ? sanityMain.imageAltText : main.title
+
   return (
     <section className="mx-auto grid max-w-7xl gap-5 px-4 py-8 lg:grid-cols-[1.5fr_0.9fr] lg:px-6">
       <article className="group relative min-h-[460px] overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-950 shadow-2xl">
         <StoryImage
           image={main.image}
-          sanityImage={"mainImage" in main ? main.mainImage : undefined}
-          alt={"imageAltText" in main && main.imageAltText ? main.imageAltText : main.title}
+          sanityImage={mainSanityImage}
+          alt={mainImageAltText}
           className="absolute inset-0 h-full"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/20" />

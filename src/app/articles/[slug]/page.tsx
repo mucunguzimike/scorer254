@@ -60,6 +60,14 @@ export default async function ArticlePage({params}: ArticlePageProps) {
     ? (story as FrontendStory).imageSourceUrl
     : undefined
 
+  const storyMainImage = isSanityStory
+    ? (story as FrontendStory).mainImage
+    : undefined
+
+  const storyImageAltText = isSanityStory && (story as FrontendStory).imageAltText
+    ? (story as FrontendStory).imageAltText
+    : story.title
+
   const authorName =
     isSanityStory && (story as FrontendStory).author
       ? (story as FrontendStory).author
@@ -121,8 +129,8 @@ export default async function ArticlePage({params}: ArticlePageProps) {
             <div className="mb-4 overflow-hidden rounded-[2rem] border border-white/10">
               <StoryImage
                 image={story.image}
-                sanityImage={"mainImage" in story ? story.mainImage : undefined}
-                alt={"imageAltText" in story && story.imageAltText ? story.imageAltText : story.title}
+                sanityImage={storyMainImage}
+                alt={storyImageAltText}
                 className="h-[380px]"
               />
             </div>

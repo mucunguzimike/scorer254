@@ -20,6 +20,9 @@ function getStorySlug(story: Story | FrontendStory) {
 
 export function ArticleCard({story}: ArticleCardProps) {
   const href = `/articles/${getStorySlug(story)}`
+  const sanityStory = story as FrontendStory
+  const sanityImage = "slug" in story ? sanityStory.mainImage : undefined
+  const imageAltText = "slug" in story && sanityStory.imageAltText ? sanityStory.imageAltText : story.title
 
   return (
     <Link
@@ -29,8 +32,8 @@ export function ArticleCard({story}: ArticleCardProps) {
       <article>
         <StoryImage
           image={story.image}
-          sanityImage={"mainImage" in story ? story.mainImage : undefined}
-          alt={"imageAltText" in story && story.imageAltText ? story.imageAltText : story.title}
+          sanityImage={sanityImage}
+          alt={imageAltText}
           className="h-44"
         />
         <div className="p-5">

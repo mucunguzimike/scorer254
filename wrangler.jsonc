@@ -9,6 +9,7 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "scorer254",
+	"account_id": "697cb79008c2e4bdc8b24e8eb5dfce16",
 	"main": ".open-next/worker.js",
 	"compatibility_date": "2026-05-28",
 	"compatibility_flags": [
@@ -35,8 +36,10 @@
 	"observability": {
 		"enabled": true
 	},
-	"upload_source_maps": true
-	/**
+	"upload_source_maps": true,
+	"workers_dev": true,
+	"preview_urls": true
+/**
 	 * Smart Placement
 	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
 	 */

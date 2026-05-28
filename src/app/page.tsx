@@ -13,10 +13,15 @@ export default async function Home() {
   const heroStories = stories.slice(0, 3)
   const latestStories = stories.slice(0, 4)
   const grassrootsStories = stories
-    .filter((story) => story.category.toLowerCase().includes("grassroots"))
+    .filter(
+      (story) =>
+        story.coverageType === "grassroots" ||
+        story.categorySlug === "grassroots-football"
+    )
     .slice(0, 3)
+
   const playerWatchStories = stories
-    .filter((story) => story.category.toLowerCase().includes("player"))
+    .filter((story) => story.categorySlug === "player-profiles")
     .slice(0, 2)
 
   return (

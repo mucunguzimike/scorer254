@@ -77,6 +77,8 @@ export type FrontendStory = {
   title: string
   slug: string
   category: string
+  categorySlug?: string
+  coverageType?: string
   date: string
   excerpt: string
   image?: string

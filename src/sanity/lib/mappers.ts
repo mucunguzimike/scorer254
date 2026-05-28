@@ -14,6 +14,14 @@ function getCategory(post: SanityPost) {
   return post.contentDetails?.category?.title || "Football"
 }
 
+function getCategorySlug(post: SanityPost) {
+  return post.contentDetails?.category?.slug?.current
+}
+
+function getCoverageType(post: SanityPost) {
+  return post.contentDetails?.coverageType
+}
+
 function getLocation(post: SanityPost) {
   return post.footballDetails?.region?.name
 }
@@ -36,6 +44,8 @@ export function mapPostToStory(post: SanityPost): FrontendStory {
     title: post.title,
     slug: post.slug?.current || post._id,
     category: getCategory(post),
+    categorySlug: getCategorySlug(post),
+    coverageType: getCoverageType(post),
     date: formatDate(post.publishedAt),
     excerpt: post.excerpt || "",
     image: getImage(post),

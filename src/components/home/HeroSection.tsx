@@ -1,3 +1,4 @@
+import {StoryImage} from "@/components/media/StoryImage"
 import {leadStories as fallbackLeadStories} from "@/data/mockStories"
 import type {Story} from "@/data/mockStories"
 import type {FrontendStory} from "@/sanity/lib/types"
@@ -15,10 +16,16 @@ export function HeroSection({stories = fallbackLeadStories}: HeroSectionProps) {
 
   return (
     <section className="mx-auto grid max-w-7xl gap-5 px-4 py-8 lg:grid-cols-[1.5fr_0.9fr] lg:px-6">
-      <article className="group relative min-h-[460px] overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-zinc-900 via-black to-emerald-950 p-6 shadow-2xl">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(52,211,153,0.28),transparent_30%),radial-gradient(circle_at_80%_10%,rgba(255,255,255,0.12),transparent_24%)]" />
-        <div className="absolute bottom-0 right-0 h-56 w-56 rounded-full bg-emerald-500/10 blur-3xl" />
-        <div className="relative flex h-full flex-col justify-end">
+      <article className="group relative min-h-[460px] overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-950 shadow-2xl">
+        <StoryImage
+          image={main.image}
+          sanityImage={"mainImage" in main ? main.mainImage : undefined}
+          alt={"imageAltText" in main && main.imageAltText ? main.imageAltText : main.title}
+          className="absolute inset-0 h-full"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/20" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(52,211,153,0.22),transparent_30%)]" />
+        <div className="relative flex h-full min-h-[460px] flex-col justify-end p-6">
           <div className="mb-5 flex flex-wrap gap-2">
             <span className="rounded-full bg-emerald-400 px-3 py-1 text-xs font-black uppercase tracking-wide text-black">
               {"tag" in main && main.tag ? main.tag : "Featured"}

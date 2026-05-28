@@ -1,9 +1,11 @@
+import {ArticleCard} from "@/components/article/ArticleCard"
 import type {Story} from "@/data/mockStories"
+import type {FrontendStory} from "@/sanity/lib/types"
 
 type StoryGridProps = {
   title: string
   kicker?: string
-  stories: Story[]
+  stories: Array<Story | FrontendStory>
 }
 
 export function StoryGrid({title, kicker, stories}: StoryGridProps) {
@@ -27,22 +29,7 @@ export function StoryGrid({title, kicker, stories}: StoryGridProps) {
 
       <div className="grid gap-5 md:grid-cols-3">
         {stories.map((story) => (
-          <article
-            key={story.id}
-            className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-zinc-950 transition hover:-translate-y-1 hover:border-emerald-400/50"
-          >
-            <div className="h-40 bg-gradient-to-br from-zinc-800 via-black to-emerald-950" />
-            <div className="p-5">
-              <div className="mb-3 flex items-center justify-between gap-3 text-xs font-bold uppercase tracking-wide">
-                <span className="text-emerald-400">{story.category}</span>
-                <span className="text-zinc-500">{story.date}</span>
-              </div>
-              <h3 className="text-xl font-black uppercase leading-tight text-white">
-                {story.title}
-              </h3>
-              <p className="mt-3 text-sm leading-6 text-zinc-400">{story.excerpt}</p>
-            </div>
-          </article>
+          <ArticleCard key={story.id} story={story} />
         ))}
       </div>
     </section>

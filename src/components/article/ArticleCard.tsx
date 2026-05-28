@@ -1,4 +1,5 @@
 import Link from "next/link"
+import {StoryImage} from "@/components/media/StoryImage"
 import type {Story} from "@/data/mockStories"
 import type {FrontendStory} from "@/sanity/lib/types"
 
@@ -26,7 +27,12 @@ export function ArticleCard({story}: ArticleCardProps) {
       className="block overflow-hidden rounded-[1.5rem] border border-white/10 bg-zinc-950 transition hover:-translate-y-1 hover:border-emerald-400/50"
     >
       <article>
-        <div className="h-44 bg-gradient-to-br from-zinc-800 via-black to-emerald-950" />
+        <StoryImage
+          image={story.image}
+          sanityImage={"mainImage" in story ? story.mainImage : undefined}
+          alt={"imageAltText" in story && story.imageAltText ? story.imageAltText : story.title}
+          className="h-44"
+        />
         <div className="p-5">
           <div className="mb-3 flex items-center justify-between gap-3 text-xs font-bold uppercase tracking-wide">
             <span className="text-emerald-400">{story.category}</span>

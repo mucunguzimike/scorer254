@@ -1,6 +1,7 @@
 import Link from "next/link"
 import {ArticleCard} from "@/components/article/ArticleCard"
 import {PortableArticleBody} from "@/components/article/PortableArticleBody"
+import {StoryImage} from "@/components/media/StoryImage"
 import {Footer} from "@/components/layout/Footer"
 import {Header} from "@/components/layout/Header"
 import {grassrootsStories, latestStories, leadStories, playerWatchStories} from "@/data/mockStories"
@@ -117,7 +118,14 @@ export default async function ArticlePage({params}: ArticlePageProps) {
 
         <section className="mx-auto grid max-w-7xl gap-8 px-4 py-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:px-6">
           <div>
-            <div className="mb-4 h-[380px] rounded-[2rem] border border-white/10 bg-gradient-to-br from-zinc-800 via-black to-emerald-950" />
+            <div className="mb-4 overflow-hidden rounded-[2rem] border border-white/10">
+              <StoryImage
+                image={story.image}
+                sanityImage={"mainImage" in story ? story.mainImage : undefined}
+                alt={"imageAltText" in story && story.imageAltText ? story.imageAltText : story.title}
+                className="h-[380px]"
+              />
+            </div>
 
             <p className="mb-10 text-xs font-medium uppercase tracking-wide text-zinc-500">
               {imageCredit || imageLicence

@@ -80,6 +80,8 @@ export type FrontendStory = {
   date: string
   excerpt: string
   image?: string
+  mainImage?: SanityImageAsset
+  imageAltText?: string
   location?: string
   tag?: string
   author?: string

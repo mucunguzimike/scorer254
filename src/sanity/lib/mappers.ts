@@ -39,6 +39,8 @@ export function mapPostToStory(post: SanityPost): FrontendStory {
     date: formatDate(post.publishedAt),
     excerpt: post.excerpt || "",
     image: getImage(post),
+    mainImage: post.mainImage,
+    imageAltText: post.imageAltText,
     location: getLocation(post),
     author: getAuthor(post),
     imageCredit: post.imageCredit,

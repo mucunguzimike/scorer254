@@ -106,6 +106,50 @@ export async function generateMetadata({params}: ArticlePageProps): Promise<Meta
   }
 }
 
+
+function createArticleJsonLd({
+  title,
+  description,
+  url,
+  image,
+  author,
+  publishedAt,
+}: {
+  title: string
+  description: string
+  url: string
+  image: string
+  author: string
+  publishedAt?: string
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: title,
+    description,
+    url,
+    image: [image],
+    datePublished: publishedAt,
+    dateModified: publishedAt,
+    author: {
+      "@type": "Person",
+      name: author,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Scorer254",
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteUrl}/logo.png`,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": url,
+    },
+  }
+}
+
 export default async function ArticlePage({params}: ArticlePageProps) {
   const {slug} = await params
 
@@ -144,13 +188,37 @@ export default async function ArticlePage({params}: ArticlePageProps) {
     ? (story as FrontendStory).imageAltText
     : story.title
 
-  const authorName =
+  const authorName: string =
     isSanityStory && (story as FrontendStory).author
-      ? (story as FrontendStory).author
+      ? String((story as FrontendStory).author)
       : "Scorer254 Editorial Desk"
+
+  const articleUrl = `${siteUrl}/articles/${slug}`
+  const uploadedImageUrl = sanityPost?.mainImage
+    ? getSanityImageUrl(sanityPost.mainImage, 1200, 630)
+    : undefined
+  const articleImageUrl =
+    sanityPost?.imageSourceType === "external" && sanityPost.externalImageUrl
+      ? sanityPost.externalImageUrl
+      : uploadedImageUrl || `${siteUrl}/logo.png`
+  const articleDescription =
+    sanityPost?.seoDescription || story.excerpt || "Football story from Scorer254."
+
+  const articleJsonLd = createArticleJsonLd({
+    title: sanityPost?.seoTitle || story.title,
+    description: articleDescription,
+    url: articleUrl,
+    image: articleImageUrl,
+    author: authorName,
+    publishedAt: sanityPost?.publishedAt,
+  })
 
   return (
     <main className="min-h-screen bg-[#070707] text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{__html: JSON.stringify(articleJsonLd)}}
+      />
       <Header />
 
       <article>

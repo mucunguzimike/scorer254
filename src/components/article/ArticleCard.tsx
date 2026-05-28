@@ -1,28 +1,14 @@
 import Link from "next/link"
 import {StoryImage} from "@/components/media/StoryImage"
-import type {Story} from "@/data/mockStories"
 import type {FrontendStory} from "@/sanity/lib/types"
 
 type ArticleCardProps = {
-  story: Story | FrontendStory
-}
-
-function slugify(title: string) {
-  return title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "")
-}
-
-function getStorySlug(story: Story | FrontendStory) {
-  return "slug" in story && story.slug ? story.slug : slugify(story.title)
+  story: FrontendStory
 }
 
 export function ArticleCard({story}: ArticleCardProps) {
-  const href = `/articles/${getStorySlug(story)}`
-  const sanityStory = story as FrontendStory
-  const sanityImage = "slug" in story ? sanityStory.mainImage : undefined
-  const imageAltText = "slug" in story && sanityStory.imageAltText ? sanityStory.imageAltText : story.title
+  const href = `/articles/${story.slug}`
+  const imageAltText = story.imageAltText || story.title
 
   return (
     <Link
@@ -32,7 +18,7 @@ export function ArticleCard({story}: ArticleCardProps) {
       <article>
         <StoryImage
           image={story.image}
-          sanityImage={sanityImage}
+          sanityImage={story.mainImage}
           alt={imageAltText}
           className="h-44"
         />

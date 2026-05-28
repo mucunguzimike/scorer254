@@ -1,9 +1,9 @@
 import type {Metadata} from "next"
 import {siteUrl} from "@/lib/site"
 import {ArticleCard} from "@/components/article/ArticleCard"
+import {EmptyState} from "@/components/common/EmptyState"
 import {Footer} from "@/components/layout/Footer"
 import {Header} from "@/components/layout/Header"
-import {grassrootsStories, latestStories, leadStories, playerWatchStories} from "@/data/mockStories"
 import {getLatestStories} from "@/sanity/lib/fetchers"
 
 export const metadata: Metadata = {
@@ -20,16 +20,8 @@ export const metadata: Metadata = {
   },
 }
 
-const fallbackStories = [
-  ...leadStories,
-  ...latestStories,
-  ...grassrootsStories,
-  ...playerWatchStories,
-]
-
 export default async function ArticlesPage() {
-  const sanityStories = await getLatestStories()
-  const stories = sanityStories.length > 0 ? sanityStories : fallbackStories
+  const stories = await getLatestStories()
 
   return (
     <main className="min-h-screen bg-[#070707] text-white">
@@ -49,10 +41,19 @@ export default async function ArticlesPage() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-5 px-4 py-10 md:grid-cols-2 lg:grid-cols-3 lg:px-6">
-        {stories.map((story) => (
-          <ArticleCard key={story.id} story={story} />
-        ))}
+      <section className="mx-auto max-w-7xl px-4 py-10 lg:px-6">
+        {stories.length > 0 ? (
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {stories.map((story) => (
+              <ArticleCard key={story.id} story={story} />
+            ))}
+          </div>
+        ) : (
+          <EmptyState
+            title="No articles published yet"
+            description="Published articles from Sanity Studio will appear here."
+          />
+        )}
       </section>
 
       <Footer />

@@ -1,7 +1,6 @@
 import type {Metadata} from "next"
 import {siteUrl} from "@/lib/site"
 import {SectionPage} from "@/components/section/SectionPage"
-import {latestStories, leadStories} from "@/data/mockStories"
 import {getStoriesByCoverageType} from "@/sanity/lib/fetchers"
 
 export const metadata: Metadata = {
@@ -21,9 +20,7 @@ export const metadata: Metadata = {
 export default async function WorldPage() {
   const internationalStories = await getStoriesByCoverageType("international")
   const africanStories = await getStoriesByCoverageType("african-football")
-  const sanityStories = [...internationalStories, ...africanStories]
-  const fallbackStories = [...leadStories.slice(2), ...latestStories.slice(0, 2)]
-  const stories = sanityStories.length > 0 ? sanityStories : fallbackStories
+  const stories = [...internationalStories, ...africanStories]
 
   return (
     <SectionPage

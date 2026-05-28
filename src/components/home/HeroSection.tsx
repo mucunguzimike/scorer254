@@ -1,42 +1,27 @@
 import Link from "next/link"
 import {StoryImage} from "@/components/media/StoryImage"
-import {leadStories as fallbackLeadStories} from "@/data/mockStories"
-import type {Story} from "@/data/mockStories"
 import type {FrontendStory} from "@/sanity/lib/types"
 
 type HeroSectionProps = {
-  stories?: Array<Story | FrontendStory>
+  stories: FrontendStory[]
 }
 
-function slugify(title: string) {
-  return title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "")
-}
-
-function getStorySlug(story: Story | FrontendStory) {
-  return "slug" in story && story.slug ? story.slug : slugify(story.title)
-}
-
-export function HeroSection({stories = fallbackLeadStories}: HeroSectionProps) {
+export function HeroSection({stories}: HeroSectionProps) {
   const [main, ...side] = stories
 
   if (!main) {
     return null
   }
 
-  const sanityMain = main as FrontendStory
-  const mainSanityImage = "slug" in main ? sanityMain.mainImage : undefined
-  const mainImageAltText = "slug" in main && sanityMain.imageAltText ? sanityMain.imageAltText : main.title
-  const mainHref = `/articles/${getStorySlug(main)}`
+  const mainHref = `/articles/${main.slug}`
+  const mainImageAltText = main.imageAltText || main.title
 
   return (
     <section className="mx-auto grid max-w-7xl gap-5 px-4 py-8 lg:grid-cols-[1.5fr_0.9fr] lg:px-6">
       <Link href={mainHref} className="group relative block min-h-[460px] overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-950 shadow-2xl">
         <StoryImage
           image={main.image}
-          sanityImage={mainSanityImage}
+          sanityImage={main.mainImage}
           alt={mainImageAltText}
           className="absolute inset-0 h-full"
         />
@@ -45,7 +30,7 @@ export function HeroSection({stories = fallbackLeadStories}: HeroSectionProps) {
         <div className="relative flex h-full min-h-[460px] flex-col justify-end p-6">
           <div className="mb-5 flex flex-wrap gap-2">
             <span className="rounded-full bg-emerald-400 px-3 py-1 text-xs font-black uppercase tracking-wide text-black">
-              {"tag" in main && main.tag ? main.tag : "Featured"}
+              Featured
             </span>
             <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
               {main.category}
@@ -69,7 +54,7 @@ export function HeroSection({stories = fallbackLeadStories}: HeroSectionProps) {
         {side.slice(0, 2).map((story) => (
           <Link
             key={story.id}
-            href={`/articles/${getStorySlug(story)}`}
+            href={`/articles/${story.slug}`}
             className="rounded-[1.5rem] border border-white/10 bg-zinc-950 p-5 transition hover:border-emerald-400/50"
           >
             <div className="mb-4 flex items-center justify-between gap-4">

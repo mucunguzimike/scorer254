@@ -1,14 +1,14 @@
 import {ArticleCard} from "@/components/article/ArticleCard"
+import {EmptyState} from "@/components/common/EmptyState"
 import {Footer} from "@/components/layout/Footer"
 import {Header} from "@/components/layout/Header"
-import type {Story} from "@/data/mockStories"
 import type {FrontendStory} from "@/sanity/lib/types"
 
 type SectionPageProps = {
   kicker: string
   title: string
   description: string
-  stories: Array<Story | FrontendStory>
+  stories: FrontendStory[]
 }
 
 export function SectionPage({kicker, title, description, stories}: SectionPageProps) {
@@ -30,10 +30,19 @@ export function SectionPage({kicker, title, description, stories}: SectionPagePr
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-5 px-4 py-10 md:grid-cols-2 lg:grid-cols-3 lg:px-6">
-        {stories.map((story) => (
-          <ArticleCard key={story.id} story={story} />
-        ))}
+      <section className="mx-auto max-w-7xl px-4 py-10 lg:px-6">
+        {stories.length > 0 ? (
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {stories.map((story) => (
+              <ArticleCard key={story.id} story={story} />
+            ))}
+          </div>
+        ) : (
+          <EmptyState
+            title={`No ${title.toLowerCase()} stories yet`}
+            description="Published stories will appear here once they are added in Sanity Studio."
+          />
+        )}
       </section>
 
       <Footer />

@@ -6,26 +6,10 @@ import {PortableArticleBody} from "@/components/article/PortableArticleBody"
 import {StoryImage} from "@/components/media/StoryImage"
 import {Footer} from "@/components/layout/Footer"
 import {Header} from "@/components/layout/Header"
-import {grassrootsStories, latestStories, leadStories, playerWatchStories} from "@/data/mockStories"
-import {getPostBySlug} from "@/sanity/lib/fetchers"
+import {getLatestStories, getPostBySlug} from "@/sanity/lib/fetchers"
 import {getSanityImageUrl} from "@/sanity/lib/imageUrl"
 import {mapPostToStory} from "@/sanity/lib/mappers"
-import type {FrontendStory} from "@/sanity/lib/types"
 import {notFound} from "next/navigation"
-
-const fallbackStories = [
-  ...leadStories,
-  ...latestStories,
-  ...grassrootsStories,
-  ...playerWatchStories,
-]
-
-function slugify(title: string) {
-  return title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "")
-}
 
 type ArticlePageProps = {
   params: Promise<{
@@ -33,15 +17,11 @@ type ArticlePageProps = {
   }>
 }
 
-
 export async function generateMetadata({params}: ArticlePageProps): Promise<Metadata> {
   const {slug} = await params
   const sanityPost = await getPostBySlug(slug)
-  const sanityStory = sanityPost ? mapPostToStory(sanityPost) : null
-  const fallbackStory = fallbackStories.find((item) => slugify(item.title) === slug)
-  const story = sanityStory || fallbackStory
 
-  if (!story) {
+  if (!sanityPost) {
     return {
       title: "Article not found",
       description: "The requested Scorer254 article could not be found.",
@@ -52,26 +32,27 @@ export async function generateMetadata({params}: ArticlePageProps): Promise<Meta
     }
   }
 
-  const title = sanityPost?.seoTitle || story.title
+  const story = mapPostToStory(sanityPost)
+  const title = sanityPost.seoTitle || story.title
   const description =
-    sanityPost?.seoDescription ||
+    sanityPost.seoDescription ||
     story.excerpt ||
     "Football story from Scorer254."
 
   const canonicalUrl = `${siteUrl}/articles/${slug}`
 
-  const uploadedImageUrl = sanityPost?.mainImage
+  const uploadedImageUrl = sanityPost.mainImage
     ? getSanityImageUrl(sanityPost.mainImage, 1200, 630)
     : undefined
 
   const imageUrl =
-    sanityPost?.imageSourceType === "external" && sanityPost.externalImageUrl
+    sanityPost.imageSourceType === "external" && sanityPost.externalImageUrl
       ? sanityPost.externalImageUrl
       : uploadedImageUrl || "/logo.png"
 
   const authorName =
-    sanityStory?.author ||
-    sanityPost?.contentDetails?.author?.name ||
+    story.author ||
+    sanityPost.contentDetails?.author?.name ||
     "Scorer254 Editorial Desk"
 
   return {
@@ -86,14 +67,14 @@ export async function generateMetadata({params}: ArticlePageProps): Promise<Meta
       url: canonicalUrl,
       siteName: "Scorer254",
       type: "article",
-      publishedTime: sanityPost?.publishedAt,
+      publishedTime: sanityPost.publishedAt,
       authors: [authorName],
       images: [
         {
           url: imageUrl,
           width: 1200,
           height: 630,
-          alt: sanityPost?.imageAltText || story.title,
+          alt: sanityPost.imageAltText || story.title,
         },
       ],
     },
@@ -105,7 +86,6 @@ export async function generateMetadata({params}: ArticlePageProps): Promise<Meta
     },
   }
 }
-
 
 function createArticleJsonLd({
   title,
@@ -152,65 +132,42 @@ function createArticleJsonLd({
 
 export default async function ArticlePage({params}: ArticlePageProps) {
   const {slug} = await params
-
   const sanityPost = await getPostBySlug(slug)
-  const sanityStory = sanityPost ? mapPostToStory(sanityPost) : null
-  const fallbackStory = fallbackStories.find((item) => slugify(item.title) === slug)
-  const story = sanityStory || fallbackStory
 
-  if (!story) {
+  if (!sanityPost) {
     notFound()
   }
 
-  const isSanityStory = Boolean(sanityStory)
-
-  const relatedStories = fallbackStories
-    .filter((item) => slugify(item.title) !== slug)
+  const story = mapPostToStory(sanityPost)
+  const relatedStories = (await getLatestStories())
+    .filter((item) => item.slug !== story.slug)
     .slice(0, 3)
 
-  const imageCredit = isSanityStory
-    ? (story as FrontendStory).imageCredit
-    : undefined
-
-  const imageLicence = isSanityStory
-    ? (story as FrontendStory).imageLicence
-    : undefined
-
-  const imageSourceUrl = isSanityStory
-    ? (story as FrontendStory).imageSourceUrl
-    : undefined
-
-  const storyMainImage = isSanityStory
-    ? (story as FrontendStory).mainImage
-    : undefined
-
-  const storyImageAltText = isSanityStory && (story as FrontendStory).imageAltText
-    ? (story as FrontendStory).imageAltText
-    : story.title
-
-  const authorName: string =
-    isSanityStory && (story as FrontendStory).author
-      ? String((story as FrontendStory).author)
-      : "Scorer254 Editorial Desk"
+  const imageCredit = story.imageCredit
+  const imageLicence = story.imageLicence
+  const imageSourceUrl = story.imageSourceUrl
+  const storyMainImage = story.mainImage
+  const storyImageAltText = story.imageAltText || story.title
+  const authorName: string = story.author || "Scorer254 Editorial Desk"
 
   const articleUrl = `${siteUrl}/articles/${slug}`
-  const uploadedImageUrl = sanityPost?.mainImage
+  const uploadedImageUrl = sanityPost.mainImage
     ? getSanityImageUrl(sanityPost.mainImage, 1200, 630)
     : undefined
   const articleImageUrl =
-    sanityPost?.imageSourceType === "external" && sanityPost.externalImageUrl
+    sanityPost.imageSourceType === "external" && sanityPost.externalImageUrl
       ? sanityPost.externalImageUrl
       : uploadedImageUrl || `${siteUrl}/logo.png`
   const articleDescription =
-    sanityPost?.seoDescription || story.excerpt || "Football story from Scorer254."
+    sanityPost.seoDescription || story.excerpt || "Football story from Scorer254."
 
   const articleJsonLd = createArticleJsonLd({
-    title: sanityPost?.seoTitle || story.title,
+    title: sanityPost.seoTitle || story.title,
     description: articleDescription,
     url: articleUrl,
     image: articleImageUrl,
     author: authorName,
-    publishedAt: sanityPost?.publishedAt,
+    publishedAt: sanityPost.publishedAt,
   })
 
   return (
@@ -260,9 +217,7 @@ export default async function ArticlePage({params}: ArticlePageProps) {
               <div className="hidden h-10 w-px bg-white/10 sm:block" />
               <div>
                 <p className="text-xs font-black uppercase tracking-wide text-zinc-500">Status</p>
-                <p className="font-bold text-white">
-                  {isSanityStory ? "CMS article" : "Mock article"}
-                </p>
+                <p className="font-bold text-white">Published article</p>
               </div>
             </div>
           </div>
@@ -282,26 +237,15 @@ export default async function ArticlePage({params}: ArticlePageProps) {
             <p className="mb-10 text-xs font-medium uppercase tracking-wide text-zinc-500">
               {imageCredit || imageLicence
                 ? [imageCredit, imageLicence].filter(Boolean).join(" / ")
-                : "Image credit and licence information will appear here when connected to Sanity."}
+                : "Image credit and licence information can be added in Sanity Studio."}
             </p>
 
-            {sanityPost?.body?.length ? (
+            {sanityPost.body?.length ? (
               <PortableArticleBody value={sanityPost.body} />
             ) : (
               <div className="max-w-3xl space-y-6 text-lg leading-9 text-zinc-300">
                 <p>
-                  {isSanityStory
-                    ? "This article is loading its headline, metadata and editorial fields from Sanity. Add body content in Sanity Studio to replace this placeholder."
-                    : "This is a mock article page for the Scorer254 design system. The real article body will later come from Sanity, using the article schema already added to the project."}
-                </p>
-                <p>
-                  The page is designed for football reporting, with space for context, interviews, match details, image credits and source links.
-                </p>
-                <p>
-                  It should work for grassroots features, match reports, player profiles and local football investigations.
-                </p>
-                <p>
-                  The goal is to keep the reading experience strong, fast and simple while preserving the football magazine feel of the homepage.
+                  This article has metadata but no body content yet. Add article body content in Sanity Studio.
                 </p>
               </div>
             )}
@@ -312,7 +256,7 @@ export default async function ArticlePage({params}: ArticlePageProps) {
                 <p className="mt-3 text-sm leading-6 text-zinc-400">
                   {imageSourceUrl
                     ? "Image/source verification URL is available from Sanity."
-                    : "Source links, match references or verification notes will appear here once the article is connected to Sanity."}
+                    : "Source links, match references or verification notes can be added in Sanity Studio."}
                 </p>
               </div>
 
@@ -321,7 +265,7 @@ export default async function ArticlePage({params}: ArticlePageProps) {
                 <p className="mt-3 text-sm leading-6 text-zinc-400">
                   {imageCredit || imageLicence
                     ? [imageCredit, imageLicence].filter(Boolean).join(" / ")
-                    : "Credit line, licence, source URL and usage notes will appear here for uploaded or external images."}
+                    : "Credit line, licence, source URL and usage notes can be added for uploaded or external images."}
                 </p>
               </div>
             </div>
@@ -339,40 +283,33 @@ export default async function ArticlePage({params}: ArticlePageProps) {
                 Grassroots clubs, academies, county tournaments, player pathways and local football communities.
               </p>
             </div>
-
-            <div className="rounded-[1.5rem] border border-white/10 bg-zinc-950 p-5">
-              <h2 className="mb-4 text-xl font-black uppercase text-white">Article tools</h2>
-              <div className="space-y-3 text-sm font-bold uppercase tracking-wide text-zinc-400">
-                <p>Share article</p>
-                <p>Save story</p>
-                <p>Follow section</p>
-              </div>
-            </div>
           </aside>
         </section>
       </article>
 
-      <section className="mx-auto max-w-7xl px-4 pb-12 lg:px-6">
-        <div className="mb-5 flex items-end justify-between gap-4">
-          <div>
-            <p className="mb-2 text-xs font-black uppercase tracking-[0.25em] text-emerald-400">
-              Keep reading
-            </p>
-            <h2 className="text-3xl font-black uppercase tracking-tight text-white">
-              Related Stories
-            </h2>
+      {relatedStories.length > 0 ? (
+        <section className="mx-auto max-w-7xl px-4 pb-12 lg:px-6">
+          <div className="mb-5 flex items-end justify-between gap-4">
+            <div>
+              <p className="mb-2 text-xs font-black uppercase tracking-[0.25em] text-emerald-400">
+                Keep reading
+              </p>
+              <h2 className="text-3xl font-black uppercase tracking-tight text-white">
+                Related Stories
+              </h2>
+            </div>
+            <Link href="/articles" className="hidden text-sm font-bold uppercase tracking-wide text-zinc-400 hover:text-emerald-400 sm:block">
+              View all
+            </Link>
           </div>
-          <Link href="/articles" className="hidden text-sm font-bold uppercase tracking-wide text-zinc-400 hover:text-emerald-400 sm:block">
-            View all
-          </Link>
-        </div>
 
-        <div className="grid gap-5 md:grid-cols-3">
-          {relatedStories.map((item) => (
-            <ArticleCard key={item.id} story={item} />
-          ))}
-        </div>
-      </section>
+          <div className="grid gap-5 md:grid-cols-3">
+            {relatedStories.map((item) => (
+              <ArticleCard key={item.id} story={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <Footer />
     </main>

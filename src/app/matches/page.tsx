@@ -1,7 +1,6 @@
 import type {Metadata} from "next"
 import {siteUrl} from "@/lib/site"
 import {SectionPage} from "@/components/section/SectionPage"
-import {latestStories, leadStories} from "@/data/mockStories"
 import {getStoriesByCategorySlug} from "@/sanity/lib/fetchers"
 
 export const metadata: Metadata = {
@@ -19,9 +18,7 @@ export const metadata: Metadata = {
 }
 
 export default async function MatchesPage() {
-  const sanityStories = await getStoriesByCategorySlug("match-reports")
-  const fallbackStories = [...latestStories, ...leadStories]
-  const stories = sanityStories.length > 0 ? sanityStories : fallbackStories
+  const stories = await getStoriesByCategorySlug("match-reports")
 
   return (
     <SectionPage

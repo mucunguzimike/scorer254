@@ -1,7 +1,6 @@
 import type {Metadata} from "next"
 import {siteUrl} from "@/lib/site"
 import {SectionPage} from "@/components/section/SectionPage"
-import {latestStories, leadStories} from "@/data/mockStories"
 import {getStoriesByCoverageType} from "@/sanity/lib/fetchers"
 
 export const metadata: Metadata = {
@@ -19,11 +18,7 @@ export const metadata: Metadata = {
 }
 
 export default async function KenyaPage() {
-  const sanityStories = await getStoriesByCoverageType("local-kenya")
-  const fallbackStories = [...leadStories, ...latestStories].filter((story) =>
-    ["Kenyan Football", "Grassroots", "Youth Football", "Women’s Football"].includes(story.category)
-  )
-  const stories = sanityStories.length > 0 ? sanityStories : fallbackStories
+  const stories = await getStoriesByCoverageType("local-kenya")
 
   return (
     <SectionPage

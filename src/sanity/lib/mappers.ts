@@ -34,7 +34,7 @@ export function mapPostToStory(post: SanityPost): FrontendStory {
   return {
     id: post._id,
     title: post.title,
-    slug: post.slug?.current,
+    slug: post.slug?.current || post._id,
     category: getCategory(post),
     date: formatDate(post.publishedAt),
     excerpt: post.excerpt || "",

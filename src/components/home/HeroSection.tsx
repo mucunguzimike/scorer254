@@ -1,7 +1,17 @@
-import {leadStories} from "@/data/mockStories"
+import {leadStories as fallbackLeadStories} from "@/data/mockStories"
+import type {Story} from "@/data/mockStories"
+import type {FrontendStory} from "@/sanity/lib/types"
 
-export function HeroSection() {
-  const [main, ...side] = leadStories
+type HeroSectionProps = {
+  stories?: Array<Story | FrontendStory>
+}
+
+export function HeroSection({stories = fallbackLeadStories}: HeroSectionProps) {
+  const [main, ...side] = stories
+
+  if (!main) {
+    return null
+  }
 
   return (
     <section className="mx-auto grid max-w-7xl gap-5 px-4 py-8 lg:grid-cols-[1.5fr_0.9fr] lg:px-6">
@@ -11,7 +21,7 @@ export function HeroSection() {
         <div className="relative flex h-full flex-col justify-end">
           <div className="mb-5 flex flex-wrap gap-2">
             <span className="rounded-full bg-emerald-400 px-3 py-1 text-xs font-black uppercase tracking-wide text-black">
-              {main.tag}
+              {"tag" in main && main.tag ? main.tag : "Featured"}
             </span>
             <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
               {main.category}
@@ -24,15 +34,15 @@ export function HeroSection() {
             {main.excerpt}
           </p>
           <div className="mt-6 flex items-center gap-4 text-sm font-semibold uppercase tracking-wide text-zinc-400">
-            <span>{main.location}</span>
-            <span className="h-1 w-1 rounded-full bg-emerald-400" />
+            {main.location ? <span>{main.location}</span> : null}
+            {main.location ? <span className="h-1 w-1 rounded-full bg-emerald-400" /> : null}
             <span>{main.date}</span>
           </div>
         </div>
       </article>
 
       <div className="grid gap-5">
-        {side.map((story) => (
+        {side.slice(0, 2).map((story) => (
           <article
             key={story.id}
             className="rounded-[1.5rem] border border-white/10 bg-zinc-950 p-5 transition hover:border-emerald-400/50"

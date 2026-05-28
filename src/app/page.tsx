@@ -4,9 +4,27 @@ import {HeroSection} from "@/components/home/HeroSection"
 import {LatestNews} from "@/components/home/LatestNews"
 import {Sidebar} from "@/components/home/Sidebar"
 import {StoryGrid} from "@/components/home/StoryGrid"
-import {grassrootsStories, playerWatchStories} from "@/data/mockStories"
+import {
+  grassrootsStories as fallbackGrassrootsStories,
+  latestStories as fallbackLatestStories,
+  leadStories as fallbackLeadStories,
+  playerWatchStories as fallbackPlayerWatchStories,
+} from "@/data/mockStories"
+import {getHomepageStories} from "@/sanity/lib/fetchers"
 
-export default function Home() {
+export default async function Home() {
+  const sanityStories = await getHomepageStories()
+  const hasSanityStories = sanityStories.length > 0
+
+  const heroStories = hasSanityStories ? sanityStories.slice(0, 3) : fallbackLeadStories
+  const latestStories = hasSanityStories ? sanityStories.slice(0, 4) : fallbackLatestStories
+  const grassrootsStories = hasSanityStories
+    ? sanityStories.filter((story) => story.category.toLowerCase().includes("grassroots")).slice(0, 3)
+    : fallbackGrassrootsStories
+  const playerWatchStories = hasSanityStories
+    ? sanityStories.filter((story) => story.category.toLowerCase().includes("player")).slice(0, 2)
+    : fallbackPlayerWatchStories
+
   return (
     <main className="min-h-screen bg-[#070707] text-white">
       <Header />
@@ -23,7 +41,7 @@ export default function Home() {
         </div>
       </div>
 
-      <HeroSection />
+      <HeroSection stories={heroStories} />
 
       <section className="mx-auto grid max-w-7xl gap-8 px-4 pb-12 lg:grid-cols-[1fr_340px] lg:px-6">
         <div>
@@ -40,7 +58,7 @@ export default function Home() {
         </div>
 
         <div className="space-y-5 py-8">
-          <LatestNews />
+          <LatestNews stories={latestStories} />
           <Sidebar />
         </div>
       </section>

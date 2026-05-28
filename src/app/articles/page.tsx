@@ -2,15 +2,19 @@ import {ArticleCard} from "@/components/article/ArticleCard"
 import {Footer} from "@/components/layout/Footer"
 import {Header} from "@/components/layout/Header"
 import {grassrootsStories, latestStories, leadStories, playerWatchStories} from "@/data/mockStories"
+import {getLatestStories} from "@/sanity/lib/fetchers"
 
-const allStories = [
+const fallbackStories = [
   ...leadStories,
   ...latestStories,
   ...grassrootsStories,
   ...playerWatchStories,
 ]
 
-export default function ArticlesPage() {
+export default async function ArticlesPage() {
+  const sanityStories = await getLatestStories()
+  const stories = sanityStories.length > 0 ? sanityStories : fallbackStories
+
   return (
     <main className="min-h-screen bg-[#070707] text-white">
       <Header />
@@ -30,7 +34,7 @@ export default function ArticlesPage() {
       </section>
 
       <section className="mx-auto grid max-w-7xl gap-5 px-4 py-10 md:grid-cols-2 lg:grid-cols-3 lg:px-6">
-        {allStories.map((story) => (
+        {stories.map((story) => (
           <ArticleCard key={story.id} story={story} />
         ))}
       </section>

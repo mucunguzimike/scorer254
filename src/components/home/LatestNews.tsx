@@ -1,6 +1,12 @@
-import {latestStories} from "@/data/mockStories"
+import {latestStories as fallbackLatestStories} from "@/data/mockStories"
+import type {Story} from "@/data/mockStories"
+import type {FrontendStory} from "@/sanity/lib/types"
 
-export function LatestNews() {
+type LatestNewsProps = {
+  stories?: Array<Story | FrontendStory>
+}
+
+export function LatestNews({stories = fallbackLatestStories}: LatestNewsProps) {
   return (
     <section className="rounded-[1.5rem] border border-white/10 bg-zinc-950 p-5">
       <div className="mb-5 flex items-center justify-between">
@@ -9,7 +15,7 @@ export function LatestNews() {
       </div>
 
       <div className="divide-y divide-white/10">
-        {latestStories.map((story) => (
+        {stories.map((story) => (
           <article key={story.id} className="py-4 first:pt-0 last:pb-0">
             <div className="mb-2 flex items-center gap-3 text-xs font-bold uppercase tracking-wide">
               <span className="text-emerald-400">{story.category}</span>

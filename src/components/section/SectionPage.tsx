@@ -2,12 +2,13 @@ import {ArticleCard} from "@/components/article/ArticleCard"
 import {Footer} from "@/components/layout/Footer"
 import {Header} from "@/components/layout/Header"
 import type {Story} from "@/data/mockStories"
+import type {FrontendStory} from "@/sanity/lib/types"
 
 type SectionPageProps = {
   kicker: string
   title: string
   description: string
-  stories: Story[]
+  stories: Array<Story | FrontendStory>
 }
 
 export function SectionPage({kicker, title, description, stories}: SectionPageProps) {

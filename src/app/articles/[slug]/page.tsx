@@ -183,7 +183,7 @@ export default async function ArticlePage({params}: ArticlePageProps) {
 
       <article>
         <section className="border-b border-white/10 bg-black">
-          <div className="mx-auto max-w-5xl px-4 py-12 lg:px-6">
+          <div className="mx-auto max-w-7xl px-4 py-12 lg:px-6">
             <Link
               href="/articles"
               className="mb-8 inline-flex text-xs font-black uppercase tracking-[0.25em] text-emerald-400 transition hover:text-emerald-300"
@@ -199,15 +199,15 @@ export default async function ArticlePage({params}: ArticlePageProps) {
               {story.location ? <span className="text-zinc-500">{story.location}</span> : null}
             </div>
 
-            <h1 className="text-4xl font-black uppercase leading-none tracking-tight text-white sm:text-5xl lg:text-7xl">
+            <h1 className="max-w-5xl text-4xl font-black uppercase leading-[0.95] tracking-tight text-white sm:text-5xl lg:text-6xl">
               {story.title}
             </h1>
 
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-zinc-300">
+            <p className="mt-6 max-w-4xl text-base leading-8 text-zinc-300 sm:text-lg">
               {story.excerpt}
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-4 border-t border-white/10 pt-6 text-sm text-zinc-400">
+            <div className="mt-8 flex max-w-5xl flex-wrap items-center gap-4 border-t border-white/10 pt-6 text-sm text-zinc-400">
               <div>
                 <p className="text-xs font-black uppercase tracking-wide text-zinc-500">By</p>
                 <p className="font-bold text-white">{authorName}</p>
@@ -233,7 +233,7 @@ export default async function ArticlePage({params}: ArticlePageProps) {
                 image={story.image}
                 sanityImage={storyMainImage}
                 alt={storyImageAltText}
-                className="h-[380px]"
+                className="h-[360px]"
               />
             </div>
 

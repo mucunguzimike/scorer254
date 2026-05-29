@@ -199,7 +199,7 @@ export default async function ArticlePage({params}: ArticlePageProps) {
               {story.location ? <span className="text-zinc-500">{story.location}</span> : null}
             </div>
 
-            <h1 className="max-w-5xl text-4xl font-heading font-black uppercase leading-[0.95] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            <h1 className="max-w-5xl text-4xl font-heading font-black uppercase leading-[0.95] tracking-[-0.03em] text-white sm:text-5xl lg:text-6xl">
               {story.title}
             </h1>
 
@@ -297,7 +297,7 @@ export default async function ArticlePage({params}: ArticlePageProps) {
               <p className="mb-2 text-xs font-heading font-black uppercase tracking-[0.25em] text-emerald-400">
                 Keep reading
               </p>
-              <h2 className="text-3xl font-heading font-black uppercase tracking-tight text-white">
+              <h2 className="text-3xl font-heading font-black uppercase tracking-[-0.03em] text-white">
                 Related Stories
               </h2>
             </div>

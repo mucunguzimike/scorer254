@@ -22,7 +22,7 @@ export function SectionPage({kicker, title, description, stories, settings}: Sec
           <p className="mb-3 text-xs font-heading font-black uppercase tracking-[0.25em] text-emerald-400">
             {kicker}
           </p>
-          <h1 className="text-5xl font-heading font-black uppercase tracking-tight text-white lg:text-7xl">
+          <h1 className="text-5xl font-heading font-black uppercase tracking-[-0.03em] text-white lg:text-6xl">
             {title}
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-7 text-zinc-400">

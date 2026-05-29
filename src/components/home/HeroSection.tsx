@@ -47,7 +47,7 @@ export function HeroSection({stories}: HeroSectionProps) {
               </span>
             </div>
 
-            <h1 className="max-w-5xl text-4xl font-heading font-black uppercase leading-none tracking-tight text-white sm:text-5xl lg:text-6xl">
+            <h1 className="max-w-5xl text-4xl font-heading font-black uppercase leading-none tracking-[-0.03em] text-white sm:text-5xl lg:text-6xl">
               {main.title}
             </h1>
 

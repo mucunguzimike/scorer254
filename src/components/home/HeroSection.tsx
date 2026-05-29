@@ -17,37 +17,46 @@ export function HeroSection({stories}: HeroSectionProps) {
   const mainImageAltText = main.imageAltText || main.title
 
   return (
-    <section className="mx-auto grid max-w-7xl gap-5 px-4 py-8 lg:grid-cols-[1.5fr_0.9fr] lg:px-6">
-      <Link href={mainHref} className="group relative block min-h-[460px] overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-950 shadow-2xl">
-        <StoryImage
-          image={main.image}
-          sanityImage={main.mainImage}
-          alt={mainImageAltText}
-          className="absolute inset-0 h-full"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/20" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(52,211,153,0.22),transparent_30%)]" />
-        <div className="relative flex h-full min-h-[460px] flex-col justify-end p-6">
-          <div className="mb-5 flex flex-wrap gap-2">
-            <span className="rounded-full bg-emerald-400 px-3 py-1 text-xs font-black uppercase tracking-wide text-black">
-              Featured
-            </span>
-            <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
-              {main.category}
-            </span>
+    <section className="mx-auto grid max-w-7xl gap-5 px-4 py-8 lg:grid-cols-[1.45fr_0.9fr] lg:px-6">
+      <Link
+        href={mainHref}
+        className="group block overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-950 shadow-2xl transition hover:border-emerald-400/50"
+      >
+        <article>
+          <div className="overflow-hidden border-b border-white/10">
+            <StoryImage
+              image={main.image}
+              sanityImage={main.mainImage}
+              alt={mainImageAltText}
+              className="aspect-[16/9] h-auto min-h-[320px] w-full"
+            />
           </div>
-          <h1 className="max-w-3xl text-4xl font-black uppercase leading-none tracking-tight text-white sm:text-5xl lg:text-7xl">
-            {main.title}
-          </h1>
-          <p className="mt-5 max-w-2xl text-base leading-7 text-zinc-300 sm:text-lg">
-            {main.excerpt}
-          </p>
-          <div className="mt-6 flex items-center gap-4 text-sm font-semibold uppercase tracking-wide text-zinc-400">
-            {main.location ? <span>{main.location}</span> : null}
-            {main.location ? <span className="h-1 w-1 rounded-full bg-emerald-400" /> : null}
-            <span>{main.date}</span>
+
+          <div className="space-y-5 p-6 sm:p-8 lg:p-10">
+            <div className="flex flex-wrap gap-3">
+              <span className="rounded-full bg-emerald-400 px-4 py-2 text-xs font-black uppercase tracking-wide text-black">
+                Featured
+              </span>
+              <span className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-black uppercase tracking-wide text-zinc-200">
+                {main.category}
+              </span>
+            </div>
+
+            <h1 className="max-w-5xl text-4xl font-black uppercase leading-none tracking-tight text-white sm:text-5xl lg:text-6xl">
+              {main.title}
+            </h1>
+
+            <p className="max-w-4xl text-base leading-8 text-zinc-300 sm:text-lg">
+              {main.excerpt}
+            </p>
+
+            <div className="flex flex-wrap items-center gap-4 text-sm font-black uppercase tracking-[0.2em] text-zinc-500">
+              {main.location ? <span>{main.location}</span> : null}
+              {main.location ? <span className="h-1 w-1 rounded-full bg-emerald-400" /> : null}
+              <span>{main.date}</span>
+            </div>
           </div>
-        </div>
+        </article>
       </Link>
 
       <div className="grid gap-5">
@@ -55,18 +64,35 @@ export function HeroSection({stories}: HeroSectionProps) {
           <Link
             key={story.id}
             href={`/articles/${story.slug}`}
-            className="rounded-[1.5rem] border border-white/10 bg-zinc-950 p-5 transition hover:border-emerald-400/50"
+            className="group overflow-hidden rounded-[1.5rem] border border-white/10 bg-zinc-950 transition hover:border-emerald-400/50"
           >
-            <div className="mb-4 flex items-center justify-between gap-4">
-              <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-emerald-300">
-                {story.category}
-              </span>
-              <span className="text-xs uppercase tracking-wide text-zinc-500">{story.date}</span>
-            </div>
-            <h2 className="text-2xl font-black uppercase leading-tight text-white">
-              {story.title}
-            </h2>
-            <p className="mt-3 text-sm leading-6 text-zinc-400">{story.excerpt}</p>
+            <article>
+              <StoryImage
+                image={story.image}
+                sanityImage={story.mainImage}
+                alt={story.imageAltText || story.title}
+                className="h-40"
+              />
+
+              <div className="p-5">
+                <div className="mb-4 flex items-center justify-between gap-4">
+                  <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-emerald-300">
+                    {story.category}
+                  </span>
+                  <span className="text-xs uppercase tracking-wide text-zinc-500">
+                    {story.date}
+                  </span>
+                </div>
+
+                <h2 className="text-2xl font-black uppercase leading-tight text-white transition group-hover:text-emerald-300">
+                  {story.title}
+                </h2>
+
+                <p className="mt-3 text-sm leading-6 text-zinc-400">
+                  {story.excerpt}
+                </p>
+              </div>
+            </article>
           </Link>
         ))}
       </div>

@@ -15,9 +15,14 @@ export function HeroSection({stories}: HeroSectionProps) {
 
   const mainHref = `/articles/${main.slug}`
   const mainImageAltText = main.imageAltText || main.title
+  const hasSideStories = side.length > 0
 
   return (
-    <section className="mx-auto grid max-w-7xl gap-5 px-4 py-8 lg:grid-cols-[1.45fr_0.9fr] lg:px-6">
+    <section
+      className={`mx-auto grid max-w-7xl gap-5 px-4 py-8 lg:px-6 ${
+        hasSideStories ? "lg:grid-cols-[1.45fr_0.9fr]" : "lg:grid-cols-1"
+      }`}
+    >
       <Link
         href={mainHref}
         className="group block overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-950 shadow-2xl transition hover:border-emerald-400/50"
@@ -59,13 +64,14 @@ export function HeroSection({stories}: HeroSectionProps) {
         </article>
       </Link>
 
-      <div className="grid gap-5">
-        {side.slice(0, 2).map((story) => (
-          <Link
-            key={story.id}
-            href={`/articles/${story.slug}`}
-            className="group overflow-hidden rounded-[1.5rem] border border-white/10 bg-zinc-950 transition hover:border-emerald-400/50"
-          >
+      {hasSideStories ? (
+        <div className="grid gap-5">
+          {side.slice(0, 2).map((story) => (
+              <Link
+              key={story.id}
+              href={`/articles/${story.slug}`}
+              className="group overflow-hidden rounded-[1.5rem] border border-white/10 bg-zinc-950 transition hover:border-emerald-400/50"
+            >
             <article>
               <StoryImage
                 image={story.image}
@@ -93,9 +99,10 @@ export function HeroSection({stories}: HeroSectionProps) {
                 </p>
               </div>
             </article>
-          </Link>
-        ))}
-      </div>
+            </Link>
+          ))}
+        </div>
+      ) : null}
     </section>
   )
 }

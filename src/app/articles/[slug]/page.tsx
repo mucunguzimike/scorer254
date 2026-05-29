@@ -148,7 +148,6 @@ export default async function ArticlePage({params}: ArticlePageProps) {
 
   const imageCredit = story.imageCredit
   const imageLicence = story.imageLicence
-  const imageSourceUrl = story.imageSourceUrl
   const storyMainImage = story.mainImage
   const storyImageAltText = story.imageAltText || story.title
   const authorName: string = story.author || "Scorer254 Editorial Desk"

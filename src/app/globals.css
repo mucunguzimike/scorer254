@@ -1,12 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  --font-body: Arial, Helvetica, sans-serif;
+  --font-body: var(--font-zilla), Georgia, serif;
+  --font-heading: var(--font-zilla), Georgia, serif;
+  --font-label: var(--font-mono), "Courier New", monospace;
 }
 
 html,
 body {
   font-family: var(--font-body);
+  font-weight: 400;
+}
+
+p,
+li,
+blockquote,
+figcaption {
+  font-family: var(--font-body);
+  font-weight: 400;
 }
 
 h1,
@@ -14,8 +25,10 @@ h2,
 h3,
 h4,
 h5,
-h6 {
-  font-family: var(--font-heading), Georgia, serif;
+h6,
+.font-heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
   letter-spacing: -0.03em;
 }
 
@@ -25,13 +38,14 @@ summary,
 .font-mono-sports,
 [class*="uppercase"],
 [class*="tracking-"] {
-  font-family: var(--font-mono), "Courier New", monospace;
-}
-
-.font-heading {
-  font-family: var(--font-heading), Georgia, serif;
+  font-family: var(--font-label);
 }
 
 .font-body {
   font-family: var(--font-body);
 }
+
+.font-label {
+  font-family: var(--font-label);
+}
+

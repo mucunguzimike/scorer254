@@ -5,8 +5,8 @@ import "./globals.css"
 
 const zillaSlab = Zilla_Slab({
   subsets: ["latin"],
-  weight: ["600", "700"],
-  variable: "--font-heading",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-zilla",
   display: "swap",
 })
 

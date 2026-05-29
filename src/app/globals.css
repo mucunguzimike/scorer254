@@ -15,7 +15,9 @@ body {
 p,
 li,
 blockquote,
-figcaption {
+figcaption,
+article,
+section {
   font-family: var(--font-body);
   font-weight: 400;
 }
@@ -36,6 +38,7 @@ nav,
 time,
 summary,
 .font-mono-sports,
+.font-label,
 [class*="uppercase"],
 [class*="tracking-"] {
   font-family: var(--font-label);
@@ -43,9 +46,5 @@ summary,
 
 .font-body {
   font-family: var(--font-body);
-}
-
-.font-label {
-  font-family: var(--font-label);
 }
 

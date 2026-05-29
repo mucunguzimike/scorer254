@@ -252,25 +252,6 @@ export default async function ArticlePage({params}: ArticlePageProps) {
               </div>
             )}
 
-            <div className="mt-10 grid gap-5 md:grid-cols-2">
-              <div className="rounded-[1.5rem] border border-white/10 bg-zinc-950 p-5">
-                <h2 className="text-lg font-heading font-black uppercase text-white">Source links</h2>
-                <p className="mt-3 text-sm leading-6 text-zinc-400">
-                  {imageSourceUrl
-                    ? "Image/source verification URL is available from Sanity."
-                    : "Source links, match references or verification notes can be added in Sanity Studio."}
-                </p>
-              </div>
-
-              <div className="rounded-[1.5rem] border border-white/10 bg-zinc-950 p-5">
-                <h2 className="text-lg font-heading font-black uppercase text-white">Image rights</h2>
-                <p className="mt-3 text-sm leading-6 text-zinc-400">
-                  {imageCredit || imageLicence
-                    ? [imageCredit, imageLicence].filter(Boolean).join(" / ")
-                    : "Credit line, licence, source URL and usage notes can be added for uploaded or external images."}
-                </p>
-              </div>
-            </div>
           </div>
 
           <aside className="space-y-5">

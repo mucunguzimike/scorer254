@@ -23,11 +23,11 @@ export function ArticleCard({story}: ArticleCardProps) {
           className="h-44"
         />
         <div className="p-5">
-          <div className="mb-3 flex items-center justify-between gap-3 text-xs font-bold uppercase tracking-wide">
+          <div className="mb-3 flex items-center justify-between gap-3 font-mono-sports text-xs font-bold uppercase tracking-wide">
             <span className="text-emerald-400">{story.category}</span>
             <span className="text-zinc-500">{story.date}</span>
           </div>
-          <h2 className="text-xl font-black uppercase leading-tight text-white">
+          <h2 className="text-xl font-heading font-black uppercase leading-tight text-white">
             {story.title}
           </h2>
           <p className="mt-3 text-sm leading-6 text-zinc-400">{story.excerpt}</p>

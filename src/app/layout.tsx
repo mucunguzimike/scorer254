@@ -1,6 +1,21 @@
 import type {Metadata} from "next"
+import {Roboto_Mono, Zilla_Slab} from "next/font/google"
 import {defaultDescription, siteName, siteUrl} from "@/lib/site"
 import "./globals.css"
+
+const zillaSlab = Zilla_Slab({
+  subsets: ["latin"],
+  weight: ["600", "700"],
+  variable: "--font-heading",
+  display: "swap",
+})
+
+const robotoMono = Roboto_Mono({
+  subsets: ["latin"],
+  weight: ["500", "700"],
+  variable: "--font-mono",
+  display: "swap",
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -49,7 +64,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={`${zillaSlab.variable} ${robotoMono.variable}`}>{children}</body>
     </html>
   )
 }

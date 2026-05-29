@@ -19,15 +19,15 @@ export function StoryGrid({title, kicker, stories}: StoryGridProps) {
       <div className="mb-5 flex items-end justify-between gap-4">
         <div>
           {kicker ? (
-            <p className="mb-2 text-xs font-black uppercase tracking-[0.25em] text-emerald-400">
+            <p className="mb-2 text-xs font-heading font-black uppercase tracking-[0.25em] text-emerald-400">
               {kicker}
             </p>
           ) : null}
-          <h2 className="text-3xl font-black uppercase tracking-tight text-white">
+          <h2 className="text-3xl font-heading font-black uppercase tracking-tight text-white">
             {title}
           </h2>
         </div>
-        <a href="/articles" className="hidden text-sm font-bold uppercase tracking-wide text-zinc-400 hover:text-emerald-400 sm:block">
+        <a href="/articles" className="hidden font-mono-sports text-sm font-bold uppercase tracking-wide text-zinc-400 hover:text-emerald-400 sm:block">
           View all
         </a>
       </div>

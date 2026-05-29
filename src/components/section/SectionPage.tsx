@@ -19,10 +19,10 @@ export function SectionPage({kicker, title, description, stories, settings}: Sec
 
       <section className="border-b border-white/10 bg-black">
         <div className="mx-auto max-w-7xl px-4 py-12 lg:px-6">
-          <p className="mb-3 text-xs font-black uppercase tracking-[0.25em] text-emerald-400">
+          <p className="mb-3 text-xs font-heading font-black uppercase tracking-[0.25em] text-emerald-400">
             {kicker}
           </p>
-          <h1 className="text-5xl font-black uppercase tracking-tight text-white lg:text-7xl">
+          <h1 className="text-5xl font-heading font-black uppercase tracking-tight text-white lg:text-7xl">
             {title}
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-7 text-zinc-400">

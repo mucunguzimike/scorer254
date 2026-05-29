@@ -39,15 +39,15 @@ export function HeroSection({stories}: HeroSectionProps) {
 
           <div className="space-y-5 p-6 sm:p-8 lg:p-10">
             <div className="flex flex-wrap gap-3">
-              <span className="rounded-full bg-emerald-400 px-4 py-2 text-xs font-black uppercase tracking-wide text-black">
+              <span className="rounded-full bg-emerald-400 px-4 py-2 text-xs font-heading font-black uppercase tracking-wide text-black">
                 Featured
               </span>
-              <span className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-black uppercase tracking-wide text-zinc-200">
+              <span className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-heading font-black uppercase tracking-wide text-zinc-200">
                 {main.category}
               </span>
             </div>
 
-            <h1 className="max-w-5xl text-4xl font-black uppercase leading-none tracking-tight text-white sm:text-5xl lg:text-6xl">
+            <h1 className="max-w-5xl text-4xl font-heading font-black uppercase leading-none tracking-tight text-white sm:text-5xl lg:text-6xl">
               {main.title}
             </h1>
 
@@ -55,7 +55,7 @@ export function HeroSection({stories}: HeroSectionProps) {
               {main.excerpt}
             </p>
 
-            <div className="flex flex-wrap items-center gap-4 text-sm font-black uppercase tracking-[0.2em] text-zinc-500">
+            <div className="flex flex-wrap items-center gap-4 text-sm font-heading font-black uppercase tracking-[0.2em] text-zinc-500">
               {main.location ? <span>{main.location}</span> : null}
               {main.location ? <span className="h-1 w-1 rounded-full bg-emerald-400" /> : null}
               <span>{main.date}</span>
@@ -82,7 +82,7 @@ export function HeroSection({stories}: HeroSectionProps) {
 
               <div className="p-5">
                 <div className="mb-4 flex items-center justify-between gap-4">
-                  <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-emerald-300">
+                  <span className="rounded-full bg-white/10 px-3 py-1 font-mono-sports text-xs font-bold uppercase tracking-wide text-emerald-300">
                     {story.category}
                   </span>
                   <span className="text-xs uppercase tracking-wide text-zinc-500">
@@ -90,7 +90,7 @@ export function HeroSection({stories}: HeroSectionProps) {
                   </span>
                 </div>
 
-                <h2 className="text-2xl font-black uppercase leading-tight text-white transition group-hover:text-emerald-300">
+                <h2 className="text-2xl font-heading font-black uppercase leading-tight text-white transition group-hover:text-emerald-300">
                   {story.title}
                 </h2>
 

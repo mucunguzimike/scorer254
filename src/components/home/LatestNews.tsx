@@ -13,15 +13,15 @@ export function LatestNews({stories}: LatestNewsProps) {
   return (
     <section className="rounded-[1.5rem] border border-white/10 bg-zinc-950 p-5">
       <div className="mb-5 flex items-center justify-between">
-        <h2 className="text-xl font-black uppercase text-white">Latest News</h2>
-        <span className="text-xs font-bold uppercase tracking-wide text-emerald-400">Live desk</span>
+        <h2 className="text-xl font-heading font-black uppercase text-white">Latest News</h2>
+        <span className="font-mono-sports text-xs font-bold uppercase tracking-wide text-emerald-400">Live desk</span>
       </div>
 
       <div className="divide-y divide-white/10">
         {stories.map((story) => (
           <Link key={story.id} href={`/articles/${story.slug}`} className="block py-4 first:pt-0 last:pb-0">
             <article>
-              <div className="mb-2 flex items-center gap-3 text-xs font-bold uppercase tracking-wide">
+              <div className="mb-2 flex items-center gap-3 font-mono-sports text-xs font-bold uppercase tracking-wide">
                 <span className="text-emerald-400">{story.category}</span>
                 <span className="text-zinc-600">/</span>
                 <span className="text-zinc-500">{story.date}</span>

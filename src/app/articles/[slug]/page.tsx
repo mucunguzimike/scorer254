@@ -186,12 +186,12 @@ export default async function ArticlePage({params}: ArticlePageProps) {
           <div className="mx-auto max-w-7xl px-4 py-12 lg:px-6">
             <Link
               href="/articles"
-              className="mb-8 inline-flex text-xs font-black uppercase tracking-[0.25em] text-emerald-400 transition hover:text-emerald-300"
+              className="mb-8 inline-flex text-xs font-heading font-black uppercase tracking-[0.25em] text-emerald-400 transition hover:text-emerald-300"
             >
               Back to articles
             </Link>
 
-            <div className="mb-5 flex flex-wrap items-center gap-3 text-xs font-black uppercase tracking-wide">
+            <div className="mb-5 flex flex-wrap items-center gap-3 text-xs font-heading font-black uppercase tracking-wide">
               <span className="rounded-full bg-emerald-400 px-3 py-1 text-black">
                 {story.category}
               </span>
@@ -199,7 +199,7 @@ export default async function ArticlePage({params}: ArticlePageProps) {
               {story.location ? <span className="text-zinc-500">{story.location}</span> : null}
             </div>
 
-            <h1 className="max-w-5xl text-4xl font-black uppercase leading-[0.95] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            <h1 className="max-w-5xl text-4xl font-heading font-black uppercase leading-[0.95] tracking-tight text-white sm:text-5xl lg:text-6xl">
               {story.title}
             </h1>
 
@@ -209,17 +209,17 @@ export default async function ArticlePage({params}: ArticlePageProps) {
 
             <div className="mt-8 flex max-w-5xl flex-wrap items-center gap-4 border-t border-white/10 pt-6 text-sm text-zinc-400">
               <div>
-                <p className="text-xs font-black uppercase tracking-wide text-zinc-500">By</p>
+                <p className="text-xs font-heading font-black uppercase tracking-wide text-zinc-500">By</p>
                 <p className="font-bold text-white">{authorName}</p>
               </div>
               <div className="hidden h-10 w-px bg-white/10 sm:block" />
               <div>
-                <p className="text-xs font-black uppercase tracking-wide text-zinc-500">Section</p>
+                <p className="text-xs font-heading font-black uppercase tracking-wide text-zinc-500">Section</p>
                 <p className="font-bold text-white">{story.category}</p>
               </div>
               <div className="hidden h-10 w-px bg-white/10 sm:block" />
               <div>
-                <p className="text-xs font-black uppercase tracking-wide text-zinc-500">Status</p>
+                <p className="text-xs font-heading font-black uppercase tracking-wide text-zinc-500">Status</p>
                 <p className="font-bold text-white">Published article</p>
               </div>
             </div>
@@ -255,7 +255,7 @@ export default async function ArticlePage({params}: ArticlePageProps) {
 
             <div className="mt-10 grid gap-5 md:grid-cols-2">
               <div className="rounded-[1.5rem] border border-white/10 bg-zinc-950 p-5">
-                <h2 className="text-lg font-black uppercase text-white">Source links</h2>
+                <h2 className="text-lg font-heading font-black uppercase text-white">Source links</h2>
                 <p className="mt-3 text-sm leading-6 text-zinc-400">
                   {imageSourceUrl
                     ? "Image/source verification URL is available from Sanity."
@@ -264,7 +264,7 @@ export default async function ArticlePage({params}: ArticlePageProps) {
               </div>
 
               <div className="rounded-[1.5rem] border border-white/10 bg-zinc-950 p-5">
-                <h2 className="text-lg font-black uppercase text-white">Image rights</h2>
+                <h2 className="text-lg font-heading font-black uppercase text-white">Image rights</h2>
                 <p className="mt-3 text-sm leading-6 text-zinc-400">
                   {imageCredit || imageLicence
                     ? [imageCredit, imageLicence].filter(Boolean).join(" / ")
@@ -276,10 +276,10 @@ export default async function ArticlePage({params}: ArticlePageProps) {
 
           <aside className="space-y-5">
             <div className="rounded-[1.5rem] border border-emerald-400/30 bg-emerald-400 p-5 text-black">
-              <p className="text-xs font-black uppercase tracking-[0.25em]">
+              <p className="text-xs font-heading font-black uppercase tracking-[0.25em]">
                 Scorer254 focus
               </p>
-              <h2 className="mt-3 text-2xl font-black uppercase leading-tight">
+              <h2 className="mt-3 text-2xl font-heading font-black uppercase leading-tight">
                 Football from the ground up
               </h2>
               <p className="mt-3 text-sm font-medium leading-6">
@@ -294,14 +294,14 @@ export default async function ArticlePage({params}: ArticlePageProps) {
         <section className="mx-auto max-w-7xl px-4 pb-12 lg:px-6">
           <div className="mb-5 flex items-end justify-between gap-4">
             <div>
-              <p className="mb-2 text-xs font-black uppercase tracking-[0.25em] text-emerald-400">
+              <p className="mb-2 text-xs font-heading font-black uppercase tracking-[0.25em] text-emerald-400">
                 Keep reading
               </p>
-              <h2 className="text-3xl font-black uppercase tracking-tight text-white">
+              <h2 className="text-3xl font-heading font-black uppercase tracking-tight text-white">
                 Related Stories
               </h2>
             </div>
-            <Link href="/articles" className="hidden text-sm font-bold uppercase tracking-wide text-zinc-400 hover:text-emerald-400 sm:block">
+            <Link href="/articles" className="hidden font-mono-sports text-sm font-bold uppercase tracking-wide text-zinc-400 hover:text-emerald-400 sm:block">
               View all
             </Link>
           </div>

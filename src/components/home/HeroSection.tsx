@@ -1,3 +1,6 @@
+"use client"
+
+import {useEffect, useMemo, useState} from "react"
 import Link from "next/link"
 import {StoryImage} from "@/components/media/StoryImage"
 import type {FrontendStory} from "@/sanity/lib/types"
@@ -6,13 +9,29 @@ type HeroSectionProps = {
   stories: FrontendStory[]
 }
 
-export function HeroSection({stories}: HeroSectionProps) {
-  const main = stories[0]
+const ROTATION_INTERVAL_MS = 5 * 60 * 1000
 
-  if (!main) {
+export function HeroSection({stories}: HeroSectionProps) {
+  const featuredStories = useMemo(() => stories.filter(Boolean), [stories])
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  useEffect(() => {
+    if (featuredStories.length <= 1) {
+      return
+    }
+
+    const timer = window.setInterval(() => {
+      setActiveIndex((current) => (current + 1) % featuredStories.length)
+    }, ROTATION_INTERVAL_MS)
+
+    return () => window.clearInterval(timer)
+  }, [featuredStories.length])
+
+  if (featuredStories.length === 0) {
     return null
   }
 
+  const main = featuredStories[activeIndex] || featuredStories[0]
   const mainHref = `/articles/${main.slug}`
   const mainImageAltText = main.imageAltText || main.title
 
@@ -40,6 +59,11 @@ export function HeroSection({stories}: HeroSectionProps) {
               <span className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-black uppercase tracking-wide text-zinc-200">
                 {main.category}
               </span>
+              {featuredStories.length > 1 ? (
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500">
+                  {activeIndex + 1} / {featuredStories.length}
+                </span>
+              ) : null}
             </div>
 
             <h1 className="max-w-5xl text-4xl font-black uppercase leading-[0.95] tracking-[-0.03em] text-white sm:text-5xl lg:text-6xl">

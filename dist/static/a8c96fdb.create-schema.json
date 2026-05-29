@@ -79,6 +79,13 @@
         "title": "Publish date"
       },
       {
+        "initialValue": false,
+        "description": "Turn this on to include the article in the rotating homepage hero.",
+        "name": "isFeatured",
+        "type": "boolean",
+        "title": "Feature on homepage hero"
+      },
+      {
         "fields": [
           {
             "options": {

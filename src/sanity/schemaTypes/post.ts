@@ -32,6 +32,14 @@ export const post = defineType({
       type: 'datetime',
       validation: (Rule) => Rule.required(),
     }),
+
+    defineField({
+      name: 'isFeatured',
+      title: 'Feature on homepage hero',
+      type: 'boolean',
+      description: 'Turn this on to include the article in the rotating homepage hero.',
+      initialValue: false,
+    }),
     defineField({
       name: 'contentDetails',
       title: 'Content details',

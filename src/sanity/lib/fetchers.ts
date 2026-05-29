@@ -2,6 +2,7 @@ import {client} from "./client"
 import {
   homepagePostsQuery,
   latestPostsQuery,
+  featuredPostsQuery,
   postBySlugQuery,
   postsByCategorySlugQuery,
   postsByCoverageTypeQuery,
@@ -9,6 +10,12 @@ import {
 } from "./queries"
 import {mapPostToStory, mapPostsToStories} from "./mappers"
 import type {FrontendStory, SanityPost} from "./types"
+
+
+export async function getFeaturedStories(): Promise<FrontendStory[]> {
+  const posts = await client.fetch<SanityPost[]>(featuredPostsQuery)
+  return mapPostsToStories(posts)
+}
 
 export async function getHomepageStories(): Promise<FrontendStory[]> {
   const posts = await client.fetch<SanityPost[]>(homepagePostsQuery)

@@ -46,6 +46,7 @@ export function mapPostToStory(post: SanityPost): FrontendStory {
     category: getCategory(post),
     categorySlug: getCategorySlug(post),
     coverageType: getCoverageType(post),
+    isFeatured: post.isFeatured,
     date: formatDate(post.publishedAt),
     excerpt: post.excerpt || "",
     image: getImage(post),

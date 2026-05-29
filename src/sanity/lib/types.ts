@@ -26,6 +26,7 @@ export type SanityPost = {
   }
   excerpt?: string
   publishedAt?: string
+  isFeatured?: boolean
   imageSourceType?: "external" | "upload" | "none"
   mainImage?: SanityImageAsset
   externalImageUrl?: string
@@ -44,6 +45,7 @@ export type SanityPost = {
   }[]
   contentDetails?: {
     coverageType?: string
+  isFeatured?: boolean
     category?: SanityReference
     tags?: SanityReference[]
     author?: SanityReference
@@ -79,6 +81,7 @@ export type FrontendStory = {
   category: string
   categorySlug?: string
   coverageType?: string
+  isFeatured?: boolean
   date: string
   excerpt: string
   image?: string

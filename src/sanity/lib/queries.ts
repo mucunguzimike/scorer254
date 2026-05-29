@@ -118,3 +118,34 @@ export const siteSettingsQuery = defineQuery(`
     footerText
   }
 `)
+
+
+export const featuredPostsQuery = `
+  *[_type == "post" && isFeatured == true && defined(slug.current)] | order(publishedAt desc)[0...8] {
+    _id,
+    title,
+    slug,
+    excerpt,
+    publishedAt,
+    isFeatured,
+    imageSourceType,
+    externalImageUrl,
+    mainImage,
+    imageSourceUrl,
+    imageCredit,
+    imageLicence,
+    imageAltText,
+    imageCaption,
+    seoTitle,
+    seoDescription,
+    contentDetails {
+      coverageType,
+      author->{name, slug},
+      category->{title, slug},
+      region->{name, slug},
+      competition->{name, slug},
+      teams[]->{name, slug},
+      players[]->{name, slug}
+    }
+  }
+`

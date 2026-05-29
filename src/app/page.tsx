@@ -5,12 +5,16 @@ import {HeroSection} from "@/components/home/HeroSection"
 import {LatestNews} from "@/components/home/LatestNews"
 import {Sidebar} from "@/components/home/Sidebar"
 import {StoryGrid} from "@/components/home/StoryGrid"
-import {getHomepageStories, getSiteSettings} from "@/sanity/lib/fetchers"
+import {getFeaturedStories, getHomepageStories, getSiteSettings} from "@/sanity/lib/fetchers"
 
 export default async function Home() {
-  const [stories, siteSettings] = await Promise.all([getHomepageStories(), getSiteSettings()])
+  const [stories, featuredStories, siteSettings] = await Promise.all([
+    getHomepageStories(),
+    getFeaturedStories(),
+    getSiteSettings(),
+  ])
 
-  const heroStories = stories.slice(0, 3)
+  const heroStories = featuredStories
   const latestStories = stories.slice(0, 4)
   const grassrootsStories = stories
     .filter(

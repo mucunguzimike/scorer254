@@ -2,17 +2,6 @@
   {
     "fields": [
       {
-        "validation": [
-          {
-            "level": "error",
-            "rules": [
-              {
-                "flag": "presence",
-                "constraint": "required"
-              }
-            ]
-          }
-        ],
         "name": "title",
         "type": "string",
         "title": "Article title"
@@ -28,10 +17,6 @@
             "rules": [
               {
                 "flag": "custom"
-              },
-              {
-                "flag": "presence",
-                "constraint": "required"
               }
             ]
           }
@@ -47,10 +32,6 @@
             "level": "error",
             "rules": [
               {
-                "flag": "presence",
-                "constraint": "required"
-              },
-              {
                 "flag": "max",
                 "constraint": 220
               }
@@ -63,17 +44,6 @@
         "title": "Short summary"
       },
       {
-        "validation": [
-          {
-            "level": "error",
-            "rules": [
-              {
-                "flag": "presence",
-                "constraint": "required"
-              }
-            ]
-          }
-        ],
         "name": "publishedAt",
         "type": "datetime",
         "title": "Publish date"
@@ -112,44 +82,12 @@
                 }
               ]
             },
-            "validation": [
-              {
-                "level": "error",
-                "rules": [
-                  {
-                    "flag": "valid",
-                    "constraint": [
-                      "grassroots",
-                      "local-kenya",
-                      "east-africa",
-                      "african-football",
-                      "international"
-                    ]
-                  },
-                  {
-                    "flag": "presence",
-                    "constraint": "required"
-                  }
-                ]
-              }
-            ],
             "description": "Controls where the article appears: Grassroots, Kenya, Regional, World, etc.",
             "name": "coverageType",
             "type": "string",
             "title": "Coverage type"
           },
           {
-            "validation": [
-              {
-                "level": "error",
-                "rules": [
-                  {
-                    "flag": "presence",
-                    "constraint": "required"
-                  }
-                ]
-              }
-            ],
             "to": [
               {
                 "type": "category"
@@ -174,17 +112,6 @@
             "type": "array"
           },
           {
-            "validation": [
-              {
-                "level": "error",
-                "rules": [
-                  {
-                    "flag": "presence",
-                    "constraint": "required"
-                  }
-                ]
-              }
-            ],
             "to": [
               {
                 "type": "author"
@@ -290,25 +217,6 @@
             }
           ]
         },
-        "validation": [
-          {
-            "level": "error",
-            "rules": [
-              {
-                "flag": "valid",
-                "constraint": [
-                  "external",
-                  "upload",
-                  "none"
-                ]
-              },
-              {
-                "flag": "presence",
-                "constraint": "required"
-              }
-            ]
-          }
-        ],
         "name": "imageSourceType",
         "type": "string",
         "title": "Image source type"
@@ -341,9 +249,6 @@
                     "allowCredentials": false
                   }
                 }
-              },
-              {
-                "flag": "custom"
               }
             ]
           }
@@ -372,9 +277,6 @@
                     "allowCredentials": false
                   }
                 }
-              },
-              {
-                "flag": "custom"
               }
             ]
           }
@@ -385,32 +287,12 @@
         "title": "Image source page URL"
       },
       {
-        "validation": [
-          {
-            "level": "error",
-            "rules": [
-              {
-                "flag": "custom"
-              }
-            ]
-          }
-        ],
         "description": "Example: Photo by [name] / Wikimedia Commons",
         "name": "imageCredit",
         "type": "string",
         "title": "Image credit"
       },
       {
-        "validation": [
-          {
-            "level": "error",
-            "rules": [
-              {
-                "flag": "custom"
-              }
-            ]
-          }
-        ],
         "description": "Example: CC BY-SA 4.0, Used with permission, Club media handout",
         "name": "imageLicence",
         "type": "string",
@@ -443,16 +325,6 @@
         "title": "Image licence URL"
       },
       {
-        "validation": [
-          {
-            "level": "error",
-            "rules": [
-              {
-                "flag": "custom"
-              }
-            ]
-          }
-        ],
         "description": "Describe the image for accessibility and SEO.",
         "name": "imageAltText",
         "type": "string",
@@ -465,21 +337,6 @@
         "title": "Image caption"
       },
       {
-        "validation": [
-          {
-            "level": "error",
-            "rules": [
-              {
-                "flag": "presence",
-                "constraint": "required"
-              },
-              {
-                "flag": "min",
-                "constraint": 1
-              }
-            ]
-          }
-        ],
         "of": [
           {
             "lists": [
@@ -514,10 +371,6 @@
                                   "allowCredentials": false
                                 }
                               }
-                            },
-                            {
-                              "flag": "presence",
-                              "constraint": "required"
                             }
                           ]
                         }
@@ -557,10 +410,6 @@
                                   "allowCredentials": false
                                 }
                               }
-                            },
-                            {
-                              "flag": "presence",
-                              "constraint": "required"
                             }
                           ]
                         }
@@ -600,10 +449,6 @@
                                   "allowCredentials": false
                                 }
                               }
-                            },
-                            {
-                              "flag": "presence",
-                              "constraint": "required"
                             }
                           ]
                         }
@@ -714,6 +559,10 @@
           {
             "type": "youtube",
             "title": "YouTube video"
+          },
+          {
+            "type": "externalImage",
+            "title": "External image URL"
           }
         ],
         "name": "body",
@@ -785,10 +634,6 @@
             "level": "error",
             "rules": [
               {
-                "flag": "presence",
-                "constraint": "required"
-              },
-              {
                 "flag": "max",
                 "constraint": 160
               }
@@ -852,6 +697,78 @@
         "name": "image",
         "type": "image",
         "title": "Profile image"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "description": "Use this instead of uploading when the image is hosted elsewhere and you have permission to use it.",
+        "name": "externalImageUrl",
+        "type": "url",
+        "title": "External image URL"
+      },
+      {
+        "description": "Describe the image for accessibility and SEO.",
+        "name": "imageAltText",
+        "type": "string",
+        "title": "Image alt text"
+      },
+      {
+        "description": "Example: Photo by Name / Wikimedia Commons",
+        "name": "imageCredit",
+        "type": "string",
+        "title": "Image credit"
+      },
+      {
+        "description": "Example: CC BY-SA 4.0, used with permission, club handout",
+        "name": "imageLicence",
+        "type": "string",
+        "title": "Image licence / permission"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "description": "The page where the image or licence can be verified.",
+        "name": "imageSourceUrl",
+        "type": "url",
+        "title": "Image source page URL"
       },
       {
         "rows": 4,
@@ -1010,6 +927,78 @@
         "title": "Team logo"
       },
       {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "description": "Use this instead of uploading when the image is hosted elsewhere and you have permission to use it.",
+        "name": "externalImageUrl",
+        "type": "url",
+        "title": "External image URL"
+      },
+      {
+        "description": "Describe the image for accessibility and SEO.",
+        "name": "imageAltText",
+        "type": "string",
+        "title": "Image alt text"
+      },
+      {
+        "description": "Example: Photo by Name / Wikimedia Commons",
+        "name": "imageCredit",
+        "type": "string",
+        "title": "Image credit"
+      },
+      {
+        "description": "Example: CC BY-SA 4.0, used with permission, club handout",
+        "name": "imageLicence",
+        "type": "string",
+        "title": "Image licence / permission"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "description": "The page where the image or licence can be verified.",
+        "name": "imageSourceUrl",
+        "type": "url",
+        "title": "Image source page URL"
+      },
+      {
         "options": {
           "list": [
             {
@@ -1111,6 +1100,78 @@
         "name": "photo",
         "type": "image",
         "title": "Player photo"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "description": "Use this instead of uploading when the image is hosted elsewhere and you have permission to use it.",
+        "name": "externalImageUrl",
+        "type": "url",
+        "title": "External image URL"
+      },
+      {
+        "description": "Describe the image for accessibility and SEO.",
+        "name": "imageAltText",
+        "type": "string",
+        "title": "Image alt text"
+      },
+      {
+        "description": "Example: Photo by Name / Wikimedia Commons",
+        "name": "imageCredit",
+        "type": "string",
+        "title": "Image credit"
+      },
+      {
+        "description": "Example: CC BY-SA 4.0, used with permission, club handout",
+        "name": "imageLicence",
+        "type": "string",
+        "title": "Image licence / permission"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "description": "The page where the image or licence can be verified.",
+        "name": "imageSourceUrl",
+        "type": "url",
+        "title": "Image source page URL"
       },
       {
         "to": [
@@ -1369,6 +1430,78 @@
         "type": "image"
       },
       {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "description": "Use this instead of uploading when the image is hosted elsewhere and you have permission to use it.",
+        "name": "externalImageUrl",
+        "type": "url",
+        "title": "External image URL"
+      },
+      {
+        "description": "Describe the image for accessibility and SEO.",
+        "name": "imageAltText",
+        "type": "string",
+        "title": "Image alt text"
+      },
+      {
+        "description": "Example: Photo by Name / Wikimedia Commons",
+        "name": "imageCredit",
+        "type": "string",
+        "title": "Image credit"
+      },
+      {
+        "description": "Example: CC BY-SA 4.0, used with permission, club handout",
+        "name": "imageLicence",
+        "type": "string",
+        "title": "Image licence / permission"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "description": "The page where the image or licence can be verified.",
+        "name": "imageSourceUrl",
+        "type": "url",
+        "title": "Image source page URL"
+      },
+      {
         "name": "defaultSeoTitle",
         "type": "string",
         "title": "Default SEO title"
@@ -1559,5 +1692,84 @@
     "name": "youtube",
     "type": "object",
     "title": "YouTube video"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "description": "Paste the direct image URL. Use images you have permission to use.",
+        "name": "url",
+        "type": "url",
+        "title": "Image URL"
+      },
+      {
+        "name": "alt",
+        "type": "string",
+        "title": "Alt text"
+      },
+      {
+        "name": "caption",
+        "type": "string"
+      },
+      {
+        "name": "credit",
+        "type": "string",
+        "title": "Image credit"
+      },
+      {
+        "name": "licence",
+        "type": "string",
+        "title": "Licence / permission"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "name": "sourceUrl",
+        "type": "url",
+        "title": "Source page URL"
+      }
+    ],
+    "name": "externalImage",
+    "type": "object",
+    "title": "External image URL"
   }
 ]

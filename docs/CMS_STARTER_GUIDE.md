@@ -138,3 +138,27 @@ Recommended use:
 - Add a clear video title
 - Add a short caption explaining why the video is included
 - Use videos as supporting evidence, interviews, highlights or reference material
+
+
+## External image URL blocks inside articles
+
+Editors can place external images inside the article body without uploading them to Sanity.
+
+Use this for:
+
+- Wikimedia Commons images
+- Club media images
+- Licensed editorial images
+- Press handout images
+- Images hosted elsewhere with permission
+
+Recommended fields:
+
+- Image URL
+- Alt text
+- Caption
+- Credit
+- Licence / permission
+- Source page URL
+
+Do not use unlicensed images. Always include credit and licence information where possible.

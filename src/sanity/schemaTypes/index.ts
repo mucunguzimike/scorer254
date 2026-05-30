@@ -1,6 +1,7 @@
 import {author} from './author'
 import {category} from './category'
 import {competition} from './competition'
+import {externalImage} from './externalImage'
 import {player} from './player'
 import {post} from './post'
 import {region} from './region'
@@ -20,4 +21,5 @@ export const schemaTypes = [
   region,
   siteSettings,
   youtube,
+  externalImage,
 ]

@@ -2,6 +2,7 @@ import {PortableText} from "@portabletext/react"
 import type {PortableTextComponents} from "@portabletext/react"
 import {StoryImage} from "@/components/media/StoryImage"
 import {YouTubeEmbed} from "@/components/media/YouTubeEmbed"
+import {ExternalImageBlock} from "@/components/media/ExternalImageBlock"
 import type {SanityImageAsset} from "@/sanity/lib/types"
 
 const components: PortableTextComponents = {
@@ -137,6 +138,31 @@ const components: PortableTextComponents = {
           url={video.url}
           title={video.title || "YouTube video"}
           caption={video.caption}
+        />
+      )
+    },
+    externalImage: ({value}) => {
+      const image = value as {
+        url?: string
+        alt?: string
+        caption?: string
+        credit?: string
+        licence?: string
+        sourceUrl?: string
+      }
+
+      if (!image?.url) {
+        return null
+      }
+
+      return (
+        <ExternalImageBlock
+          url={image.url}
+          alt={image.alt}
+          caption={image.caption}
+          credit={image.credit}
+          licence={image.licence}
+          sourceUrl={image.sourceUrl}
         />
       )
     },

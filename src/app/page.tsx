@@ -36,8 +36,8 @@ export default async function Home() {
         <>
           <HeroSection stories={heroStories} />
 
-          <section className="mx-auto grid max-w-7xl gap-8 px-4 pb-12 lg:grid-cols-[minmax(0,1fr)_340px] lg:px-6">
-            <div className="py-8">
+          <section className="mx-auto grid max-w-7xl items-start gap-8 px-4 pb-12 lg:grid-cols-[minmax(0,1fr)_340px] lg:px-6">
+            <div className="flex h-full flex-col py-8">
               <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
                 <div>
                   <p className="mb-2 text-xs font-black uppercase tracking-[0.25em] text-emerald-400">
@@ -48,20 +48,26 @@ export default async function Home() {
                   </h2>
                 </div>
 
-                <Link
-                  href="/kenya"
-                  className="inline-flex rounded-full border border-white/15 px-5 py-3 text-sm font-bold uppercase tracking-wide text-zinc-300 transition hover:border-emerald-400 hover:text-emerald-400"
-                >
-                  Read more
-                </Link>
+
               </div>
 
               {articleGridStories.length > 0 ? (
-                <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-                  {articleGridStories.map((story) => (
-                    <ArticleCard key={story.id} story={story} />
-                  ))}
-                </div>
+                <>
+                  <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                    {articleGridStories.map((story) => (
+                      <ArticleCard key={story.id} story={story} />
+                    ))}
+                  </div>
+
+                  <div className="mt-auto pt-6">
+                    <Link
+                      href="/kenya"
+                      className="inline-flex rounded-full border border-white/15 px-5 py-3 text-sm font-bold uppercase tracking-wide text-zinc-300 transition hover:border-emerald-400 hover:text-emerald-400"
+                    >
+                      Read more
+                    </Link>
+                  </div>
+                </>
               ) : (
                 <EmptyState
                   title="No articles published yet"
@@ -70,7 +76,7 @@ export default async function Home() {
               )}
             </div>
 
-            <div className="space-y-5 py-8">
+            <div className="flex h-full flex-col gap-5 py-8">
               <LatestNews stories={latestStories} />
               <Sidebar />
             </div>

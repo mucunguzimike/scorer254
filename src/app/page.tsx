@@ -41,10 +41,10 @@ export default async function Home() {
               <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
                 <div>
                   <p className="mb-2 text-xs font-black uppercase tracking-[0.25em] text-emerald-400">
-                    Kenya football
+                    Editor’s Picks
                   </p>
                   <h2 className="text-3xl font-black uppercase tracking-tight text-white">
-                    Latest Articles
+                    Editor’s Picks
                   </h2>
                 </div>
 

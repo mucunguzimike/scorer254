@@ -1,10 +1,11 @@
+import Link from "next/link"
+import {ArticleCard} from "@/components/article/ArticleCard"
 import {EmptyState} from "@/components/common/EmptyState"
 import {Footer} from "@/components/layout/Footer"
 import {Header} from "@/components/layout/Header"
 import {HeroSection} from "@/components/home/HeroSection"
 import {LatestNews} from "@/components/home/LatestNews"
 import {Sidebar} from "@/components/home/Sidebar"
-import {StoryGrid} from "@/components/home/StoryGrid"
 import {getHomepageStories, getSiteSettings} from "@/sanity/lib/fetchers"
 
 export default async function Home() {
@@ -13,24 +14,11 @@ export default async function Home() {
     getSiteSettings(),
   ])
 
-  const safeStories = stories.filter(
-    (story) => story?.title && story?.slug && story?.excerpt
-  )
+  const safeStories = stories.filter((story) => story?.title && story?.slug)
 
   const heroStories = safeStories.slice(0, 3)
   const latestStories = safeStories.slice(0, 4)
-
-  const grassrootsStories = safeStories
-    .filter(
-      (story) =>
-        story.coverageType === "grassroots" ||
-        story.categorySlug === "grassroots-football"
-    )
-    .slice(0, 3)
-
-  const playerWatchStories = safeStories
-    .filter((story) => story.categorySlug === "player-profiles")
-    .slice(0, 2)
+  const articleGridStories = safeStories.slice(0, 9)
 
   return (
     <main className="min-h-screen bg-[#070707] text-white">
@@ -40,11 +28,7 @@ export default async function Home() {
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-3 px-4 py-3 text-xs font-bold uppercase tracking-wide text-zinc-400 lg:px-6">
           <span className="text-emerald-400">Scorer254</span>
           <span>/</span>
-          <span>Grassroots football</span>
-          <span>/</span>
-          <span>Kenyan soccer</span>
-          <span>/</span>
-          <span>Regional and international game</span>
+          <span>Football stories from Kenya and beyond</span>
         </div>
       </div>
 
@@ -52,18 +36,38 @@ export default async function Home() {
         <>
           <HeroSection stories={heroStories} />
 
-          <section className="mx-auto grid max-w-7xl gap-8 px-4 pb-12 lg:grid-cols-[1fr_340px] lg:px-6">
-            <div>
-              <StoryGrid
-                title="Grassroots Football"
-                kicker="From the ground"
-                stories={grassrootsStories}
-              />
-              <StoryGrid
-                title="Player Watch"
-                kicker="Profiles and prospects"
-                stories={playerWatchStories}
-              />
+          <section className="mx-auto grid max-w-7xl gap-8 px-4 pb-12 lg:grid-cols-[minmax(0,1fr)_340px] lg:px-6">
+            <div className="py-8">
+              <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
+                <div>
+                  <p className="mb-2 text-xs font-black uppercase tracking-[0.25em] text-emerald-400">
+                    Kenya football
+                  </p>
+                  <h2 className="text-3xl font-black uppercase tracking-tight text-white">
+                    Latest Articles
+                  </h2>
+                </div>
+
+                <Link
+                  href="/kenya"
+                  className="inline-flex rounded-full border border-white/15 px-5 py-3 text-sm font-bold uppercase tracking-wide text-zinc-300 transition hover:border-emerald-400 hover:text-emerald-400"
+                >
+                  Read more
+                </Link>
+              </div>
+
+              {articleGridStories.length > 0 ? (
+                <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                  {articleGridStories.map((story) => (
+                    <ArticleCard key={story.id} story={story} />
+                  ))}
+                </div>
+              ) : (
+                <EmptyState
+                  title="No articles published yet"
+                  description="Published articles will appear here once they are added in Sanity Studio."
+                />
+              )}
             </div>
 
             <div className="space-y-5 py-8">

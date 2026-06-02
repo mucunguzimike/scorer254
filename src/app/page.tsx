@@ -5,18 +5,17 @@ import {HeroSection} from "@/components/home/HeroSection"
 import {LatestNews} from "@/components/home/LatestNews"
 import {Sidebar} from "@/components/home/Sidebar"
 import {StoryGrid} from "@/components/home/StoryGrid"
-import {getFeaturedStories, getHomepageStories, getSiteSettings} from "@/sanity/lib/fetchers"
+import {getHomepageStories, getSiteSettings} from "@/sanity/lib/fetchers"
 
 export default async function Home() {
-  const [stories, featuredStories, siteSettings] = await Promise.all([
+  const [stories, siteSettings] = await Promise.all([
     getHomepageStories(),
-    getFeaturedStories(),
     getSiteSettings(),
   ])
 
   const heroStories = featuredStories
   const latestStories = stories.slice(0, 4)
-  const grassrootsStories = stories
+  const grassrootsStories = safeStories
     .filter(
       (story) =>
         story.coverageType === "grassroots" ||
@@ -24,7 +23,7 @@ export default async function Home() {
     )
     .slice(0, 3)
 
-  const playerWatchStories = stories
+  const playerWatchStories = safeStories
     .filter((story) => story.categorySlug === "player-profiles")
     .slice(0, 2)
 
@@ -44,7 +43,7 @@ export default async function Home() {
         </div>
       </div>
 
-      {stories.length > 0 ? (
+      {safeStories.length > 0 ? (
         <>
           <HeroSection stories={heroStories} />
 

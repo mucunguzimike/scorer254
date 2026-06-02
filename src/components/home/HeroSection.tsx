@@ -12,26 +12,32 @@ type HeroSectionProps = {
 const ROTATION_INTERVAL_MS = 5 * 60 * 1000
 
 export function HeroSection({stories}: HeroSectionProps) {
-  const featuredStories = useMemo(() => stories.filter(Boolean), [stories])
+  const heroStories = useMemo(() => stories.filter(Boolean).slice(0, 3), [stories])
   const [activeIndex, setActiveIndex] = useState(0)
 
   useEffect(() => {
-    if (featuredStories.length <= 1) {
+    if (heroStories.length <= 1) {
       return
     }
 
     const timer = window.setInterval(() => {
-      setActiveIndex((current) => (current + 1) % featuredStories.length)
+      setActiveIndex((current) => (current + 1) % heroStories.length)
     }, ROTATION_INTERVAL_MS)
 
     return () => window.clearInterval(timer)
-  }, [featuredStories.length])
+  }, [heroStories.length])
 
-  if (featuredStories.length === 0) {
+  useEffect(() => {
+    if (activeIndex > heroStories.length - 1) {
+      setActiveIndex(0)
+    }
+  }, [activeIndex, heroStories.length])
+
+  if (heroStories.length === 0) {
     return null
   }
 
-  const main = featuredStories[activeIndex] || featuredStories[0]
+  const main = heroStories[activeIndex] || heroStories[0]
   const mainHref = `/articles/${main.slug}`
   const mainImageAltText = main.imageAltText || main.title
 
@@ -52,11 +58,20 @@ export function HeroSection({stories}: HeroSectionProps) {
             <span className="rounded-full bg-emerald-400 px-4 py-2 text-xs font-black uppercase tracking-wide text-black">
               Featured
             </span>
-            {featuredStories.length > 1 ? (
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500">
-                {activeIndex + 1} / {featuredStories.length}
-              </span>
-            ) : null}
+
+            {heroStories.map((story, index) => (
+              <button
+                key={story.id}
+                type="button"
+                onClick={() => setActiveIndex(index)}
+                aria-label={`Show featured article ${index + 1}`}
+                className={`h-3 rounded-full transition ${
+                  index === activeIndex
+                    ? "w-10 bg-emerald-400"
+                    : "w-3 bg-white/25 hover:bg-white/50"
+                }`}
+              />
+            ))}
           </div>
 
           <h1 className="max-w-5xl text-4xl font-black uppercase leading-[0.95] tracking-[-0.03em] text-white sm:text-5xl lg:text-6xl">

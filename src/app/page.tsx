@@ -6,17 +6,33 @@ import {Header} from "@/components/layout/Header"
 import {HeroSection} from "@/components/home/HeroSection"
 import {LatestNews} from "@/components/home/LatestNews"
 import {Sidebar} from "@/components/home/Sidebar"
-import {getHomepageStories, getSiteSettings} from "@/sanity/lib/fetchers"
+import {getFeaturedStories, getHomepageStories, getSiteSettings} from "@/sanity/lib/fetchers"
 
 export default async function Home() {
-  const [stories, siteSettings] = await Promise.all([
+  const [stories, featuredStories, siteSettings] = await Promise.all([
     getHomepageStories(),
+    getFeaturedStories(),
     getSiteSettings(),
   ])
 
   const safeStories = stories.filter((story) => story?.title && story?.slug)
+  const safeFeaturedStories = featuredStories.filter((story) => story?.title && story?.slug)
 
-  const heroStories = safeStories.slice(0, 3)
+  const heroStoryMap = new Map()
+
+  for (const story of safeFeaturedStories) {
+    heroStoryMap.set(story.slug, story)
+  }
+
+  for (const story of safeStories) {
+    if (heroStoryMap.size >= 3) {
+      break
+    }
+
+    heroStoryMap.set(story.slug, story)
+  }
+
+  const heroStories = Array.from(heroStoryMap.values()).slice(0, 3)
   const latestStories = safeStories.slice(0, 4)
   const articleGridStories = safeStories.slice(0, 9)
 

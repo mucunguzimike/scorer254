@@ -13,8 +13,13 @@ export default async function Home() {
     getSiteSettings(),
   ])
 
-  const heroStories = featuredStories
-  const latestStories = stories.slice(0, 4)
+  const safeStories = stories.filter(
+    (story) => story?.title && story?.slug && story?.excerpt
+  )
+
+  const heroStories = safeStories.slice(0, 3)
+  const latestStories = safeStories.slice(0, 4)
+
   const grassrootsStories = safeStories
     .filter(
       (story) =>

@@ -7,6 +7,7 @@ import {
   postsByCategorySlugQuery,
   postsByCoverageTypeQuery,
   siteSettingsQuery,
+  allPostSlugsQuery,
 } from "./queries"
 import {mapPostToStory, mapPostsToStories} from "./mappers"
 import type {FrontendStory, SanityPost} from "./types"
@@ -53,4 +54,10 @@ export async function getStoriesByCategorySlug(categorySlug: string): Promise<Fr
 
 export async function getSiteSettings() {
   return client.fetch(siteSettingsQuery)
+}
+
+
+export async function getAllPostSlugs(): Promise<string[]> {
+  const rows = await client.fetch<{slug: string}[]>(allPostSlugsQuery)
+  return rows.map((row) => row.slug).filter(Boolean)
 }

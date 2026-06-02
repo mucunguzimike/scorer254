@@ -149,3 +149,10 @@ export const featuredPostsQuery = `
     }
   }
 `
+
+
+export const allPostSlugsQuery = defineQuery(`
+  *[_type == "post" && defined(slug.current)] {
+    "slug": slug.current
+  }
+`)

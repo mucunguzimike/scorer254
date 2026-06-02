@@ -6,10 +6,21 @@ import {PortableArticleBody} from "@/components/article/PortableArticleBody"
 import {StoryImage} from "@/components/media/StoryImage"
 import {Footer} from "@/components/layout/Footer"
 import {Header} from "@/components/layout/Header"
-import {getLatestStories, getPostBySlug, getSiteSettings} from "@/sanity/lib/fetchers"
+import {getAllPostSlugs, getPostBySlug, getSiteSettings} from "@/sanity/lib/fetchers"
 import {getSanityImageUrl} from "@/sanity/lib/imageUrl"
 import {mapPostToStory} from "@/sanity/lib/mappers"
 import {notFound} from "next/navigation"
+
+
+export const dynamicParams = false
+
+export async function generateStaticParams() {
+  const slugs = await getAllPostSlugs()
+
+  return slugs.map((slug) => ({
+    slug,
+  }))
+}
 
 type ArticlePageProps = {
   params: Promise<{
@@ -142,10 +153,6 @@ export default async function ArticlePage({params}: ArticlePageProps) {
   }
 
   const story = mapPostToStory(sanityPost)
-  const relatedStories = (await getLatestStories())
-    .filter((item) => item.slug !== story.slug)
-    .slice(0, 3)
-
   const imageCredit = story.imageCredit
   const imageLicence = story.imageLicence
   const storyMainImage = story.mainImage
@@ -270,29 +277,7 @@ export default async function ArticlePage({params}: ArticlePageProps) {
         </section>
       </article>
 
-      {relatedStories.length > 0 ? (
-        <section className="mx-auto max-w-7xl px-4 pb-12 lg:px-6">
-          <div className="mb-5 flex items-end justify-between gap-4">
-            <div>
-              <p className="mb-2 text-xs font-heading font-black uppercase tracking-[0.25em] text-emerald-400">
-                Keep reading
-              </p>
-              <h2 className="text-3xl font-heading font-black uppercase tracking-[-0.03em] text-white">
-                Related Stories
-              </h2>
-            </div>
-            <Link href="/articles" className="hidden font-mono-sports text-sm font-bold uppercase tracking-wide text-zinc-400 hover:text-emerald-400 sm:block">
-              View all
-            </Link>
-          </div>
 
-          <div className="grid gap-5 md:grid-cols-3">
-            {relatedStories.map((item) => (
-              <ArticleCard key={item.id} story={item} />
-            ))}
-          </div>
-        </section>
-      ) : null}
 
       <Footer settings={siteSettings} />
     </main>

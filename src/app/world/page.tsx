@@ -1,36 +1,27 @@
-import type {Metadata} from "next"
-import {siteUrl} from "@/lib/site"
 import {SectionPage} from "@/components/section/SectionPage"
-import {getSiteSettings, getStoriesByCoverageType} from "@/sanity/lib/fetchers"
+import {getSiteSettings} from "@/sanity/lib/fetchers"
+import {getStaticStories} from "@/lib/getStaticStories"
 
-export const metadata: Metadata = {
-  alternates: {
-    canonical: `${siteUrl}/world`,
-  },
-  title: "World Football",
-  description:
-    "International football stories, African football links, global competitions and wider trends affecting the game.",
-  openGraph: {
-    title: "World Football | Scorer254",
-    description:
-      "International football stories, African football links, global competitions and wider trends affecting the game.",
-  },
-}
-
-export default async function WorldPage() {
-  const [internationalStories, africanStories, siteSettings] = await Promise.all([
-    getStoriesByCoverageType("international"),
-    getStoriesByCoverageType("african-football"),
+export default async function Page() {
+  const [stories, siteSettings] = await Promise.all([
+    getStaticStories(),
     getSiteSettings(),
   ])
-  const stories = [...internationalStories, ...africanStories]
+
+  const sectionStories = stories.filter((story) => {
+    const category = story.category?.toLowerCase() || ""
+    const slug = story.categorySlug?.toLowerCase() || ""
+    const coverage = story.coverageType?.toLowerCase() || ""
+
+    return coverage === "international" || coverage === "african-football" || slug === "world" || slug === "international" || slug === "african-football" || category === "world" || category === "international" || category === "african football"
+  })
 
   return (
     <SectionPage
       kicker="Global game"
       title="World"
       description="International football stories, African football links, global competitions and wider trends affecting the game."
-      stories={stories}
+      stories={sectionStories}
       settings={siteSettings}
     />
   )

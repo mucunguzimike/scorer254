@@ -1,31 +1,27 @@
-import type {Metadata} from "next"
-import {siteUrl} from "@/lib/site"
 import {SectionPage} from "@/components/section/SectionPage"
-import {getSiteSettings, getStoriesByCategorySlug} from "@/sanity/lib/fetchers"
+import {getSiteSettings} from "@/sanity/lib/fetchers"
+import {getStaticStories} from "@/lib/getStaticStories"
 
-export const metadata: Metadata = {
-  alternates: {
-    canonical: `${siteUrl}/matches`,
-  },
-  title: "Match Reports",
-  description:
-    "Match reports, weekend previews, competition updates and football storylines from Kenya and beyond.",
-  openGraph: {
-    title: "Match Reports | Scorer254",
-    description:
-      "Match reports, weekend previews, competition updates and football storylines from Kenya and beyond.",
-  },
-}
+export default async function Page() {
+  const [stories, siteSettings] = await Promise.all([
+    getStaticStories(),
+    getSiteSettings(),
+  ])
 
-export default async function MatchesPage() {
-  const [stories, siteSettings] = await Promise.all([getStoriesByCategorySlug("match-reports"), getSiteSettings()])
+  const sectionStories = stories.filter((story) => {
+    const category = story.category?.toLowerCase() || ""
+    const slug = story.categorySlug?.toLowerCase() || ""
+    const coverage = story.coverageType?.toLowerCase() || ""
+
+    return slug === "match-reports" || slug === "matches" || category === "match reports" || category === "matches"
+  })
 
   return (
     <SectionPage
       kicker="Fixtures and reports"
       title="Matches"
       description="Match reports, weekend previews, competition updates and football storylines from Kenya and beyond."
-      stories={stories}
+      stories={sectionStories}
       settings={siteSettings}
     />
   )

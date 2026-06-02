@@ -1,31 +1,27 @@
-import type {Metadata} from "next"
-import {siteUrl} from "@/lib/site"
 import {SectionPage} from "@/components/section/SectionPage"
-import {getSiteSettings, getStoriesByCategorySlug} from "@/sanity/lib/fetchers"
+import {getSiteSettings} from "@/sanity/lib/fetchers"
+import {getStaticStories} from "@/lib/getStaticStories"
 
-export const metadata: Metadata = {
-  alternates: {
-    canonical: `${siteUrl}/players`,
-  },
-  title: "Player Watch",
-  description:
-    "Player profiles, rising prospects, scouting stories and football journeys from grassroots to the professional game.",
-  openGraph: {
-    title: "Player Watch | Scorer254",
-    description:
-      "Player profiles, rising prospects, scouting stories and football journeys from grassroots to the professional game.",
-  },
-}
+export default async function Page() {
+  const [stories, siteSettings] = await Promise.all([
+    getStaticStories(),
+    getSiteSettings(),
+  ])
 
-export default async function PlayersPage() {
-  const [stories, siteSettings] = await Promise.all([getStoriesByCategorySlug("player-profiles"), getSiteSettings()])
+  const sectionStories = stories.filter((story) => {
+    const category = story.category?.toLowerCase() || ""
+    const slug = story.categorySlug?.toLowerCase() || ""
+    const coverage = story.coverageType?.toLowerCase() || ""
+
+    return slug === "player-profiles" || slug === "players" || category === "player profiles" || category === "players" || category === "player watch"
+  })
 
   return (
     <SectionPage
       kicker="Profiles and prospects"
       title="Players"
       description="Player profiles, rising prospects, scouting stories and football journeys from grassroots to the professional game."
-      stories={stories}
+      stories={sectionStories}
       settings={siteSettings}
     />
   )

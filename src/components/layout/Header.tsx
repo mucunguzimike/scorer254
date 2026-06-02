@@ -7,8 +7,6 @@ const navItems = [
   {label: "Home", href: "/"},
   {label: "Grassroots", href: "/grassroots"},
   {label: "Kenya", href: "/kenya"},
-  {label: "Matches", href: "/matches"},
-  {label: "Players", href: "/players"},
   {label: "Regional", href: "/regional"},
   {label: "World", href: "/world"},
 ]

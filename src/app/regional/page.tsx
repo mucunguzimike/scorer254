@@ -1,31 +1,27 @@
-import type {Metadata} from "next"
-import {siteUrl} from "@/lib/site"
 import {SectionPage} from "@/components/section/SectionPage"
-import {getSiteSettings, getStoriesByCoverageType} from "@/sanity/lib/fetchers"
+import {getSiteSettings} from "@/sanity/lib/fetchers"
+import {getStaticStories} from "@/lib/getStaticStories"
 
-export const metadata: Metadata = {
-  alternates: {
-    canonical: `${siteUrl}/regional`,
-  },
-  title: "Regional Football",
-  description:
-    "East African football coverage, including competitions, clubs, players and cross-border football developments.",
-  openGraph: {
-    title: "Regional Football | Scorer254",
-    description:
-      "East African football coverage, including competitions, clubs, players and cross-border football developments.",
-  },
-}
+export default async function Page() {
+  const [stories, siteSettings] = await Promise.all([
+    getStaticStories(),
+    getSiteSettings(),
+  ])
 
-export default async function RegionalPage() {
-  const [stories, siteSettings] = await Promise.all([getStoriesByCoverageType("east-africa"), getSiteSettings()])
+  const sectionStories = stories.filter((story) => {
+    const category = story.category?.toLowerCase() || ""
+    const slug = story.categorySlug?.toLowerCase() || ""
+    const coverage = story.coverageType?.toLowerCase() || ""
+
+    return coverage === "east-africa" || coverage === "regional" || slug === "regional" || slug === "east-africa" || category === "regional" || category === "east africa" || category === "east african football"
+  })
 
   return (
     <SectionPage
       kicker="East Africa"
       title="Regional"
       description="Regional football coverage across East Africa, including competitions, clubs, players and cross-border football developments."
-      stories={stories}
+      stories={sectionStories}
       settings={siteSettings}
     />
   )

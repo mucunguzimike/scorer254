@@ -13,6 +13,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Confirm workflow version
+        run: echo "workflow-version-account-id-inline"
+
       - name: Setup Node 22
         uses: actions/setup-node@v4
         with:

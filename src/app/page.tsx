@@ -6,25 +6,20 @@ import {Header} from "@/components/layout/Header"
 import {HeroSection} from "@/components/home/HeroSection"
 import {LatestNews} from "@/components/home/LatestNews"
 import {Sidebar} from "@/components/home/Sidebar"
-import {getAllPostSlugs, getPostBySlug, getSiteSettings} from "@/sanity/lib/fetchers"
-import {mapPostToStory} from "@/sanity/lib/mappers"
+import {getFeaturedStories, getHomepageStories, getSiteSettings} from "@/sanity/lib/fetchers"
 
 export default async function Home() {
-  const [slugs, siteSettings] = await Promise.all([
-    getAllPostSlugs(),
+  const [featuredStories, stories, siteSettings] = await Promise.all([
+    getFeaturedStories(),
+    getHomepageStories(),
     getSiteSettings(),
   ])
 
-  const posts = await Promise.all(
-    slugs.slice(0, 12).map((slug) => getPostBySlug(slug))
-  )
-
-  const stories = posts
-    .filter(Boolean)
-    .map((post) => mapPostToStory(post!))
-    .filter((story) => story?.title && story?.slug)
-
-  const heroStories = stories.slice(0, 3)
+  const featuredIds = new Set(featuredStories.map((story) => story.id))
+  const heroStories = [
+    ...featuredStories,
+    ...stories.filter((story) => !featuredIds.has(story.id)),
+  ].slice(0, 3)
   const latestStories = stories.slice(0, 4)
   const editorPicks = stories.slice(0, 9)
 

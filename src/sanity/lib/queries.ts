@@ -121,7 +121,7 @@ export const siteSettingsQuery = defineQuery(`
 
 
 export const featuredPostsQuery = `
-  *[_type == "post" && isFeatured == true && defined(slug.current)] | order(publishedAt desc)[0...8] {
+  *[_type == "post" && isFeatured == true && defined(slug.current)] | order(_updatedAt desc, publishedAt desc)[0...3] {
     _id,
     title,
     slug,

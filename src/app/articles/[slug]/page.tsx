@@ -235,7 +235,7 @@ export default async function ArticlePage({params}: ArticlePageProps) {
           </div>
         </section>
 
-        <section className="mx-auto grid max-w-7xl gap-8 px-4 py-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:px-6">
+        <section className="mx-auto max-w-5xl px-4 py-10 lg:px-6">
           <div>
             <div className="mb-4 overflow-hidden rounded-[2rem] border border-white/10">
               <StoryImage
@@ -264,19 +264,6 @@ export default async function ArticlePage({params}: ArticlePageProps) {
 
           </div>
 
-          <aside className="space-y-5">
-            <div className="rounded-[1.5rem] border border-emerald-400/30 bg-emerald-400 p-5 text-black">
-              <p className="text-xs font-heading font-black uppercase tracking-[0.25em]">
-                Scorer254 focus
-              </p>
-              <h2 className="mt-3 text-2xl font-heading font-black uppercase leading-tight">
-                Football from the ground up
-              </h2>
-              <p className="mt-3 text-sm font-medium leading-6">
-                Grassroots clubs, academies, county tournaments, player pathways and local football communities.
-              </p>
-            </div>
-          </aside>
         </section>
       </article>
 

@@ -175,7 +175,7 @@ type PortableArticleBodyProps = {
 
 export function PortableArticleBody({value}: PortableArticleBodyProps) {
   return (
-    <div className="max-w-3xl space-y-6">
+    <div className="space-y-6">
       <PortableText value={value} components={components} />
     </div>
   )

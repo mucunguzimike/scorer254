@@ -1,27 +1,18 @@
 import {SectionPage} from "@/components/section/SectionPage"
-import {getSiteSettings} from "@/sanity/lib/fetchers"
-import {getStaticStories} from "@/lib/getStaticStories"
+import {getSiteSettings, getStoriesByCategorySlug} from "@/sanity/lib/fetchers"
 
 export default async function Page() {
   const [stories, siteSettings] = await Promise.all([
-    getStaticStories(),
+    getStoriesByCategorySlug("regional-football"),
     getSiteSettings(),
   ])
-
-  const sectionStories = stories.filter((story) => {
-    const category = story.category?.toLowerCase() || ""
-    const slug = story.categorySlug?.toLowerCase() || ""
-    const coverage = story.coverageType?.toLowerCase() || ""
-
-    return coverage === "east-africa" || coverage === "regional" || slug === "regional" || slug === "east-africa" || category === "regional" || category === "east africa" || category === "east african football"
-  })
 
   return (
     <SectionPage
       kicker="East Africa"
-      title="Regional"
+      title="Regional Football"
       description="Regional football coverage across East Africa, including competitions, clubs, players and cross-border football developments."
-      stories={sectionStories}
+      stories={stories}
       settings={siteSettings}
     />
   )

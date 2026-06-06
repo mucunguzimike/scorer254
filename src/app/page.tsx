@@ -22,7 +22,8 @@ export default async function Home() {
     ...stories.filter((story) => !featuredIds.has(story.id)),
   ].slice(0, 3)
   const latestNewsStories = latestStories.slice(0, 4)
-  const editorPicks = stories.slice(0, 9)
+  const latestNewsIds = new Set(latestNewsStories.map((story) => story.id))
+  const editorPicks = stories.filter((story) => !latestNewsIds.has(story.id)).slice(0, 9)
 
   return (
     <main className="min-h-screen bg-[#070707] text-white">

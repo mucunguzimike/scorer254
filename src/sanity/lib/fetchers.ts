@@ -48,7 +48,8 @@ export async function getStoriesByCoverageType(coverageType: string): Promise<Fr
 }
 
 export async function getStoriesByCategorySlug(categorySlug: string): Promise<FrontendStory[]> {
-  const posts = await client.fetch<SanityPost[]>(postsByCategorySlugQuery, {categorySlug})
+  const categoryRef = `category.${categorySlug}`
+  const posts = await client.fetch<SanityPost[]>(postsByCategorySlugQuery, {categorySlug, categoryRef})
   return mapPostsToStories(posts)
 }
 

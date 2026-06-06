@@ -99,7 +99,8 @@ export const postsByCategorySlugQuery = defineQuery(`
   *[
     _type == "post" &&
     defined(slug.current) &&
-    contentDetails.category->slug.current == $categorySlug
+    (contentDetails.category->slug.current == $categorySlug ||
+     contentDetails.category._ref == $categoryRef)
   ] | order(coalesce(publishedAt, _createdAt) desc)[0...12] {
     ${postFields}
   }

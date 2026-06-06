@@ -21,6 +21,7 @@ export default async function Home() {
     ...featuredStories,
     ...stories.filter((story) => !featuredIds.has(story.id)),
   ].slice(0, 3)
+  const latestNewsStories = latestStories.slice(0, 4)
   const editorPicks = stories.slice(0, 9)
 
   return (
@@ -67,7 +68,7 @@ export default async function Home() {
             </div>
 
             <div className="flex h-full flex-col gap-5 py-8">
-              <LatestNews stories={latestStories} />
+              <LatestNews stories={latestNewsStories} />
               <Sidebar />
             </div>
           </section>

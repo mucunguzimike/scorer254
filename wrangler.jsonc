@@ -1,31 +1,6 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
+  "": "node_modules/wrangler/config-schema.json",
   "name": "scorer254",
   "account_id": "697cb79008c2e4bdc8b24e8eb5dfce16",
-  "main": ".open-next/worker.js",
-  "compatibility_date": "2026-05-28",
-  "compatibility_flags": [
-    "nodejs_compat",
-    "global_fetch_strictly_public"
-  ],
-  "assets": {
-    "binding": "ASSETS",
-    "directory": ".open-next/assets"
-  },
-  "images": {
-    "binding": "IMAGES"
-  },
-  "services": [
-    {
-      "binding": "WORKER_SELF_REFERENCE",
-      "service": "scorer254"
-    }
-  ],
-  "observability": {
-    "enabled": true
-  },
-  "upload_source_maps": true,
-  "workers_dev": true,
-  "preview_urls": true,
   "pages_build_output_dir": "out"
 }

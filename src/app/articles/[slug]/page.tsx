@@ -6,7 +6,7 @@ import {PortableArticleBody} from "@/components/article/PortableArticleBody"
 import {StoryImage} from "@/components/media/StoryImage"
 import {Footer} from "@/components/layout/Footer"
 import {Header} from "@/components/layout/Header"
-import {getAllPostSlugs, getPostBySlug, getSiteSettings} from "@/sanity/lib/fetchers"
+import {getAllPostSlugs, getPostBySlug, getSiteSettings, getStoriesByCategorySlug} from "@/sanity/lib/fetchers"
 import {getSanityImageUrl} from "@/sanity/lib/imageUrl"
 import {mapPostToStory} from "@/sanity/lib/mappers"
 import {notFound} from "next/navigation"
@@ -172,6 +172,12 @@ export default async function ArticlePage({params}: ArticlePageProps) {
   const articleDescription =
     sanityPost.seoDescription || story.excerpt || "Football story from Scorer254."
 
+  const relatedStories = story.categorySlug
+    ? (await getStoriesByCategorySlug(story.categorySlug))
+        .filter((relatedStory) => relatedStory.id !== story.id)
+        .slice(0, 3)
+    : []
+
   const articleJsonLd = createArticleJsonLd({
     title: sanityPost.seoTitle || story.title,
     description: articleDescription,
@@ -261,6 +267,25 @@ export default async function ArticlePage({params}: ArticlePageProps) {
                 </p>
               </div>
             )}
+
+            {relatedStories.length ? (
+              <section className="mt-14 border-t border-white/10 pt-8">
+                <div className="mb-5">
+                  <p className="mb-2 text-xs font-black uppercase tracking-[0.25em] text-emerald-400">
+                    Related Stories
+                  </p>
+                  <h2 className="text-3xl font-black uppercase tracking-tight text-white">
+                    More from {story.category}
+                  </h2>
+                </div>
+
+                <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                  {relatedStories.map((relatedStory) => (
+                    <ArticleCard key={relatedStory.id} story={relatedStory} />
+                  ))}
+                </div>
+              </section>
+            ) : null}
 
           </div>
 

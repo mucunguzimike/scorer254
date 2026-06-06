@@ -9,17 +9,17 @@ export default async function Page() {
   ])
 
   const sectionStories = stories.filter((story) => {
-    const category = story.category?.toLowerCase().trim() || ""
-    const slug = story.categorySlug?.toLowerCase().trim() || ""
+    const categoryTitle = story.category?.toLowerCase().trim() || ""
+    const categorySlug = story.categorySlug?.toLowerCase().trim() || ""
 
-    return category === "regional football" || slug === "regional-football"
+    return categoryTitle === "regional football" || categorySlug === "regional-football"
   })
 
   return (
     <SectionPage
-      kicker="East Africa"
+      kicker="Regional Football"
       title="Regional Football"
-      description="Regional football coverage across East Africa, including competitions, clubs, players and cross-border football developments."
+      description="Regional football stories, competitions, clubs, players and developments from across the region."
       stories={sectionStories}
       settings={siteSettings}
     />

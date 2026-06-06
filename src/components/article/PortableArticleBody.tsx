@@ -18,12 +18,12 @@ const components: PortableTextComponents = {
       </h3>
     ),
     normal: ({children}) => (
-      <p className="text-lg leading-9 text-zinc-300">
+      <p className="text-lg leading-8 text-zinc-300">
         {children}
       </p>
     ),
     blockquote: ({children}) => (
-      <blockquote className="border-l-4 border-emerald-400 pl-5 text-xl font-semibold leading-9 text-zinc-200">
+      <blockquote className="border-l-4 border-emerald-400 pl-5 text-xl font-semibold leading-8 text-zinc-200">
         {children}
       </blockquote>
     ),

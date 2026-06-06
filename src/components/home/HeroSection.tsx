@@ -65,12 +65,16 @@ export function HeroSection({stories}: HeroSectionProps) {
                 type="button"
                 onClick={() => setActiveIndex(index)}
                 aria-label={`Show featured article ${index + 1}`}
-                className={`h-3 rounded-full transition ${
-                  index === activeIndex
-                    ? "w-10 bg-emerald-400"
-                    : "w-3 bg-white/25 hover:bg-white/50"
-                }`}
-              />
+                className="flex h-11 w-11 items-center justify-center rounded-full transition"
+              >
+                <span
+                  className={`rounded-full transition ${
+                    index === activeIndex
+                      ? "h-3 w-10 bg-emerald-400"
+                      : "h-3 w-3 bg-white/25 group-hover:bg-white/50 hover:bg-white/50"
+                  }`}
+                />
+              </button>
             ))}
           </div>
 

@@ -13,7 +13,7 @@ export function ArticleCard({story}: ArticleCardProps) {
   return (
     <Link
       href={href}
-      className="block h-full overflow-hidden rounded-[1.25rem] border border-white/10 bg-zinc-950 transition hover:-translate-y-1 hover:border-emerald-400/50"
+      className="block h-full overflow-hidden rounded-[1.25rem] border border-white/10 bg-zinc-950 transition hover:border-emerald-400/50 hover:shadow-lg hover:shadow-emerald-400/10"
     >
       <article className="flex h-full flex-col">
         <StoryImage

@@ -57,7 +57,7 @@ export default async function Home() {
                 ))}
               </div>
 
-              <div className="mt-auto pt-6">
+              <div className="mt-6">
                 <Link
                   href="/kenya/"
                   className="inline-flex rounded-full border border-white/15 px-5 py-3 text-sm font-bold uppercase tracking-wide text-zinc-300 transition hover:border-emerald-400 hover:text-emerald-400"

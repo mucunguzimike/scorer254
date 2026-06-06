@@ -1,16 +1,14 @@
+import type {MetadataRoute} from "next"
+
 export const dynamic = "force-static"
 
-import type {MetadataRoute} from "next"
-import {siteUrl} from "@/lib/site"
+const siteUrl = "https://scorer254.com"
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: [
-        "/api/",
-      ],
     },
     sitemap: `${siteUrl}/sitemap.xml`,
   }

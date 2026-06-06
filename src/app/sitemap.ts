@@ -1,50 +1,52 @@
-export const dynamic = "force-static"
-
 import type {MetadataRoute} from "next"
-import {siteUrl} from "@/lib/site"
-import {client} from "@/sanity/lib/client"
 
-type SitemapPost = {
-  slug?: {
-    current?: string
-  }
-  publishedAt?: string
-}
+export const dynamic = "force-static"
+import {getAllPostSlugs} from "@/sanity/lib/fetchers"
 
-const staticRoutes = [
-  "",
-  "/articles",
-  "/grassroots",
-  "/kenya",
-  "/matches",
-  "/players",
-  "/regional",
-  "/world",
-]
+const siteUrl = "https://scorer254.com"
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const posts = await client.fetch<SitemapPost[]>(`
-    *[_type == "post" && defined(slug.current)] | order(publishedAt desc) {
-      slug,
-      publishedAt
-    }
-  `)
+  const slugs = await getAllPostSlugs()
 
-  const staticEntries = staticRoutes.map((route) => ({
-    url: `${siteUrl}${route}`,
+  const staticRoutes: MetadataRoute.Sitemap = [
+    {
+      url: siteUrl,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 1,
+    },
+    {
+      url: `${siteUrl}/kenya`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
+    {
+      url: `${siteUrl}/grassroots`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    {
+      url: `${siteUrl}/regional`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    {
+      url: `${siteUrl}/world`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+  ]
+
+  const articleRoutes: MetadataRoute.Sitemap = slugs.map((slug) => ({
+    url: `${siteUrl}/articles/${slug}`,
     lastModified: new Date(),
-    changeFrequency: route === "" ? "daily" as const : "weekly" as const,
-    priority: route === "" ? 1 : 0.8,
+    changeFrequency: "weekly",
+    priority: 0.9,
   }))
 
-  const postEntries = posts
-    .filter((post) => post.slug?.current)
-    .map((post) => ({
-      url: `${siteUrl}/articles/${post.slug?.current}`,
-      lastModified: post.publishedAt ? new Date(post.publishedAt) : new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.7,
-    }))
-
-  return [...staticEntries, ...postEntries]
+  return [...staticRoutes, ...articleRoutes]
 }

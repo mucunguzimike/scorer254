@@ -1,7 +1,7 @@
 import type {MetadataRoute} from "next"
+import {getAllPostSlugs} from "@/sanity/lib/fetchers"
 
 export const dynamic = "force-static"
-import {getAllPostSlugs} from "@/sanity/lib/fetchers"
 
 const siteUrl = "https://scorer254.com"
 

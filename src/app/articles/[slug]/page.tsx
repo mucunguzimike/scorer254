@@ -105,6 +105,7 @@ function createArticleJsonLd({
   image,
   author,
   publishedAt,
+  updatedAt,
 }: {
   title: string
   description: string
@@ -112,6 +113,7 @@ function createArticleJsonLd({
   image: string
   author: string
   publishedAt?: string
+  updatedAt?: string
 }) {
   return {
     "@context": "https://schema.org",
@@ -121,7 +123,7 @@ function createArticleJsonLd({
     url,
     image: [image],
     datePublished: publishedAt,
-    dateModified: publishedAt,
+    dateModified: updatedAt || publishedAt,
     author: {
       "@type": "Person",
       name: author,
@@ -177,6 +179,7 @@ export default async function ArticlePage({params}: ArticlePageProps) {
     image: articleImageUrl,
     author: authorName,
     publishedAt: sanityPost.publishedAt,
+    updatedAt: sanityPost._updatedAt,
   })
 
   return (

@@ -2,6 +2,7 @@ import {defineQuery} from "next-sanity"
 
 export const postFields = `
   _id,
+  _updatedAt,
   title,
   slug,
   excerpt,
@@ -123,6 +124,7 @@ export const siteSettingsQuery = defineQuery(`
 export const featuredPostsQuery = `
   *[_type == "post" && isFeatured == true && defined(slug.current)] | order(_updatedAt desc, publishedAt desc)[0...3] {
     _id,
+    _updatedAt,
     title,
     slug,
     excerpt,

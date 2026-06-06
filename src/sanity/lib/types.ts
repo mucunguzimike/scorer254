@@ -20,6 +20,7 @@ export type SanityReference = {
 
 export type SanityPost = {
   _id: string
+  _updatedAt?: string
   title: string
   slug: {
     current: string

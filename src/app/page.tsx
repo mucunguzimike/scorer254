@@ -6,35 +6,27 @@ import {Header} from "@/components/layout/Header"
 import {HeroSection} from "@/components/home/HeroSection"
 import {LatestNews} from "@/components/home/LatestNews"
 import {Sidebar} from "@/components/home/Sidebar"
-import {getFeaturedStories, getHomepageStories, getSiteSettings} from "@/sanity/lib/fetchers"
+import {getAllPostSlugs, getPostBySlug, getSiteSettings} from "@/sanity/lib/fetchers"
+import {mapPostToStory} from "@/sanity/lib/mappers"
 
 export default async function Home() {
-  const [stories, featuredStories, siteSettings] = await Promise.all([
-    getHomepageStories(),
-    getFeaturedStories(),
+  const [slugs, siteSettings] = await Promise.all([
+    getAllPostSlugs(),
     getSiteSettings(),
   ])
 
-  const safeStories = stories.filter((story) => story?.title && story?.slug)
-  const safeFeaturedStories = featuredStories.filter((story) => story?.title && story?.slug)
+  const posts = await Promise.all(
+    slugs.slice(0, 12).map((slug) => getPostBySlug(slug))
+  )
 
-  const heroStoryMap = new Map()
+  const stories = posts
+    .filter(Boolean)
+    .map((post) => mapPostToStory(post!))
+    .filter((story) => story?.title && story?.slug)
 
-  for (const story of safeFeaturedStories) {
-    heroStoryMap.set(story.slug, story)
-  }
-
-  for (const story of safeStories) {
-    if (heroStoryMap.size >= 3) {
-      break
-    }
-
-    heroStoryMap.set(story.slug, story)
-  }
-
-  const heroStories = Array.from(heroStoryMap.values()).slice(0, 3)
-  const latestStories = safeStories.slice(0, 4)
-  const articleGridStories = safeStories.slice(0, 9)
+  const heroStories = stories.slice(0, 3)
+  const latestStories = stories.slice(0, 4)
+  const editorPicks = stories.slice(0, 9)
 
   return (
     <main className="min-h-screen bg-[#070707] text-white">
@@ -48,48 +40,35 @@ export default async function Home() {
         </div>
       </div>
 
-      {safeStories.length > 0 ? (
+      {stories.length > 0 ? (
         <>
           <HeroSection stories={heroStories} />
 
           <section className="mx-auto grid max-w-7xl items-start gap-8 px-4 pb-12 lg:grid-cols-[minmax(0,1fr)_340px] lg:px-6">
             <div className="flex h-full flex-col py-8">
-              <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
-                <div>
-                  <p className="mb-2 text-xs font-black uppercase tracking-[0.25em] text-emerald-400">
-                    Editor’s Picks
-                  </p>
-                  <h2 className="text-3xl font-black uppercase tracking-tight text-white">
-                    Editor’s Picks
-                  </h2>
-                </div>
-
-
+              <div className="mb-5">
+                <p className="mb-2 text-xs font-black uppercase tracking-[0.25em] text-emerald-400">
+                  Editor&apos;s Picks
+                </p>
+                <h2 className="text-3xl font-black uppercase tracking-tight text-white">
+                  Editor&apos;s Picks
+                </h2>
               </div>
 
-              {articleGridStories.length > 0 ? (
-                <>
-                  <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-                    {articleGridStories.map((story) => (
-                      <ArticleCard key={story.id} story={story} />
-                    ))}
-                  </div>
+              <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                {editorPicks.map((story) => (
+                  <ArticleCard key={story.id} story={story} />
+                ))}
+              </div>
 
-                  <div className="mt-auto pt-6">
-                    <Link
-                      href="/kenya"
-                      className="inline-flex rounded-full border border-white/15 px-5 py-3 text-sm font-bold uppercase tracking-wide text-zinc-300 transition hover:border-emerald-400 hover:text-emerald-400"
-                    >
-                      Read more
-                    </Link>
-                  </div>
-                </>
-              ) : (
-                <EmptyState
-                  title="No articles published yet"
-                  description="Published articles will appear here once they are added in Sanity Studio."
-                />
-              )}
+              <div className="mt-auto pt-6">
+                <Link
+                  href="/kenya/"
+                  className="inline-flex rounded-full border border-white/15 px-5 py-3 text-sm font-bold uppercase tracking-wide text-zinc-300 transition hover:border-emerald-400 hover:text-emerald-400"
+                >
+                  Read more
+                </Link>
+              </div>
             </div>
 
             <div className="flex h-full flex-col gap-5 py-8">
@@ -102,7 +81,7 @@ export default async function Home() {
         <section className="mx-auto max-w-7xl px-4 py-12 lg:px-6">
           <EmptyState
             title="No stories published yet"
-            description="Create and publish articles in Sanity Studio. Once published, they will appear on the homepage automatically."
+            description="The homepage could not find published article data during static build."
           />
         </section>
       )}

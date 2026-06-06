@@ -11,7 +11,9 @@
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts",
-    "seed:cms": "node scripts/seed-cms-content.mjs"
+    "seed:cms": "node scripts/seed-cms-content.mjs",
+    "deploy:pages": "next build && npx wrangler pages deploy out --project-name scorer254",
+    "preview:static": "next build && npx serve out"
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.19.9",

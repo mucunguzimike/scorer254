@@ -6,12 +6,13 @@ import {Header} from "@/components/layout/Header"
 import {HeroSection} from "@/components/home/HeroSection"
 import {LatestNews} from "@/components/home/LatestNews"
 import {Sidebar} from "@/components/home/Sidebar"
-import {getFeaturedStories, getHomepageStories, getSiteSettings} from "@/sanity/lib/fetchers"
+import {getFeaturedStories, getHomepageStories, getLatestStories, getSiteSettings} from "@/sanity/lib/fetchers"
 
 export default async function Home() {
-  const [featuredStories, stories, siteSettings] = await Promise.all([
+  const [featuredStories, stories, latestStories, siteSettings] = await Promise.all([
     getFeaturedStories(),
     getHomepageStories(),
+    getLatestStories(),
     getSiteSettings(),
   ])
 
@@ -20,7 +21,6 @@ export default async function Home() {
     ...featuredStories,
     ...stories.filter((story) => !featuredIds.has(story.id)),
   ].slice(0, 3)
-  const latestStories = stories.slice(0, 4)
   const editorPicks = stories.slice(0, 9)
 
   return (

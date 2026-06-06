@@ -66,14 +66,14 @@ export const postFields = `
 
 export const latestPostsQuery = defineQuery(`
   *[_type == "post" && defined(slug.current)]
-  | order(publishedAt desc)[0...12] {
+  | order(coalesce(publishedAt, _createdAt) desc)[0...12] {
     ${postFields}
   }
 `)
 
 export const homepagePostsQuery = defineQuery(`
   *[_type == "post" && defined(slug.current)]
-  | order(publishedAt desc)[0...12] {
+  | order(coalesce(publishedAt, _createdAt) desc)[0...12] {
     ${postFields}
   }
 `)
@@ -89,7 +89,7 @@ export const postsByCoverageTypeQuery = defineQuery(`
     _type == "post" &&
     defined(slug.current) &&
     contentDetails.coverageType == $coverageType
-  ] | order(publishedAt desc)[0...12] {
+  ] | order(coalesce(publishedAt, _createdAt) desc)[0...12] {
     ${postFields}
   }
 `)
@@ -99,7 +99,7 @@ export const postsByCategorySlugQuery = defineQuery(`
     _type == "post" &&
     defined(slug.current) &&
     contentDetails.category->slug.current == $categorySlug
-  ] | order(publishedAt desc)[0...12] {
+  ] | order(coalesce(publishedAt, _createdAt) desc)[0...12] {
     ${postFields}
   }
 `)

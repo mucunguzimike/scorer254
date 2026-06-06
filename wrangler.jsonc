@@ -26,5 +26,6 @@
   },
   "upload_source_maps": true,
   "workers_dev": true,
-  "preview_urls": true
+  "preview_urls": true,
+  "pages_build_output_dir": "out"
 }

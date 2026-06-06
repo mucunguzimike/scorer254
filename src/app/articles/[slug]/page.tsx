@@ -261,7 +261,7 @@ export default async function ArticlePage({params}: ArticlePageProps) {
             {sanityPost.body?.length ? (
               <PortableArticleBody value={sanityPost.body} />
             ) : (
-              <div className="max-w-3xl space-y-6 text-lg leading-9 text-zinc-300">
+              <div className="space-y-6 text-lg leading-9 text-zinc-300">
                 <p>
                   This article has metadata but no body content yet. Add article body content in Sanity Studio.
                 </p>

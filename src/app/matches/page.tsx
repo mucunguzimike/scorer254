@@ -1,6 +1,29 @@
+import type {Metadata} from "next"
+import {siteUrl} from "@/lib/site"
 import {SectionPage} from "@/components/section/SectionPage"
 import {getSiteSettings} from "@/sanity/lib/fetchers"
 import {getStaticStories} from "@/lib/getStaticStories"
+
+export const metadata: Metadata = {
+  alternates: {canonical: `${siteUrl}/matches`},
+  title: "Matches",
+  description:
+    "Match reports, weekend previews, competition updates and football storylines from Kenya and beyond. Unfiltered Football: Kenya and Beyond.",
+  openGraph: {
+    title: "Matches | Scorer254",
+    description:
+      "Match reports, weekend previews, competition updates and football storylines from Kenya and beyond.",
+    url: `${siteUrl}/matches`,
+    siteName: "Scorer254",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Matches | Scorer254",
+    description:
+      "Match reports, weekend previews, competition updates and football storylines from Kenya and beyond.",
+  },
+}
 
 export default async function Page() {
   const [stories, siteSettings] = await Promise.all([

@@ -20,13 +20,14 @@ const robotoMono = Roboto_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Scorer254 - Kenyan football news and grassroots stories",
+    default: "Scorer254 | Unfiltered Football: Kenya and Beyond",
     template: "%s | Scorer254",
   },
   description: defaultDescription,
+  keywords: ["football", "Kenya", "soccer", "grassroots", "regional football", "African football", "Scorer254"],
   openGraph: {
-    title: "Scorer254 - Kenyan football news and grassroots stories",
-    description: "Football stories from Kenya, with regional and international coverage.",
+    title: "Scorer254 | Unfiltered Football: Kenya and Beyond",
+    description: defaultDescription,
     siteName,
     type: "website",
     images: [
@@ -34,15 +35,21 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Scorer254 - Kenyan football news and grassroots stories",
+        alt: "Scorer254 | Unfiltered Football: Kenya and Beyond",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Scorer254",
-    description: "Football stories from Kenya, with regional and international coverage.",
+    title: "Scorer254 | Unfiltered Football: Kenya and Beyond",
+    description: defaultDescription,
     images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    "max-image-preview": "large",
+    "max-snippet": -1,
   },
   icons: {
     icon: [

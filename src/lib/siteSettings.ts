@@ -11,12 +11,12 @@ export const fallbackSiteSettings: Required<
   >
 > = {
   siteName: "Scorer254",
-  tagline: "Football stories from Kenya and beyond",
-  defaultSeoTitle: "Scorer254 - Kenyan football news and grassroots stories",
+  tagline: "Unfiltered Football: Kenya and Beyond",
+  defaultSeoTitle: "Scorer254 | Unfiltered Football: Kenya and Beyond",
   defaultSeoDescription:
-    "Scorer254 covers grassroots football, Kenyan soccer, player stories, match reports and regional football news.",
+    "Unfiltered Football: Kenya and Beyond — grassroots football, Kenyan soccer, player stories, match reports and regional coverage.",
   footerText:
-    "Football stories from Kenya, with regional and international coverage.",
+    "Unfiltered Football: Kenya and Beyond",
 }
 
 export function mergeSiteSettings(settings?: SanitySiteSettings | null) {

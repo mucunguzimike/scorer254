@@ -12,11 +12,20 @@ export const metadata: Metadata = {
   },
   title: "Latest Stories",
   description:
-    "Latest football stories from Scorer254, covering grassroots football, Kenyan soccer, player profiles, match reports and regional football.",
+    "Latest football stories from Scorer254 — grassroots football, Kenyan soccer, player profiles, match reports and regional coverage. Unfiltered Football: Kenya and Beyond.",
   openGraph: {
     title: "Latest Stories | Scorer254",
     description:
-      "Latest football stories from Scorer254, covering grassroots football, Kenyan soccer, player profiles, match reports and regional football.",
+      "Latest football stories from Scorer254 — grassroots football, Kenyan soccer, player profiles, match reports and regional coverage.",
+    url: `${siteUrl}/articles`,
+    siteName: "Scorer254",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Latest Stories | Scorer254",
+    description:
+      "Latest football stories from Scorer254 — grassroots football, Kenyan soccer, player profiles, match reports and regional coverage.",
   },
 }
 

@@ -1,9 +1,8 @@
 import type {MetadataRoute} from "next"
 import {getAllPostSlugs} from "@/sanity/lib/fetchers"
+import {siteUrl} from "@/lib/site"
 
 export const dynamic = "force-static"
-
-const siteUrl = "https://scorer254.com"
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const slugs = await getAllPostSlugs()
@@ -38,6 +37,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.7,
+    },
+    {
+      url: `${siteUrl}/matches`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    {
+      url: `${siteUrl}/players`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    {
+      url: `${siteUrl}/articles`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.8,
     },
   ]
 

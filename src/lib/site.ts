@@ -4,4 +4,4 @@ export const siteUrl =
 export const siteName = "Scorer254"
 
 export const defaultDescription =
-  "Scorer254 covers grassroots football, Kenyan soccer, player stories, match reports and regional football news."
+  "Unfiltered Football: Kenya and Beyond — grassroots football, Kenyan soccer, player stories, match reports and regional coverage."

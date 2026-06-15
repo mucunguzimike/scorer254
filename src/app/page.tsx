@@ -7,6 +7,17 @@ import {HeroSection} from "@/components/home/HeroSection"
 import {LatestNews} from "@/components/home/LatestNews"
 import {Sidebar} from "@/components/home/Sidebar"
 import {getFeaturedStories, getHomepageStories, getLatestStories, getSiteSettings} from "@/sanity/lib/fetchers"
+import {siteUrl, siteName, defaultDescription} from "@/lib/site"
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: siteName,
+  url: siteUrl,
+  description: defaultDescription,
+  logo: `${siteUrl}/logo.png`,
+  sameAs: [],
+}
 
 export default async function Home() {
   const [featuredStories, stories, latestStories, siteSettings] = await Promise.all([
@@ -27,13 +38,17 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen bg-[#070707] text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{__html: JSON.stringify(organizationJsonLd)}}
+      />
       <Header settings={siteSettings} />
 
       <div className="border-b border-white/10 bg-black">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-3 px-4 py-3 text-xs font-bold uppercase tracking-wide text-zinc-400 lg:px-6">
           <span className="text-emerald-400">Scorer254</span>
           <span>/</span>
-          <span>Football stories from Kenya and beyond</span>
+          <span>Unfiltered Football: Kenya and Beyond</span>
         </div>
       </div>
 

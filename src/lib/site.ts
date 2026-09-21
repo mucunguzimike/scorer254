@@ -1,5 +1,5 @@
 export const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://scorer254.mucunguzi-richard.workers.dev"
+  process.env.NEXT_PUBLIC_SITE_URL || "https://scorer254.com"
 
 export const siteName = "Scorer254"
 

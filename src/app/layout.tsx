@@ -1,4 +1,5 @@
 import type {Metadata} from "next"
+import Script from "next/script"
 import {Roboto_Mono, Zilla_Slab} from "next/font/google"
 import {defaultDescription, siteName, siteUrl} from "@/lib/site"
 import "./globals.css"
@@ -71,6 +72,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8416774252111328"
+        crossOrigin="anonymous"
+        strategy="afterInteractive"
+      />
       <body className={`${zillaSlab.variable} ${robotoMono.variable}`}>{children}</body>
     </html>
   )

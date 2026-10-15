@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import type {SanitySiteSettings} from "@/sanity/lib/types"
 import {mergeSiteSettings} from "@/lib/siteSettings"
 
@@ -46,6 +47,11 @@ export function Footer({settings}: FooterProps) {
             )}
           </div>
         </div>
+        <nav aria-label="Site information" className="flex flex-wrap gap-x-6 gap-y-3 border-t border-white/10 pt-6 text-sm text-zinc-300 lg:col-span-2">
+          <Link href="/about" className="transition-colors hover:text-emerald-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-400">About Us</Link>
+          <Link href="/contact" className="transition-colors hover:text-emerald-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-400">Contact Us</Link>
+          <Link href="/privacy-policy" className="transition-colors hover:text-emerald-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-400">Privacy Policy</Link>
+        </nav>
       </div>
     </footer>
   )

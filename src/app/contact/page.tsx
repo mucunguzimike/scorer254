@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-[#070707] text-white">
+    <main className="info-page min-h-screen bg-[#070707] text-white">
       <Header />
       <section className="border-b border-white/10 bg-black">
         <div className="mx-auto max-w-7xl px-4 py-12 lg:px-6">

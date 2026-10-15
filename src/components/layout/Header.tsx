@@ -5,11 +5,11 @@ import {mergeSiteSettings} from "@/lib/siteSettings"
 
 const navItems = [
   {label: "Home", href: "/"},
+  {label: "About Us", href: "/about"},
   {label: "Grassroots", href: "/grassroots"},
   {label: "Kenya", href: "/kenya"},
   {label: "Regional", href: "/regional"},
   {label: "World", href: "/world"},
-  {label: "About Us", href: "/about"},
 ]
 
 type HeaderProps = {

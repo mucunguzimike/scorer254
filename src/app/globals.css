@@ -48,3 +48,16 @@ summary,
   font-family: var(--font-body);
 }
 
+
+
+/* Consistent, readable information pages across all device sizes. */
+html, body { background-color: #070707; color: #fff; }
+.info-page { min-height: 100vh; background: #070707; color: #fff; }
+.info-page > section:first-of-type { background: #000; border-bottom: 1px solid rgba(255,255,255,.1); }
+.info-page > div > article { background: #111113; color: #d4d4d8; border: 1px solid rgba(255,255,255,.1); border-radius: 1rem; }
+.info-page h1, .info-page h2 { color: #fff; }
+.info-page a:not(nav a) { text-underline-offset: .2em; }
+.info-page article a { color: #34d399; overflow-wrap: anywhere; }
+.info-page article li { margin-bottom: .5rem; }
+.info-page article strong { color: #fff; }
+.info-page article p, .info-page article li { line-height: 1.85; }

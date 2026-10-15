@@ -58,6 +58,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ]
 
+  staticRoutes.push(
+    {url: `${siteUrl}/about`, changeFrequency: "monthly", priority: 0.5},
+    {url: `${siteUrl}/contact`, changeFrequency: "monthly", priority: 0.5},
+    {url: `${siteUrl}/privacy-policy`, changeFrequency: "yearly", priority: 0.4},
+  )
+
   const articleRoutes: MetadataRoute.Sitemap = slugs.map((slug) => ({
     url: `${siteUrl}/articles/${slug}`,
     lastModified: new Date(),

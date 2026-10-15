@@ -9,6 +9,7 @@ const navItems = [
   {label: "Kenya", href: "/kenya"},
   {label: "Regional", href: "/regional"},
   {label: "World", href: "/world"},
+  {label: "About Us", href: "/about"},
 ]
 
 type HeaderProps = {

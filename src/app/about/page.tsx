@@ -1,4 +1,6 @@
 import type {Metadata} from "next"
+import {Header} from "@/components/layout/Header"
+import {Footer} from "@/components/layout/Footer"
 import Link from "next/link"
 
 export const metadata: Metadata = {
@@ -8,7 +10,9 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="mx-auto max-w-4xl px-4 py-12 text-zinc-200 lg:px-6 lg:py-16">
+    <>
+      <Header />
+      <main className="mx-auto max-w-4xl px-4 py-12 text-zinc-200 lg:px-6 lg:py-16">
       <p className="mb-3 text-sm font-bold uppercase tracking-widest text-emerald-400">About Us</p>
       <h1 className="mb-6 text-4xl font-black text-white sm:text-5xl">About Scorer254</h1>
       <p className="mb-10 text-lg leading-8">Scorer254 is a Kenyan football news site based in Nairobi. We tell football stories from Kenya and beyond: the Kenya Premier League, Harambee Stars and Harambee Starlets, school and grassroots football, and the biggest stories in world football.</p>
@@ -33,6 +37,8 @@ export default function AboutPage() {
         </ul>
       </section>
       <p className="leading-8">Have a story from your local team or school? We want to hear it. Visit our <Link className="text-emerald-400 underline underline-offset-4" href="/contact">Contact page</Link>.</p>
-    </main>
+      </main>
+      <Footer />
+    </>
   )
 }

@@ -9,13 +9,21 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <>
+    <main className="min-h-screen bg-[#070707] text-white">
       <Header />
-      <main className="mx-auto max-w-4xl px-4 py-12 text-zinc-200 lg:px-6 lg:py-16">
-      <h1 className="mb-4 text-4xl font-black text-white sm:text-5xl">Privacy Policy</h1>
-      <p className="mb-8 text-sm text-zinc-400">Last updated: 10 October 2026</p>
+      <section className="border-b border-white/10 bg-black">
+        <div className="mx-auto max-w-7xl px-4 py-12 lg:px-6">
+          <p className="mb-3 text-xs font-heading font-black uppercase tracking-[0.25em] text-emerald-400">Site information</p>
+          <h1 className="text-5xl font-heading font-black uppercase tracking-[-0.03em] text-white lg:text-6xl">Privacy Policy</h1>
+          <p className="mt-4 max-w-2xl text-base leading-7 text-zinc-400">How we handle information, cookies and advertising.</p>
+        </div>
+      </section>
+      <div className="mx-auto max-w-7xl px-4 py-10 lg:px-6">
+        <article className="max-w-4xl space-y-8 rounded-2xl border border-white/10 bg-zinc-950 p-6 text-zinc-300 shadow-lg shadow-black/20 sm:p-10">
+
+      <p className="text-xs font-semibold uppercase tracking-widest text-emerald-400">Last updated: 10 October 2026</p>
       <p className="mb-10 leading-8">This Privacy Policy explains what information Scorer254 (&quot;we&quot;, &quot;us&quot;) collects when you visit our website, how we use it, and the choices you have. By using Scorer254 you agree to this policy.</p>
-      <div className="space-y-9 leading-8 [&_h2]:mb-3 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-white [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-6 [&_a]:text-emerald-400 [&_a]:underline [&_a]:underline-offset-4">
+      <div className="space-y-9 leading-8 [&_section]:border-t [&_section]:border-white/10 [&_section]:pt-7 [&_h2]:mb-3 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-white [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-6 [&_a]:text-emerald-400 [&_a]:underline [&_a]:underline-offset-4">
         <section><h2>1. Information we collect</h2><ul>
           <li><strong className="text-white">Information you give us:</strong> if you email us, we receive your email address, your name if you include it, and the content of your message.</li>
           <li><strong className="text-white">Information collected automatically:</strong> like most websites, our hosting and analytics services may record your IP address, browser type, device, the pages you visit, the time of your visit and the site that referred you.</li>
@@ -38,8 +46,9 @@ export default function PrivacyPolicyPage() {
         <section><h2>9. Changes to this policy</h2><p>We may update this policy from time to time. The date at the top shows the latest version.</p></section>
         <section><h2>10. Contact</h2><p>Questions about this policy: <a href="mailto:oderoedward452@gmail.com">oderoedward452@gmail.com</a>.</p></section>
       </div>
-      </main>
+        </article>
+      </div>
       <Footer />
-    </>
+    </main>
   )
 }

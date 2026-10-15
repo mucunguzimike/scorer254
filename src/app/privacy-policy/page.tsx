@@ -1,4 +1,6 @@
 import type {Metadata} from "next"
+import {Header} from "@/components/layout/Header"
+import {Footer} from "@/components/layout/Footer"
 
 export const metadata: Metadata = {
   title: "Privacy Policy - Scorer254",
@@ -7,7 +9,9 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <main className="mx-auto max-w-4xl px-4 py-12 text-zinc-200 lg:px-6 lg:py-16">
+    <>
+      <Header />
+      <main className="mx-auto max-w-4xl px-4 py-12 text-zinc-200 lg:px-6 lg:py-16">
       <h1 className="mb-4 text-4xl font-black text-white sm:text-5xl">Privacy Policy</h1>
       <p className="mb-8 text-sm text-zinc-400">Last updated: 10 October 2026</p>
       <p className="mb-10 leading-8">This Privacy Policy explains what information Scorer254 (&quot;we&quot;, &quot;us&quot;) collects when you visit our website, how we use it, and the choices you have. By using Scorer254 you agree to this policy.</p>
@@ -34,6 +38,8 @@ export default function PrivacyPolicyPage() {
         <section><h2>9. Changes to this policy</h2><p>We may update this policy from time to time. The date at the top shows the latest version.</p></section>
         <section><h2>10. Contact</h2><p>Questions about this policy: <a href="mailto:oderoedward452@gmail.com">oderoedward452@gmail.com</a>.</p></section>
       </div>
-    </main>
+      </main>
+      <Footer />
+    </>
   )
 }

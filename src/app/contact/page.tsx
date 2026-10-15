@@ -1,4 +1,6 @@
 import type {Metadata} from "next"
+import {Header} from "@/components/layout/Header"
+import {Footer} from "@/components/layout/Footer"
 
 export const metadata: Metadata = {
   title: "Contact Scorer254",
@@ -7,7 +9,9 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="mx-auto max-w-4xl px-4 py-12 text-zinc-200 lg:px-6 lg:py-16">
+    <>
+      <Header />
+      <main className="mx-auto max-w-4xl px-4 py-12 text-zinc-200 lg:px-6 lg:py-16">
       <p className="mb-3 text-sm font-bold uppercase tracking-widest text-emerald-400">Contact Us</p>
       <h1 className="mb-6 text-4xl font-black text-white sm:text-5xl">Contact Scorer254</h1>
       <p className="mb-5 text-lg leading-8">We read every message. The fastest way to reach us is by email.</p>
@@ -30,6 +34,8 @@ export default function ContactPage() {
         </ul>
       </section>
       <p className="leading-8"><strong className="text-white">Location:</strong> Nairobi, Kenya</p>
-    </main>
+      </main>
+      <Footer />
+    </>
   )
 }
